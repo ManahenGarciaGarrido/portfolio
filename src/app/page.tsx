@@ -1,287 +1,180 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
-import {
-  Link2,
-  Palette,
-  BarChart3,
-  Zap,
-  Check,
-  Star,
-  ArrowRight,
-  Menu,
-  X,
-  Sparkles,
-  Globe,
-  Shield,
-  Users,
-} from 'lucide-react';
+import { ArrowRight, Zap, Palette, BarChart3, Shield, Sparkles, Globe, Users, Star, Check, QrCode, Calendar, Link2, Code, ChevronRight } from 'lucide-react';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
 const features = [
   {
     icon: Link2,
-    title: 'Links Ilimitados',
-    description: 'Añade todos los enlaces que necesites a tu página personal.',
-    free: '5 links',
-    pro: 'Ilimitados',
+    title: 'Enlaces Ilimitados',
+    description: 'Añade todos los enlaces que necesites sin restricciones en planes de pago.'
   },
   {
     icon: Palette,
-    title: 'Temas Personalizados',
-    description: 'Elige entre +20 temas profesionales para destacar.',
-    free: '3 temas',
-    pro: '+20 temas',
+    title: '20+ Temas Premium',
+    description: 'Personaliza tu página con temas profesionales que destacan tu marca.'
   },
   {
     icon: BarChart3,
-    title: 'Analytics Detallados',
-    description: 'Conoce quién visita tu página y qué links funcionan mejor.',
-    free: 'Básicos',
-    pro: 'Avanzados',
+    title: 'Analytics Avanzado',
+    description: 'Conoce quién visita tu página, de dónde vienen y qué enlaces prefieren.'
   },
   {
-    icon: Zap,
-    title: 'Carga Ultra Rápida',
-    description: 'Páginas optimizadas que cargan en milisegundos.',
-    free: true,
-    pro: true,
+    icon: Shield,
+    title: 'Dominio Personalizado',
+    description: 'Usa tu propio dominio para una presencia más profesional.'
   },
+  {
+    icon: QrCode,
+    title: 'Códigos QR',
+    description: 'Genera QR únicos para cada enlace y compártelos donde quieras.'
+  },
+  {
+    icon: Calendar,
+    title: 'Programación',
+    description: 'Programa enlaces para que aparezcan y desaparezcan automáticamente.'
+  },
+  {
+    icon: Globe,
+    title: 'SEO Optimizado',
+    description: 'Mejora tu visibilidad con meta tags personalizados y URLs amigables.'
+  },
+  {
+    icon: Code,
+    title: 'API Completa',
+    description: 'Integra LinkForge con tus aplicaciones mediante nuestra API REST.'
+  }
 ];
 
-const testimonials = [
+const plans = [
   {
-    name: 'María García',
-    role: 'Influencer de Moda',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=maria',
-    content: 'LinkForge me ayudó a organizar todos mis links de forma profesional. Mis seguidores lo aman.',
-    rating: 5,
-  },
-  {
-    name: 'Carlos Ruiz',
-    role: 'Músico Independiente',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=carlos',
-    content: 'Desde que uso LinkForge, mis fans encuentran mi música mucho más fácil. El plan Pro vale cada euro.',
-    rating: 5,
-  },
-  {
-    name: 'Ana Martínez',
-    role: 'Coach de Negocios',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ana',
-    content: 'Los analytics me ayudan a entender qué servicios interesan más a mis clientes potenciales.',
-    rating: 5,
-  },
-];
-
-const pricingPlans = [
-  {
-    name: 'Gratis',
-    price: 0,
+    name: 'Free',
+    price: '0',
+    period: 'para siempre',
     description: 'Perfecto para empezar',
-    features: [
-      '5 links máximo',
-      '3 temas básicos',
-      'Analytics básicos',
-      'Página personalizada',
-      'Soporte por email',
-    ],
+    features: ['5 enlaces', '3 temas básicos', 'Analytics básico', 'Soporte por email'],
     cta: 'Empezar Gratis',
-    highlighted: false,
+    popular: false,
+    href: '/auth/register'
+  },
+  {
+    name: 'Starter',
+    price: '4.99',
+    period: '/mes',
+    description: 'Para creadores en crecimiento',
+    features: ['15 enlaces', '10 temas', 'Analytics avanzado', 'Sin marca de agua', 'Soporte prioritario'],
+    cta: 'Comenzar',
+    popular: false,
+    href: '/auth/register'
   },
   {
     name: 'Pro',
-    price: 4.99,
-    description: 'Para creadores serios',
-    features: [
-      'Links ilimitados',
-      '+20 temas premium',
-      'Analytics avanzados',
-      'Prioridad en carga',
-      'Soporte prioritario',
-      'Sin marca de agua',
-      'Dominio personalizado (pronto)',
-    ],
-    cta: 'Comenzar Pro',
-    highlighted: true,
+    price: '9.99',
+    period: '/mes',
+    description: 'Para profesionales',
+    features: ['Enlaces ilimitados', '20+ temas premium', 'Analytics completo', 'Dominio personalizado', 'Códigos QR', 'Integraciones', 'Soporte 24/7'],
+    cta: 'Elegir Pro',
+    popular: true,
+    href: '/auth/register'
   },
+  {
+    name: 'Business',
+    price: '29.99',
+    period: '/mes',
+    description: 'Para equipos y empresas',
+    features: ['Todo de Pro', 'Múltiples usuarios', 'API access', 'Webhooks', 'SSO/SAML', 'SLA garantizado', 'Manager dedicado'],
+    cta: 'Contactar',
+    popular: false,
+    href: '/contact'
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    period: '',
+    description: 'Soluciones a medida',
+    features: ['Todo de Business', 'Implementación dedicada', 'Infraestructura privada', 'Cumplimiento personalizado', 'Formación incluida'],
+    cta: 'Hablar con Ventas',
+    popular: false,
+    href: '/contact'
+  }
+];
+
+const integrations = [
+  'Google Analytics', 'Meta Pixel', 'TikTok Pixel', 'Mailchimp', 'ConvertKit',
+  'Shopify', 'Stripe', 'PayPal', 'Zapier', 'Make', 'Notion', 'Slack',
+  'YouTube', 'Spotify', 'SoundCloud', 'Twitch'
+];
+
+const templates = [
+  { name: 'Minimal Light', color: 'from-gray-100 to-white', free: true },
+  { name: 'Minimal Dark', color: 'from-gray-900 to-black', free: true },
+  { name: 'Gradient Sunset', color: 'from-orange-500 to-pink-500', free: true },
+  { name: 'Ocean Blue', color: 'from-blue-600 to-cyan-500', free: false },
+  { name: 'Forest Green', color: 'from-green-600 to-emerald-500', free: false },
+  { name: 'Neon Purple', color: 'from-purple-600 to-pink-600', free: false }
+];
+
+const stats = [
+  { value: '50K+', label: 'Usuarios Activos' },
+  { value: '2M+', label: 'Enlaces Creados' },
+  { value: '100M+', label: 'Clicks Totales' },
+  { value: '99.9%', label: 'Uptime' }
 ];
 
 export default function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-gray-900">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-lg border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                <Link2 className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-white">LinkForge</span>
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-gray-300 hover:text-white transition">
-                Características
-              </a>
-              <a href="#pricing" className="text-gray-300 hover:text-white transition">
-                Precios
-              </a>
-              <a href="#testimonials" className="text-gray-300 hover:text-white transition">
-                Testimonios
-              </a>
-              <Link
-                href="/auth/login"
-                className="text-gray-300 hover:text-white transition"
-              >
-                Iniciar Sesión
-              </Link>
-              <Link
-                href="/auth/register"
-                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full font-medium hover:from-purple-600 hover:to-pink-600 transition"
-              >
-                Registrarse
-              </Link>
-            </div>
-
-            {/* Mobile menu button */}
-            <button
-              className="md:hidden text-white"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-gray-900/95 backdrop-blur-lg border-b border-white/10">
-            <div className="px-4 py-4 space-y-3">
-              <a
-                href="#features"
-                className="block text-gray-300 hover:text-white transition"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Características
-              </a>
-              <a
-                href="#pricing"
-                className="block text-gray-300 hover:text-white transition"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Precios
-              </a>
-              <a
-                href="#testimonials"
-                className="block text-gray-300 hover:text-white transition"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Testimonios
-              </a>
-              <Link
-                href="/auth/login"
-                className="block text-gray-300 hover:text-white transition"
-              >
-                Iniciar Sesión
-              </Link>
-              <Link
-                href="/auth/register"
-                className="block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full font-medium text-center"
-              >
-                Registrarse
-              </Link>
-            </div>
-          </div>
-        )}
-      </nav>
+    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+      <Header />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-500/30 rounded-full blur-3xl" />
-        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent" />
+        <div className="absolute top-20 left-1/4 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-40 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
 
-        <div className="max-w-7xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-lg px-4 py-2 rounded-full mb-8">
-            <Sparkles className="w-4 h-4 text-yellow-400" />
-            <span className="text-sm text-gray-200">+10,000 creadores ya confían en nosotros</span>
+        <div className="max-w-6xl mx-auto text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-8">
+            <Sparkles className="w-4 h-4 text-purple-400" />
+            <span className="text-purple-300 text-sm">La alternativa #1 a Linktree</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-            Tu Página de Links
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+            Todos tus enlaces
             <br />
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 text-transparent bg-clip-text">
-              Profesional y Única
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-400">
+              en un solo lugar
             </span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10">
-            Crea tu página de links personalizada en segundos. Comparte todos tus
-            enlaces importantes en un solo lugar. Gratis para empezar.
+          <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+            Crea tu página de enlaces personalizada en minutos. Comparte todo tu contenido
+            con un solo link. Más funciones, mejor precio.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/auth/register"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-purple-600 hover:to-pink-600 transition shadow-lg shadow-purple-500/25"
+              className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-purple-500/25"
             >
-              Crear Mi Página Gratis
-              <ArrowRight className="w-5 h-5" />
+              Crear mi LinkForge Gratis
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <a
-              href="#demo"
-              className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-lg text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition border border-white/20"
+            <Link
+              href="/features"
+              className="px-8 py-4 bg-white/5 text-white font-semibold rounded-xl hover:bg-white/10 transition-all duration-300 border border-white/10"
             >
-              Ver Demo
-            </a>
+              Ver Características
+            </Link>
           </div>
 
-          {/* Demo Preview */}
-          <div id="demo" className="mt-16 relative">
-            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-lg rounded-3xl p-8 max-w-sm mx-auto border border-white/20">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
-                <span className="text-3xl font-bold text-white">TU</span>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">@tunombre</h3>
-              <p className="text-gray-300 text-sm mb-6">Creador de contenido | Emprendedor</p>
-
-              <div className="space-y-3">
-                {['Mi Canal de YouTube', 'Tienda Online', 'Instagram', 'Newsletter'].map(
-                  (link, i) => (
-                    <div
-                      key={i}
-                      className="bg-white/10 backdrop-blur-lg rounded-xl py-3 px-4 text-white font-medium hover:bg-white/20 transition cursor-pointer border border-white/10"
-                    >
-                      {link}
-                    </div>
-                  )
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-16 px-4 border-y border-white/10 bg-black/20">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: '10K+', label: 'Usuarios Activos' },
-              { value: '50K+', label: 'Páginas Creadas' },
-              { value: '2M+', label: 'Clicks Totales' },
-              { value: '99.9%', label: 'Uptime' },
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 text-transparent bg-clip-text">
-                  {stat.value}
-                </div>
-                <div className="text-gray-400 mt-1">{stat.label}</div>
+          {/* Stats */}
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white">{stat.value}</div>
+                <div className="text-gray-500 text-sm mt-1">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -290,120 +183,169 @@ export default function Home() {
 
       {/* Features Section */}
       <section id="features" className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Todo lo que necesitas para
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 text-transparent bg-clip-text">
-                {' '}
-                destacar
-              </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Todo lo que necesitas para destacar
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Herramientas profesionales para creadores, influencers y emprendedores.
+              Herramientas profesionales para creadores, influencers y empresas que quieren maximizar su presencia online.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, i) => (
+            {features.map((feature, index) => (
               <div
-                key={i}
-                className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 transition group"
+                key={index}
+                className="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:bg-white/10"
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <feature.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-                <p className="text-gray-400 mb-4">{feature.description}</p>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-500">Free: {typeof feature.free === 'boolean' ? '✓' : feature.free}</span>
-                  <span className="text-purple-400">Pro: {typeof feature.pro === 'boolean' ? '✓' : feature.pro}</span>
-                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
+                <p className="text-gray-400 text-sm">{feature.description}</p>
               </div>
             ))}
           </div>
 
-          {/* Extra features */}
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
-            {[
-              { icon: Globe, title: 'Acceso Global', desc: 'Disponible en todo el mundo, 24/7' },
-              { icon: Shield, title: 'Seguro', desc: 'SSL incluido, tus datos protegidos' },
-              { icon: Users, title: 'Para Todos', desc: 'Ideal para creadores de cualquier nicho' },
-            ].map((item, i) => (
+          <div className="text-center mt-10">
+            <Link href="/features" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
+              Ver todas las características
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Integrations Preview */}
+      <section className="py-20 px-4 bg-white/[0.02]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Conecta con tus herramientas favoritas
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              +30 integraciones con las plataformas más populares
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-3 mb-10">
+            {integrations.map((name, index) => (
               <div
-                key={i}
-                className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 flex items-start gap-4"
+                key={index}
+                className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-sm hover:border-purple-500/50 hover:bg-white/10 transition-all cursor-default"
               >
-                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
-                  <item.icon className="w-5 h-5 text-purple-400" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white">{item.title}</h4>
-                  <p className="text-gray-400 text-sm">{item.desc}</p>
-                </div>
+                {name}
               </div>
             ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/integrations"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 transition-all"
+            >
+              Ver todas las integraciones
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Templates Preview */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Diseños que enamoran
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Elige entre +20 temas profesionales o crea el tuyo propio
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
+            {templates.map((template, index) => (
+              <div key={index} className="group relative">
+                <div className={`aspect-[9/16] rounded-xl bg-gradient-to-b ${template.color} border border-white/10 group-hover:scale-105 transition-transform cursor-pointer`}>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 rounded-xl">
+                    <span className="text-white text-sm font-medium">{template.name}</span>
+                  </div>
+                </div>
+                {!template.free && (
+                  <div className="absolute top-2 right-2 px-2 py-0.5 rounded text-xs bg-purple-500 text-white">
+                    PRO
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/templates"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 transition-all"
+            >
+              Explorar todos los temas
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 px-4 bg-black/20">
+      <section id="pricing" className="py-20 px-4 bg-white/[0.02]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Precios simples y
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 text-transparent bg-clip-text">
-                {' '}
-                transparentes
-              </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Planes para cada necesidad
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Empieza gratis, actualiza cuando lo necesites. Sin sorpresas.
+              Empieza gratis y escala cuando lo necesites. Sin trucos, sin sorpresas.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {pricingPlans.map((plan, i) => (
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {plans.map((plan, index) => (
               <div
-                key={i}
-                className={`relative rounded-3xl p-8 ${
-                  plan.highlighted
-                    ? 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-500'
-                    : 'bg-white/5 border border-white/10'
+                key={index}
+                className={`relative p-6 rounded-2xl border transition-all duration-300 ${
+                  plan.popular
+                    ? 'bg-gradient-to-b from-purple-900/50 to-pink-900/50 border-purple-500/50 scale-105 shadow-xl shadow-purple-500/20'
+                    : 'bg-white/5 border-white/10 hover:border-white/20'
                 }`}
               >
-                {plan.highlighted && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium px-4 py-1 rounded-full">
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold rounded-full">
                     Más Popular
                   </div>
                 )}
 
-                <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                <p className="text-gray-400 mb-4">{plan.description}</p>
-
-                <div className="mb-6">
-                  <span className="text-4xl font-bold text-white">
-                    {plan.price === 0 ? 'Gratis' : `€${plan.price}`}
-                  </span>
-                  {plan.price > 0 && <span className="text-gray-400">/mes</span>}
+                <div className="text-center mb-6">
+                  <h3 className="text-lg font-semibold text-white mb-2">{plan.name}</h3>
+                  <div className="flex items-baseline justify-center gap-1">
+                    {plan.price !== 'Custom' && <span className="text-gray-400">€</span>}
+                    <span className="text-3xl font-bold text-white">{plan.price}</span>
+                    <span className="text-gray-400 text-sm">{plan.period}</span>
+                  </div>
+                  <p className="text-gray-500 text-xs mt-2">{plan.description}</p>
                 </div>
 
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature, j) => (
-                    <li key={j} className="flex items-center gap-3 text-gray-300">
-                      <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
+                <ul className="space-y-2 mb-6">
+                  {plan.features.map((feature, fIndex) => (
+                    <li key={fIndex} className="flex items-center gap-2 text-sm text-gray-300">
+                      <Check className="w-4 h-4 text-purple-400 flex-shrink-0" />
                       {feature}
                     </li>
                   ))}
                 </ul>
 
                 <Link
-                  href="/auth/register"
-                  className={`block text-center py-3 rounded-full font-semibold transition ${
-                    plan.highlighted
-                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600'
-                      : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+                  href={plan.href}
+                  className={`block w-full py-2.5 rounded-lg font-medium text-center text-sm transition-all ${
+                    plan.popular
+                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90'
+                      : 'bg-white/10 text-white hover:bg-white/20'
                   }`}
                 >
                   {plan.cta}
@@ -412,49 +354,73 @@ export default function Home() {
             ))}
           </div>
 
-          <p className="text-center text-gray-500 mt-8">
-            Todos los precios son en EUR. Cancela cuando quieras.
-          </p>
+          <div className="text-center mt-10">
+            <Link href="/pricing" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
+              Comparar planes en detalle
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Lo que dicen
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 text-transparent bg-clip-text">
-                {' '}
-                nuestros usuarios
-              </span>
+      {/* Compare CTA */}
+      <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            ¿Por qué elegir LinkForge?
+          </h2>
+          <p className="text-gray-400 mb-10 max-w-2xl mx-auto">
+            Más funciones, mejor precio, soporte real. Compara y decide.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/compare"
+              className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 transition-all flex items-center gap-2"
+            >
+              Comparar con la competencia
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/developers"
+              className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 transition-all flex items-center gap-2"
+            >
+              Documentación API
+              <Code className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof */}
+      <section className="py-20 px-4 bg-white/[0.02]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Lo que dicen nuestros usuarios
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              Miles de creadores ya confían en LinkForge para compartir su contenido.
-            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, i) => (
-              <div
-                key={i}
-                className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10"
-              >
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { name: 'María García', role: 'Influencer', text: 'Cambié de Linktree a LinkForge y mis clicks aumentaron un 40%. La diferencia es brutal.' },
+              { name: 'Carlos Ruiz', role: 'Podcaster', text: 'El analytics es increíble. Por fin sé qué contenido interesa más a mi audiencia.' },
+              { name: 'Ana Martínez', role: 'Diseñadora', text: 'Los temas son preciosos y poder personalizar todo es un plus enorme frente a la competencia.' }
+            ].map((testimonial, index) => (
+              <div key={index} className="p-6 rounded-2xl bg-white/5 border border-white/10">
                 <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, j) => (
-                    <Star key={j} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-300 mb-6">&ldquo;{testimonial.content}&rdquo;</p>
+                <p className="text-gray-300 mb-4">&ldquo;{testimonial.text}&rdquo;</p>
                 <div className="flex items-center gap-3">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full bg-gray-700"
-                  />
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                    <Users className="w-5 h-5 text-white" />
+                  </div>
                   <div>
-                    <div className="font-semibold text-white">{testimonial.name}</div>
-                    <div className="text-gray-400 text-sm">{testimonial.role}</div>
+                    <div className="text-white font-medium text-sm">{testimonial.name}</div>
+                    <div className="text-gray-500 text-xs">{testimonial.role}</div>
                   </div>
                 </div>
               </div>
@@ -463,57 +429,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Final CTA */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-lg rounded-3xl p-12 border border-purple-500/30">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <div className="p-10 rounded-3xl bg-gradient-to-br from-purple-900/50 to-pink-900/50 border border-purple-500/20">
+            <Zap className="w-12 h-12 text-purple-400 mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               ¿Listo para empezar?
             </h2>
-            <p className="text-gray-300 mb-8 max-w-xl mx-auto">
-              Crea tu página de links profesional en menos de 2 minutos.
-              Gratis para siempre, sin tarjeta de crédito.
+            <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+              Únete a más de 50,000 creadores que ya usan LinkForge para impulsar su presencia online.
             </p>
-            <Link
-              href="/auth/register"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-purple-600 hover:to-pink-600 transition shadow-lg shadow-purple-500/25"
-            >
-              Crear Mi Página Ahora
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/auth/register"
+                className="group px-8 py-4 bg-white text-gray-900 font-semibold rounded-xl hover:bg-gray-100 transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                Crear Cuenta Gratis
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link
+                href="/contact"
+                className="px-8 py-4 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 border border-white/10"
+              >
+                Contactar Ventas
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-4 border-t border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                <Link2 className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-white">LinkForge</span>
-            </div>
-
-            <div className="flex items-center gap-6 text-gray-400">
-              <a href="#" className="hover:text-white transition">
-                Términos
-              </a>
-              <a href="#" className="hover:text-white transition">
-                Privacidad
-              </a>
-              <a href="#" className="hover:text-white transition">
-                Contacto
-              </a>
-            </div>
-
-            <p className="text-gray-500 text-sm">
-              © {new Date().getFullYear()} LinkForge. Todos los derechos reservados.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
