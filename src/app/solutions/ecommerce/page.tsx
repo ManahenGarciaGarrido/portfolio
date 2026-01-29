@@ -5,8 +5,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import {
   ArrowRight, ShoppingBag, ShoppingCart, CreditCard, Package,
-  TrendingUp, BarChart3, Tag, Percent, Store, Truck, Star,
-  Check, Zap, Globe
+  BarChart3, Tag, Store, Truck, Check
 } from 'lucide-react';
 
 const features = [
@@ -25,13 +24,6 @@ const integrations = [
   { name: 'PayPal', desc: 'Checkout rápido para tus clientes' },
   { name: 'Amazon', desc: 'Links de afiliados optimizados' },
   { name: 'Etsy', desc: 'Conecta tu tienda de artesanías' },
-];
-
-const stats = [
-  { value: '+45%', label: 'Aumento en conversiones' },
-  { value: '3x', label: 'Más clicks a productos' },
-  { value: '-60%', label: 'Tiempo de setup' },
-  { value: '24/7', label: 'Tu tienda siempre abierta' },
 ];
 
 const useCases = [
@@ -81,18 +73,6 @@ export default function EcommercePage() {
               Ver integraciones
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="py-16 px-4 bg-white/[0.02]">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {stats.map((stat, i) => (
-            <div key={i}>
-              <div className="text-3xl font-bold text-green-400">{stat.value}</div>
-              <div className="text-gray-500 text-sm">{stat.label}</div>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -167,6 +147,45 @@ export default function EcommercePage() {
                 <p className="text-gray-400 text-sm">{uc.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="py-20 px-4 bg-white/[0.02]">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold text-white mb-6">
+                Tu tienda siempre abierta
+              </h2>
+              <ul className="space-y-4">
+                {[
+                  'Acceso desde bio de Instagram, TikTok, Twitter...',
+                  'Múltiples productos en un solo link',
+                  'Actualiza ofertas en tiempo real',
+                  'Mide qué productos generan más interés',
+                  'Reduce fricción en el proceso de compra',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-300">
+                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="p-8 rounded-2xl bg-gradient-to-br from-green-900/30 to-emerald-900/30 border border-green-500/20">
+              <div className="space-y-4">
+                {['Nuevo producto', 'Oferta -30%', 'Bestseller', 'Envío gratis'].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white/10">
+                    <div className="w-10 h-10 rounded bg-green-500/30 flex items-center justify-center">
+                      <ShoppingBag className="w-5 h-5 text-green-400" />
+                    </div>
+                    <span className="text-white">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -30,52 +30,12 @@ import {
   ArrowRight,
   Check,
   Play,
+  Plus,
+  GripVertical,
+  ExternalLink,
+  Sun,
+  Moon,
 } from 'lucide-react';
-
-const mainFeatures = [
-  {
-    icon: Link2,
-    title: 'Links Ilimitados',
-    description: 'Añade todos los enlaces que necesites sin restricciones. Organízalos, reordénalos y personalízalos a tu gusto.',
-    features: ['Drag & Drop para reordenar', 'Iconos personalizados', 'Etiquetas y categorías', 'Links temporales'],
-    image: '/features/links.png',
-  },
-  {
-    icon: Palette,
-    title: '+30 Temas Premium',
-    description: 'Elige entre más de 30 temas profesionales diseñados para destacar. Desde minimalistas hasta vibrantes.',
-    features: ['Temas claros y oscuros', 'Gradientes animados', 'Glassmorphism', 'Temas personalizados (Pro)'],
-    image: '/features/themes.png',
-  },
-  {
-    icon: BarChart3,
-    title: 'Analytics Avanzados',
-    description: 'Conoce a tu audiencia con métricas detalladas. Entiende qué links funcionan mejor y optimiza tu estrategia.',
-    features: ['Visitas en tiempo real', 'Clicks por link', 'Ubicación geográfica', 'Dispositivos y navegadores'],
-    image: '/features/analytics.png',
-  },
-  {
-    icon: QrCode,
-    title: 'Códigos QR',
-    description: 'Genera códigos QR personalizados para tu página. Perfectos para tarjetas de visita, carteles y más.',
-    features: ['QR con tu logo', 'Colores personalizados', 'Múltiples formatos', 'Tracking de escaneos'],
-    image: '/features/qr.png',
-  },
-  {
-    icon: Calendar,
-    title: 'Programación de Links',
-    description: 'Programa cuándo aparecen y desaparecen tus links. Ideal para promociones temporales y lanzamientos.',
-    features: ['Fecha de inicio/fin', 'Horarios específicos', 'Zonas horarias', 'Links recurrentes'],
-    image: '/features/scheduling.png',
-  },
-  {
-    icon: Globe,
-    title: 'Dominio Personalizado',
-    description: 'Usa tu propio dominio para una presencia más profesional. Configúralo en minutos.',
-    features: ['SSL automático', 'Configuración DNS fácil', 'Subdominios', 'Múltiples dominios (Business)'],
-    image: '/features/domains.png',
-  },
-];
 
 const additionalFeatures = [
   { icon: Shield, title: 'SSL Gratuito', description: 'Todas las páginas están protegidas con HTTPS' },
@@ -100,6 +60,216 @@ const integrations = [
   'Google Analytics', 'Meta Pixel', 'TikTok Pixel', 'Mailchimp',
   'ConvertKit', 'Zapier', 'Notion', 'Spotify', 'YouTube', 'Twitch',
   'Discord', 'Calendly', 'Stripe', 'PayPal', 'Gumroad', 'Shopify',
+];
+
+// Visual mockup component for Links feature
+const LinksMockup = () => (
+  <div className="bg-gray-900 rounded-xl p-4 border border-gray-800">
+    <div className="space-y-3">
+      {[
+        { title: 'Mi Canal de YouTube', active: true },
+        { title: 'Instagram', active: true },
+        { title: 'Tienda Online', active: true },
+        { title: 'Newsletter', active: false },
+      ].map((link, i) => (
+        <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-gray-800 border border-gray-700">
+          <GripVertical className="w-4 h-4 text-gray-600" />
+          <div className="flex-1">
+            <div className="text-white text-sm font-medium">{link.title}</div>
+          </div>
+          <div className={`w-8 h-4 rounded-full ${link.active ? 'bg-purple-500' : 'bg-gray-600'} relative`}>
+            <div className={`absolute w-3 h-3 rounded-full bg-white top-0.5 ${link.active ? 'right-0.5' : 'left-0.5'}`} />
+          </div>
+        </div>
+      ))}
+      <button className="w-full py-2 rounded-lg border border-dashed border-gray-600 text-gray-500 flex items-center justify-center gap-2 hover:border-purple-500 hover:text-purple-400 transition">
+        <Plus className="w-4 h-4" />
+        Añadir link
+      </button>
+    </div>
+  </div>
+);
+
+// Visual mockup component for Themes feature
+const ThemesMockup = () => (
+  <div className="grid grid-cols-3 gap-3">
+    {[
+      { bg: 'bg-white', name: 'Light', icon: Sun },
+      { bg: 'bg-gray-900', name: 'Dark', icon: Moon },
+      { bg: 'bg-gradient-to-br from-purple-500 to-pink-500', name: 'Gradient', icon: Palette },
+      { bg: 'bg-gradient-to-br from-green-500 to-cyan-500', name: 'Ocean', icon: Palette },
+      { bg: 'bg-gradient-to-br from-orange-500 to-red-500', name: 'Sunset', icon: Palette },
+      { bg: 'bg-black', name: 'Neon', icon: Zap },
+    ].map((theme, i) => (
+      <div key={i} className={`aspect-[3/4] rounded-lg ${theme.bg} p-2 flex flex-col items-center justify-center border ${i === 0 ? 'border-purple-500' : 'border-transparent'} hover:border-purple-500 transition cursor-pointer`}>
+        <theme.icon className={`w-4 h-4 ${theme.bg === 'bg-white' ? 'text-gray-900' : 'text-white'} mb-1`} />
+        <span className={`text-xs ${theme.bg === 'bg-white' ? 'text-gray-900' : 'text-white'}`}>{theme.name}</span>
+      </div>
+    ))}
+  </div>
+);
+
+// Visual mockup component for Analytics feature
+const AnalyticsMockup = () => (
+  <div className="bg-gray-900 rounded-xl p-4 border border-gray-800">
+    <div className="flex items-center justify-between mb-4">
+      <span className="text-white font-medium">Últimos 7 días</span>
+      <span className="text-green-400 text-sm flex items-center gap-1">
+        <TrendingUp className="w-3 h-3" />
+        +24%
+      </span>
+    </div>
+    <div className="flex items-end gap-1 h-24 mb-4">
+      {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
+        <div key={i} className="flex-1 bg-gradient-to-t from-purple-600 to-purple-400 rounded-t" style={{ height: `${h}%` }} />
+      ))}
+    </div>
+    <div className="grid grid-cols-3 gap-4 text-center">
+      <div>
+        <div className="text-2xl font-bold text-white">1.2K</div>
+        <div className="text-gray-500 text-xs">Visitas</div>
+      </div>
+      <div>
+        <div className="text-2xl font-bold text-white">342</div>
+        <div className="text-gray-500 text-xs">Clicks</div>
+      </div>
+      <div>
+        <div className="text-2xl font-bold text-white">28%</div>
+        <div className="text-gray-500 text-xs">CTR</div>
+      </div>
+    </div>
+  </div>
+);
+
+// Visual mockup component for QR feature
+const QRMockup = () => (
+  <div className="flex items-center justify-center">
+    <div className="bg-white p-4 rounded-xl">
+      <div className="w-32 h-32 grid grid-cols-5 gap-1">
+        {Array.from({ length: 25 }).map((_, i) => (
+          <div key={i} className={`${[0,1,2,3,4,5,9,10,14,15,19,20,21,22,23,24].includes(i) ? 'bg-gray-900' : 'bg-white'} rounded-sm`} />
+        ))}
+      </div>
+      <div className="mt-2 text-center">
+        <div className="text-gray-900 text-xs font-medium">@tunombre</div>
+      </div>
+    </div>
+  </div>
+);
+
+// Visual mockup component for Scheduling feature
+const SchedulingMockup = () => (
+  <div className="bg-gray-900 rounded-xl p-4 border border-gray-800">
+    <div className="space-y-3">
+      <div className="flex items-center justify-between p-3 rounded-lg bg-gray-800">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded bg-green-500/20 flex items-center justify-center">
+            <Check className="w-4 h-4 text-green-400" />
+          </div>
+          <div>
+            <div className="text-white text-sm">Oferta Black Friday</div>
+            <div className="text-gray-500 text-xs">Activo ahora</div>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-between p-3 rounded-lg bg-gray-800">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded bg-orange-500/20 flex items-center justify-center">
+            <Clock className="w-4 h-4 text-orange-400" />
+          </div>
+          <div>
+            <div className="text-white text-sm">Nuevo Curso</div>
+            <div className="text-gray-500 text-xs">Empieza 15 Feb</div>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-between p-3 rounded-lg bg-gray-800">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded bg-gray-600/20 flex items-center justify-center">
+            <Calendar className="w-4 h-4 text-gray-400" />
+          </div>
+          <div>
+            <div className="text-white text-sm">Promo Verano</div>
+            <div className="text-gray-500 text-xs">Jun - Ago 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// Visual mockup component for Domains feature
+const DomainsMockup = () => (
+  <div className="bg-gray-900 rounded-xl p-4 border border-gray-800">
+    <div className="space-y-4">
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-purple-500/20 border border-purple-500/30">
+        <Globe className="w-5 h-5 text-purple-400" />
+        <div>
+          <div className="text-white text-sm font-medium">tunombre.com</div>
+          <div className="text-green-400 text-xs flex items-center gap-1">
+            <Check className="w-3 h-3" />
+            SSL Activo
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-800">
+        <ExternalLink className="w-5 h-5 text-gray-400" />
+        <div>
+          <div className="text-white text-sm">linkforge.app/tunombre</div>
+          <div className="text-gray-500 text-xs">Subdomain gratuito</div>
+        </div>
+      </div>
+      <button className="w-full py-2 rounded-lg border border-dashed border-gray-600 text-gray-500 flex items-center justify-center gap-2 hover:border-purple-500 hover:text-purple-400 transition text-sm">
+        <Plus className="w-4 h-4" />
+        Añadir dominio
+      </button>
+    </div>
+  </div>
+);
+
+const mainFeatures = [
+  {
+    icon: Link2,
+    title: 'Links Ilimitados',
+    description: 'Añade todos los enlaces que necesites sin restricciones. Organízalos, reordénalos y personalízalos a tu gusto.',
+    features: ['Drag & Drop para reordenar', 'Iconos personalizados', 'Etiquetas y categorías', 'Links temporales'],
+    MockupComponent: LinksMockup,
+  },
+  {
+    icon: Palette,
+    title: '+30 Temas Premium',
+    description: 'Elige entre más de 30 temas profesionales diseñados para destacar. Desde minimalistas hasta vibrantes.',
+    features: ['Temas claros y oscuros', 'Gradientes animados', 'Glassmorphism', 'Temas personalizados (Pro)'],
+    MockupComponent: ThemesMockup,
+  },
+  {
+    icon: BarChart3,
+    title: 'Analytics Avanzados',
+    description: 'Conoce a tu audiencia con métricas detalladas. Entiende qué links funcionan mejor y optimiza tu estrategia.',
+    features: ['Visitas en tiempo real', 'Clicks por link', 'Ubicación geográfica', 'Dispositivos y navegadores'],
+    MockupComponent: AnalyticsMockup,
+  },
+  {
+    icon: QrCode,
+    title: 'Códigos QR',
+    description: 'Genera códigos QR personalizados para tu página. Perfectos para tarjetas de visita, carteles y más.',
+    features: ['QR con tu logo', 'Colores personalizados', 'Múltiples formatos', 'Tracking de escaneos'],
+    MockupComponent: QRMockup,
+  },
+  {
+    icon: Calendar,
+    title: 'Programación de Links',
+    description: 'Programa cuándo aparecen y desaparecen tus links. Ideal para promociones temporales y lanzamientos.',
+    features: ['Fecha de inicio/fin', 'Horarios específicos', 'Zonas horarias', 'Links recurrentes'],
+    MockupComponent: SchedulingMockup,
+  },
+  {
+    icon: Globe,
+    title: 'Dominio Personalizado',
+    description: 'Usa tu propio dominio para una presencia más profesional. Configúralo en minutos.',
+    features: ['SSL automático', 'Configuración DNS fácil', 'Subdominios', 'Múltiples dominios (Business)'],
+    MockupComponent: DomainsMockup,
+  },
 ];
 
 export default function FeaturesPage() {
@@ -167,11 +337,9 @@ export default function FeaturesPage() {
                 </ul>
               </div>
 
-              {/* Image Placeholder */}
-              <div className="flex-1">
-                <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl p-8 border border-purple-500/30 aspect-video flex items-center justify-center">
-                  <feature.icon className="w-24 h-24 text-purple-400/50" />
-                </div>
+              {/* Visual Mockup */}
+              <div className="flex-1 w-full max-w-md">
+                <feature.MockupComponent />
               </div>
             </div>
           ))}

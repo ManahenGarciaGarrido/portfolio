@@ -280,7 +280,7 @@ export default function HelpPage() {
       <section className="py-12 px-4 bg-gray-800/30">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-6">Explorar por Categoría</h2>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4 items-start">
             {categories.map((category) => (
               <div
                 key={category.id}

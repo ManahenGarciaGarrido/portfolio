@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import {
-  ArrowRight, Check, Star, Users, BarChart3, Palette,
+  ArrowRight, Check, Users, BarChart3, Palette,
   Instagram, Youtube, Music, Mic, Camera, Heart,
   Zap, Globe, Shield, Sparkles, TrendingUp, DollarSign
 } from 'lucide-react';
@@ -25,12 +25,6 @@ const features = [
   { icon: DollarSign, title: 'Monetización', desc: 'Integra links de afiliados y tienda propia' },
   { icon: Globe, title: 'Dominio propio', desc: 'Usa tu dominio personal para más profesionalidad' },
   { icon: Shield, title: 'Links seguros', desc: 'Protección contra spam y bots incluida' },
-];
-
-const testimonials = [
-  { name: 'Laura Fitness', role: 'Influencer de salud', followers: '500K', text: 'Mis seguidores encuentran todo mucho más fácil. Mi engagement subió un 35%.' },
-  { name: 'DJ Martinez', role: 'Productor musical', followers: '120K', text: 'Tengo todas mis plataformas de música en un solo lugar. Perfecto para promociones.' },
-  { name: 'Tech Pablo', role: 'YouTuber de tecnología', followers: '800K', text: 'Los analytics me ayudan a entender qué contenido promocionar más.' },
 ];
 
 export default function CreatorsPage() {
@@ -90,23 +84,6 @@ export default function CreatorsPage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 px-4 bg-white/[0.02]">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { value: '50K+', label: 'Creadores activos' },
-            { value: '200M+', label: 'Clicks mensuales' },
-            { value: '4.9/5', label: 'Valoración media' },
-            { value: '35%', label: 'Más engagement' },
-          ].map((stat, i) => (
-            <div key={i}>
-              <div className="text-3xl font-bold text-white">{stat.value}</div>
-              <div className="text-gray-500 text-sm">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Features */}
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
@@ -131,33 +108,47 @@ export default function CreatorsPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Why Creators Choose Us */}
       <section className="py-20 px-4 bg-white/[0.02]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            Creadores que ya confían en nosotros
+            Por qué los creadores eligen LinkForge
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-300 mb-4">"{t.text}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center">
-                    <Users className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-white font-medium text-sm">{t.name}</div>
-                    <div className="text-gray-500 text-xs">{t.role} • {t.followers} seguidores</div>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-8 rounded-2xl bg-gradient-to-br from-pink-900/20 to-orange-900/20 border border-pink-500/20">
+              <h3 className="text-xl font-semibold text-white mb-4">Personalización total</h3>
+              <ul className="space-y-3">
+                {[
+                  'Más de 30 temas profesionales',
+                  'Colores y fuentes personalizables',
+                  'Tu marca, tu estilo',
+                  'Sin marca de agua en planes Pro',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-gray-300">
+                    <Check className="w-5 h-5 text-pink-400 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-purple-500/20">
+              <h3 className="text-xl font-semibold text-white mb-4">Analytics potentes</h3>
+              <ul className="space-y-3">
+                {[
+                  'Métricas de clicks en tiempo real',
+                  'Ubicación geográfica de tu audiencia',
+                  'Dispositivos más usados',
+                  'Horarios de mayor tráfico',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-gray-300">
+                    <Check className="w-5 h-5 text-purple-400 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -171,7 +162,7 @@ export default function CreatorsPage() {
               Empieza gratis hoy
             </h2>
             <p className="text-gray-400 mb-8">
-              Únete a miles de creadores que ya usan LinkForge para conectar con su audiencia.
+              Crea tu página de links profesional en menos de 2 minutos.
             </p>
             <Link
               href="/auth/register"

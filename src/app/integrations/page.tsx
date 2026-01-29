@@ -43,6 +43,7 @@ const integrations = [
     popular: true,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '📊',
+    url: 'https://analytics.google.com',
   },
   {
     name: 'Meta Pixel',
@@ -51,6 +52,7 @@ const integrations = [
     popular: true,
     plans: ['pro', 'business', 'enterprise'],
     logo: '📱',
+    url: 'https://business.facebook.com',
   },
   {
     name: 'TikTok Pixel',
@@ -59,6 +61,7 @@ const integrations = [
     popular: true,
     plans: ['pro', 'business', 'enterprise'],
     logo: '🎵',
+    url: 'https://ads.tiktok.com',
   },
   {
     name: 'Mailchimp',
@@ -67,6 +70,7 @@ const integrations = [
     popular: true,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '📧',
+    url: 'https://mailchimp.com',
   },
   {
     name: 'ConvertKit',
@@ -75,6 +79,7 @@ const integrations = [
     popular: false,
     plans: ['pro', 'business', 'enterprise'],
     logo: '✉️',
+    url: 'https://convertkit.com',
   },
   {
     name: 'Klaviyo',
@@ -83,6 +88,7 @@ const integrations = [
     popular: false,
     plans: ['pro', 'business', 'enterprise'],
     logo: '📨',
+    url: 'https://klaviyo.com',
   },
   {
     name: 'Beehiiv',
@@ -91,6 +97,7 @@ const integrations = [
     popular: false,
     plans: ['pro', 'business', 'enterprise'],
     logo: '🐝',
+    url: 'https://beehiiv.com',
   },
   {
     name: 'Shopify',
@@ -99,6 +106,7 @@ const integrations = [
     popular: true,
     plans: ['pro', 'business', 'enterprise'],
     logo: '🛍️',
+    url: 'https://shopify.com',
   },
   {
     name: 'Gumroad',
@@ -107,6 +115,7 @@ const integrations = [
     popular: true,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '💎',
+    url: 'https://gumroad.com',
   },
   {
     name: 'WooCommerce',
@@ -115,6 +124,7 @@ const integrations = [
     popular: false,
     plans: ['pro', 'business', 'enterprise'],
     logo: '🏪',
+    url: 'https://woocommerce.com',
   },
   {
     name: 'Etsy',
@@ -123,6 +133,7 @@ const integrations = [
     popular: false,
     plans: ['pro', 'business', 'enterprise'],
     logo: '🧶',
+    url: 'https://etsy.com',
   },
   {
     name: 'Spotify',
@@ -131,6 +142,7 @@ const integrations = [
     popular: true,
     plans: ['free', 'starter', 'pro', 'business', 'enterprise'],
     logo: '🎧',
+    url: 'https://spotify.com',
   },
   {
     name: 'YouTube',
@@ -139,6 +151,7 @@ const integrations = [
     popular: true,
     plans: ['free', 'starter', 'pro', 'business', 'enterprise'],
     logo: '▶️',
+    url: 'https://youtube.com',
   },
   {
     name: 'Twitch',
@@ -147,6 +160,7 @@ const integrations = [
     popular: true,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '🎮',
+    url: 'https://twitch.tv',
   },
   {
     name: 'SoundCloud',
@@ -155,6 +169,7 @@ const integrations = [
     popular: false,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '🔊',
+    url: 'https://soundcloud.com',
   },
   {
     name: 'Apple Music',
@@ -163,6 +178,7 @@ const integrations = [
     popular: false,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '🍎',
+    url: 'https://music.apple.com',
   },
   {
     name: 'Instagram',
@@ -171,6 +187,7 @@ const integrations = [
     popular: true,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '📸',
+    url: 'https://instagram.com',
   },
   {
     name: 'TikTok',
@@ -179,6 +196,7 @@ const integrations = [
     popular: true,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '🎬',
+    url: 'https://tiktok.com',
   },
   {
     name: 'Twitter/X',
@@ -187,6 +205,7 @@ const integrations = [
     popular: true,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '🐦',
+    url: 'https://x.com',
   },
   {
     name: 'Discord',
@@ -195,6 +214,7 @@ const integrations = [
     popular: true,
     plans: ['free', 'starter', 'pro', 'business', 'enterprise'],
     logo: '💬',
+    url: 'https://discord.com',
   },
   {
     name: 'Calendly',
@@ -203,6 +223,7 @@ const integrations = [
     popular: true,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '📅',
+    url: 'https://calendly.com',
   },
   {
     name: 'Cal.com',
@@ -211,6 +232,7 @@ const integrations = [
     popular: false,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '🗓️',
+    url: 'https://cal.com',
   },
   {
     name: 'Notion',
@@ -219,6 +241,7 @@ const integrations = [
     popular: true,
     plans: ['pro', 'business', 'enterprise'],
     logo: '📝',
+    url: 'https://notion.so',
   },
   {
     name: 'Stripe',
@@ -227,6 +250,7 @@ const integrations = [
     popular: true,
     plans: ['pro', 'business', 'enterprise'],
     logo: '💳',
+    url: 'https://stripe.com',
   },
   {
     name: 'PayPal',
@@ -235,6 +259,7 @@ const integrations = [
     popular: true,
     plans: ['starter', 'pro', 'business', 'enterprise'],
     logo: '💰',
+    url: 'https://paypal.com',
   },
   {
     name: 'Ko-fi',
@@ -243,6 +268,7 @@ const integrations = [
     popular: true,
     plans: ['free', 'starter', 'pro', 'business', 'enterprise'],
     logo: '☕',
+    url: 'https://ko-fi.com',
   },
   {
     name: 'Buy Me a Coffee',
@@ -251,6 +277,7 @@ const integrations = [
     popular: false,
     plans: ['free', 'starter', 'pro', 'business', 'enterprise'],
     logo: '🧋',
+    url: 'https://buymeacoffee.com',
   },
   {
     name: 'Zapier',
@@ -259,6 +286,7 @@ const integrations = [
     popular: true,
     plans: ['pro', 'business', 'enterprise'],
     logo: '⚡',
+    url: 'https://zapier.com',
   },
   {
     name: 'Make (Integromat)',
@@ -267,6 +295,7 @@ const integrations = [
     popular: false,
     plans: ['pro', 'business', 'enterprise'],
     logo: '🔧',
+    url: 'https://make.com',
   },
   {
     name: 'Webhooks',
@@ -275,6 +304,7 @@ const integrations = [
     popular: false,
     plans: ['business', 'enterprise'],
     logo: '🪝',
+    url: '/developers/docs/webhooks',
   },
   {
     name: 'API',
@@ -283,6 +313,7 @@ const integrations = [
     popular: true,
     plans: ['pro', 'business', 'enterprise'],
     logo: '🔌',
+    url: '/developers/docs/api',
   },
 ];
 
@@ -379,9 +410,20 @@ export default function IntegrationsPage() {
                       <span className="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">Pro+</span>
                     )}
                   </div>
-                  <button className="text-gray-400 hover:text-purple-400 transition">
-                    <ExternalLink className="w-4 h-4" />
-                  </button>
+                  {integration.url.startsWith('/') ? (
+                    <Link href={integration.url} className="text-gray-400 hover:text-purple-400 transition">
+                      <ExternalLink className="w-4 h-4" />
+                    </Link>
+                  ) : (
+                    <a
+                      href={integration.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-purple-400 transition"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
