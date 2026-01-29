@@ -22,17 +22,21 @@ const navigation = [
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isAuthenticated, logout } = useUserStore();
+  const { user, isAuthenticated, isLoading, logout, checkAuth } = useUserStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    checkAuth();
+  }, [checkAuth]);
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
       router.push('/auth/login');
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, isLoading, router]);
 
-  if (!user) {
+  if (isLoading || !user) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
@@ -134,11 +138,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* User */}
         <div className="p-4 border-t border-white/10">
           <div className="flex items-center gap-3">
-            <img
-              src={user.avatar}
-              alt={user.displayName}
-              className="w-10 h-10 rounded-full bg-gray-700 ring-2 ring-white/10"
-            />
+            {user.avatar ? (
+              <img
+                src={user.avatar}
+                alt={user.displayName}
+                className="w-10 h-10 rounded-full bg-gray-700 ring-2 ring-white/10"
+              />
+            ) : (
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 ring-2 ring-white/10 flex items-center justify-center text-white font-bold">
+                {user.displayName.charAt(0).toUpperCase()}
+              </div>
+            )}
             <div className="flex-1 min-w-0">
               <p className="text-white font-medium truncate">{user.displayName}</p>
               <p className="text-gray-500 text-sm truncate">@{user.username}</p>
@@ -176,11 +186,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <button className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg">
               <Bell className="w-5 h-5" />
             </button>
-            <img
-              src={user.avatar}
-              alt={user.displayName}
-              className="w-8 h-8 rounded-full bg-gray-700"
-            />
+            {user.avatar ? (
+              <img
+                src={user.avatar}
+                alt={user.displayName}
+                className="w-8 h-8 rounded-full bg-gray-700"
+              />
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">
+                {user.displayName.charAt(0).toUpperCase()}
+              </div>
+            )}
           </div>
         </div>
       </header>

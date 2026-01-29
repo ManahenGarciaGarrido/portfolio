@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Zap, Palette, BarChart3, Shield, Sparkles, Globe, Users, Star, Check, QrCode, Calendar, Link2, Code, ChevronRight } from 'lucide-react';
+import { ArrowRight, Zap, Palette, BarChart3, Shield, Sparkles, Globe, Users, Check, QrCode, Calendar, Link2, Code, ChevronRight } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
@@ -116,12 +116,6 @@ const templates = [
   { name: 'Neon Purple', color: 'from-purple-600 to-pink-600', free: false }
 ];
 
-const stats = [
-  { value: '50K+', label: 'Usuarios Activos' },
-  { value: '2M+', label: 'Enlaces Creados' },
-  { value: '100M+', label: 'Clicks Totales' },
-  { value: '99.9%', label: 'Uptime' }
-];
 
 export default function Home() {
   return (
@@ -169,15 +163,6 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Stats */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white">{stat.value}</div>
-                <div className="text-gray-500 text-sm mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -392,7 +377,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Social Proof */}
+      {/* Social Proof Placeholder */}
       <section className="py-20 px-4 bg-white/[0.02]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
@@ -401,30 +386,12 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { name: 'María García', role: 'Influencer', text: 'Cambié de Linktree a LinkForge y mis clicks aumentaron un 40%. La diferencia es brutal.' },
-              { name: 'Carlos Ruiz', role: 'Podcaster', text: 'El analytics es increíble. Por fin sé qué contenido interesa más a mi audiencia.' },
-              { name: 'Ana Martínez', role: 'Diseñadora', text: 'Los temas son preciosos y poder personalizar todo es un plus enorme frente a la competencia.' }
-            ].map((testimonial, index) => (
-              <div key={index} className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-300 mb-4">&ldquo;{testimonial.text}&rdquo;</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                    <Users className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-white font-medium text-sm">{testimonial.name}</div>
-                    <div className="text-gray-500 text-xs">{testimonial.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className="p-12 rounded-2xl bg-white/5 border border-dashed border-white/10 text-center">
+            <Users className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+            <p className="text-gray-400 mb-2">Testimonios de usuarios</p>
+            <p className="text-gray-600 text-sm max-w-md mx-auto">
+              Aquí aparecerán las opiniones y testimonios de usuarios reales cuando tengamos feedback de la comunidad.
+            </p>
           </div>
         </div>
       </section>
@@ -438,7 +405,7 @@ export default function Home() {
               ¿Listo para empezar?
             </h2>
             <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-              Únete a más de 50,000 creadores que ya usan LinkForge para impulsar su presencia online.
+              Únete a los creadores que usan LinkForge para impulsar su presencia online.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

@@ -30,20 +30,20 @@ export default function LinksPage() {
     link.url.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!newTitle.trim() || !newUrl.trim()) {
       setError('Completa todos los campos');
       return;
     }
 
     try {
-      new URL(newUrl);
+      new URL(newUrl.startsWith('http') ? newUrl : `https://${newUrl}`);
     } catch {
       setError('URL no válida');
       return;
     }
 
-    const success = addLink(newTitle, newUrl);
+    const success = await addLink(newTitle, newUrl);
     if (success) {
       setNewTitle('');
       setNewUrl('');

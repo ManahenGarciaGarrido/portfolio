@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
-  BarChart3, TrendingUp, TrendingDown, Eye, MousePointer,
-  Globe, Smartphone, Monitor, Clock, Calendar, Crown,
-  ArrowUpRight, Users, MapPin, Link2
+  BarChart3, TrendingUp, Eye, MousePointer,
+  Globe, Smartphone, Monitor, Crown,
+  Users, MapPin, Link2, Clock
 } from 'lucide-react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import { useUserStore } from '@/store/userStore';
@@ -17,51 +17,22 @@ const periods = [
   { label: 'Este año', value: '1y' },
 ];
 
-const mockChartData = [
-  { day: 'Lun', views: 45, clicks: 12 },
-  { day: 'Mar', views: 52, clicks: 18 },
-  { day: 'Mié', views: 38, clicks: 8 },
-  { day: 'Jue', views: 65, clicks: 24 },
-  { day: 'Vie', views: 78, clicks: 32 },
-  { day: 'Sáb', views: 92, clicks: 41 },
-  { day: 'Dom', views: 85, clicks: 38 },
-];
-
-const mockCountries = [
-  { name: 'España', percentage: 45, flag: '🇪🇸' },
-  { name: 'México', percentage: 22, flag: '🇲🇽' },
-  { name: 'Argentina', percentage: 15, flag: '🇦🇷' },
-  { name: 'Colombia', percentage: 10, flag: '🇨🇴' },
-  { name: 'Otros', percentage: 8, flag: '🌍' },
-];
-
-const mockDevices = [
-  { name: 'Móvil', percentage: 68, icon: Smartphone },
-  { name: 'Desktop', percentage: 28, icon: Monitor },
-  { name: 'Tablet', percentage: 4, icon: Monitor },
-];
-
-const mockReferrers = [
-  { source: 'Instagram', visits: 234, percentage: 45 },
-  { source: 'Twitter', visits: 156, percentage: 30 },
-  { source: 'Directo', visits: 89, percentage: 17 },
-  { source: 'Otros', visits: 42, percentage: 8 },
-];
-
 export default function AnalyticsPage() {
-  const { user } = useUserStore();
+  const { user, checkAuth } = useUserStore();
   const [period, setPeriod] = useState('7d');
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   if (!user) return null;
 
-  const totalClicks = user.links.reduce((acc, link) => acc + link.clicks, 0);
+  const totalClicks = user.links.reduce((acc, link) => acc + (link.clicks || 0), 0);
   const totalViews = user.analytics?.totalViews || 0;
   const ctr = totalViews > 0 ? ((totalClicks / totalViews) * 100).toFixed(1) : '0';
 
-  const maxChartValue = Math.max(...mockChartData.map(d => d.views));
-
   const topLinks = [...user.links]
-    .sort((a, b) => b.clicks - a.clicks)
+    .sort((a, b) => (b.clicks || 0) - (a.clicks || 0))
     .slice(0, 5);
 
   if (!user.isPro) {
@@ -161,10 +132,6 @@ export default function AnalyticsPage() {
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center justify-between mb-4">
               <Eye className="w-8 h-8 text-blue-400" />
-              <span className="flex items-center gap-1 text-green-400 text-sm">
-                <TrendingUp className="w-4 h-4" />
-                +18%
-              </span>
             </div>
             <p className="text-3xl font-bold text-white">{totalViews.toLocaleString()}</p>
             <p className="text-gray-400 text-sm">Visitas totales</p>
@@ -173,10 +140,6 @@ export default function AnalyticsPage() {
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center justify-between mb-4">
               <MousePointer className="w-8 h-8 text-pink-400" />
-              <span className="flex items-center gap-1 text-green-400 text-sm">
-                <TrendingUp className="w-4 h-4" />
-                +12%
-              </span>
             </div>
             <p className="text-3xl font-bold text-white">{totalClicks.toLocaleString()}</p>
             <p className="text-gray-400 text-sm">Clicks totales</p>
@@ -185,10 +148,6 @@ export default function AnalyticsPage() {
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center justify-between mb-4">
               <BarChart3 className="w-8 h-8 text-purple-400" />
-              <span className="flex items-center gap-1 text-red-400 text-sm">
-                <TrendingDown className="w-4 h-4" />
-                -2%
-              </span>
             </div>
             <p className="text-3xl font-bold text-white">{ctr}%</p>
             <p className="text-gray-400 text-sm">Click-through rate</p>
@@ -197,48 +156,23 @@ export default function AnalyticsPage() {
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center justify-between mb-4">
               <Users className="w-8 h-8 text-green-400" />
-              <span className="flex items-center gap-1 text-green-400 text-sm">
-                <TrendingUp className="w-4 h-4" />
-                +25%
-              </span>
             </div>
-            <p className="text-3xl font-bold text-white">847</p>
-            <p className="text-gray-400 text-sm">Visitantes únicos</p>
+            <p className="text-3xl font-bold text-white">{user.links.length}</p>
+            <p className="text-gray-400 text-sm">Links activos</p>
           </div>
         </div>
 
-        {/* Chart */}
+        {/* Chart Placeholder */}
         <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
           <h2 className="text-lg font-semibold text-white mb-6">Visitas y Clicks</h2>
 
-          <div className="h-64 flex items-end gap-2">
-            {mockChartData.map((day, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-2">
-                <div className="w-full flex gap-1 h-48 items-end">
-                  <div
-                    className="flex-1 bg-blue-500/50 rounded-t-lg transition-all"
-                    style={{ height: `${(day.views / maxChartValue) * 100}%` }}
-                    title={`${day.views} visitas`}
-                  />
-                  <div
-                    className="flex-1 bg-pink-500/50 rounded-t-lg transition-all"
-                    style={{ height: `${(day.clicks / maxChartValue) * 100}%` }}
-                    title={`${day.clicks} clicks`}
-                  />
-                </div>
-                <span className="text-gray-500 text-xs">{day.day}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex gap-6 mt-4 justify-center">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-blue-500" />
-              <span className="text-gray-400 text-sm">Visitas</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded bg-pink-500" />
-              <span className="text-gray-400 text-sm">Clicks</span>
+          <div className="h-64 flex items-center justify-center border border-dashed border-white/10 rounded-xl">
+            <div className="text-center">
+              <Clock className="w-12 h-12 text-gray-600 mx-auto mb-3" />
+              <p className="text-gray-400 mb-2">Gráfico de tendencias</p>
+              <p className="text-gray-600 text-sm max-w-xs mx-auto">
+                Aquí aparecerá un gráfico con la evolución de visitas y clicks a lo largo del tiempo cuando tengas más datos.
+              </p>
             </div>
           </div>
         </div>
@@ -250,7 +184,13 @@ export default function AnalyticsPage() {
             <h2 className="text-lg font-semibold text-white mb-4">Top Links</h2>
             <div className="space-y-3">
               {topLinks.length === 0 ? (
-                <p className="text-gray-400 text-center py-4">No hay links todavía</p>
+                <div className="text-center py-8">
+                  <Link2 className="w-10 h-10 text-gray-600 mx-auto mb-3" />
+                  <p className="text-gray-400">No hay links todavía</p>
+                  <p className="text-gray-600 text-sm mt-1">
+                    Añade links para ver cuáles tienen más clicks
+                  </p>
+                </div>
               ) : (
                 topLinks.map((link, i) => (
                   <div key={link.id} className="flex items-center gap-3">
@@ -260,79 +200,58 @@ export default function AnalyticsPage() {
                     <div className="flex-1 min-w-0">
                       <p className="text-white truncate">{link.title}</p>
                     </div>
-                    <span className="text-gray-400">{link.clicks} clicks</span>
+                    <span className="text-gray-400">{link.clicks || 0} clicks</span>
                   </div>
                 ))
               )}
             </div>
           </div>
 
-          {/* Countries */}
+          {/* Countries Placeholder */}
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
             <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <MapPin className="w-5 h-5 text-purple-400" />
               Ubicación
             </h2>
-            <div className="space-y-3">
-              {mockCountries.map((country, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <span className="text-xl">{country.flag}</span>
-                  <div className="flex-1">
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-white">{country.name}</span>
-                      <span className="text-gray-400">{country.percentage}%</span>
-                    </div>
-                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-purple-500 rounded-full"
-                        style={{ width: `${country.percentage}%` }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className="h-48 flex items-center justify-center border border-dashed border-white/10 rounded-xl">
+              <div className="text-center">
+                <Globe className="w-10 h-10 text-gray-600 mx-auto mb-3" />
+                <p className="text-gray-400 mb-1">Datos de ubicación</p>
+                <p className="text-gray-600 text-sm max-w-xs">
+                  Aquí verás de qué países provienen tus visitas.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Devices */}
+          {/* Devices Placeholder */}
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
             <h2 className="text-lg font-semibold text-white mb-4">Dispositivos</h2>
-            <div className="space-y-4">
-              {mockDevices.map((device, i) => (
-                <div key={i} className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                    <device.icon className="w-5 h-5 text-purple-400" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-white">{device.name}</span>
-                      <span className="text-gray-400">{device.percentage}%</span>
-                    </div>
-                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
-                        style={{ width: `${device.percentage}%` }}
-                      />
-                    </div>
-                  </div>
+            <div className="h-48 flex items-center justify-center border border-dashed border-white/10 rounded-xl">
+              <div className="text-center">
+                <div className="flex justify-center gap-2 mb-3">
+                  <Smartphone className="w-8 h-8 text-gray-600" />
+                  <Monitor className="w-8 h-8 text-gray-600" />
                 </div>
-              ))}
+                <p className="text-gray-400 mb-1">Desglose por dispositivo</p>
+                <p className="text-gray-600 text-sm max-w-xs">
+                  Aquí verás si tus visitantes usan móvil, desktop o tablet.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Referrers */}
+          {/* Referrers Placeholder */}
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
             <h2 className="text-lg font-semibold text-white mb-4">Fuentes de Tráfico</h2>
-            <div className="space-y-3">
-              {mockReferrers.map((ref, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-white/5">
-                  <span className="text-white">{ref.source}</span>
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-400">{ref.visits} visitas</span>
-                    <span className="text-purple-400 font-medium">{ref.percentage}%</span>
-                  </div>
-                </div>
-              ))}
+            <div className="h-48 flex items-center justify-center border border-dashed border-white/10 rounded-xl">
+              <div className="text-center">
+                <TrendingUp className="w-10 h-10 text-gray-600 mx-auto mb-3" />
+                <p className="text-gray-400 mb-1">Origen del tráfico</p>
+                <p className="text-gray-600 text-sm max-w-xs">
+                  Aquí verás desde qué redes sociales o sitios llegan tus visitas.
+                </p>
+              </div>
             </div>
           </div>
         </div>

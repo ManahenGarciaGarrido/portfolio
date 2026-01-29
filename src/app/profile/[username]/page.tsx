@@ -4,25 +4,37 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Link2, ExternalLink, Loader2 } from 'lucide-react';
-import { getPublicProfile, useUserStore } from '@/store/userStore';
+import { getPublicProfile, recordLinkClick } from '@/store/userStore';
 import { getTheme } from '@/lib/themes';
-import { UserProfile } from '@/types';
+import { ThemeId } from '@/types';
+
+interface PublicProfile {
+  username: string;
+  displayName: string;
+  bio: string;
+  avatar: string;
+  theme: string;
+  isPro: boolean;
+  links: Array<{
+    id: string;
+    title: string;
+    url: string;
+    enabled: boolean;
+  }>;
+}
 
 export default function ProfilePage() {
   const params = useParams();
   const username = params.username as string;
-  const { incrementViews, incrementClicks } = useUserStore();
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [profile, setProfile] = useState<PublicProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    const loadProfile = () => {
-      const userProfile = getPublicProfile(username);
+    const loadProfile = async () => {
+      const userProfile = await getPublicProfile(username);
       if (userProfile) {
         setProfile(userProfile);
-        // Increment views
-        incrementViews(username);
       } else {
         setNotFound(true);
       }
@@ -30,10 +42,10 @@ export default function ProfilePage() {
     };
 
     loadProfile();
-  }, [username, incrementViews]);
+  }, [username]);
 
   const handleLinkClick = (linkId: string) => {
-    incrementClicks(linkId);
+    recordLinkClick(username, linkId);
   };
 
   if (loading) {
@@ -64,7 +76,7 @@ export default function ProfilePage() {
     );
   }
 
-  const theme = getTheme(profile.theme);
+  const theme = getTheme(profile.theme as ThemeId);
   const enabledLinks = profile.links.filter((link) => link.enabled);
 
   return (
@@ -72,11 +84,19 @@ export default function ProfilePage() {
       <div className="max-w-lg mx-auto">
         {/* Profile Header */}
         <div className="text-center mb-8">
-          <img
-            src={profile.avatar}
-            alt={profile.displayName}
-            className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white/20"
-          />
+          {profile.avatar ? (
+            <img
+              src={profile.avatar}
+              alt={profile.displayName}
+              className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white/20"
+            />
+          ) : (
+            <div className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white/20 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+              <span className="text-3xl font-bold text-white">
+                {profile.displayName.charAt(0).toUpperCase()}
+              </span>
+            </div>
+          )}
           <h1 className={`text-2xl font-bold ${theme.textColor} mb-1`}>
             {profile.displayName}
           </h1>

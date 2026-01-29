@@ -1,10 +1,11 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import {
   Link2, Eye, MousePointer, TrendingUp, Plus,
-  ArrowUpRight, Clock, Zap, Crown, BarChart3,
-  Palette, QrCode, Settings, ExternalLink
+  Clock, Zap, Crown, BarChart3,
+  Palette, QrCode, ExternalLink, AlertCircle
 } from 'lucide-react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import { useUserStore } from '@/store/userStore';
@@ -16,24 +17,29 @@ const quickActions = [
   { name: 'Generar QR', href: '/dashboard/qr', icon: QrCode, color: 'from-green-500 to-emerald-500' },
 ];
 
-const recentActivity = [
-  { type: 'view', message: 'Tu página recibió 12 visitas', time: 'Hace 5 min' },
-  { type: 'click', message: 'Alguien hizo click en "YouTube"', time: 'Hace 15 min' },
-  { type: 'view', message: 'Tu página recibió 8 visitas', time: 'Hace 1 hora' },
-  { type: 'click', message: 'Alguien hizo click en "Instagram"', time: 'Hace 2 horas' },
-];
-
 export default function DashboardPage() {
-  const { user } = useUserStore();
+  const { user, checkAuth, isLoading } = useUserStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   if (!user) return null;
 
-  const totalClicks = user.links.reduce((acc, link) => acc + link.clicks, 0);
+  const totalClicks = user.links.reduce((acc, link) => acc + (link.clicks || 0), 0);
   const totalViews = user.analytics?.totalViews || 0;
   const ctr = totalViews > 0 ? ((totalClicks / totalViews) * 100).toFixed(1) : '0';
 
   const topLinks = [...user.links]
-    .sort((a, b) => b.clicks - a.clicks)
+    .sort((a, b) => (b.clicks || 0) - (a.clicks || 0))
     .slice(0, 3);
 
   return (
@@ -67,10 +73,6 @@ export default function DashboardPage() {
               <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
                 <Eye className="w-5 h-5 text-blue-400" />
               </div>
-              <span className="flex items-center gap-1 text-green-400 text-xs">
-                <TrendingUp className="w-3 h-3" />
-                +12%
-              </span>
             </div>
             <p className="text-3xl font-bold text-white">{totalViews.toLocaleString()}</p>
             <p className="text-gray-500 text-sm mt-1">Visitas totales</p>
@@ -81,10 +83,6 @@ export default function DashboardPage() {
               <div className="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center">
                 <MousePointer className="w-5 h-5 text-pink-400" />
               </div>
-              <span className="flex items-center gap-1 text-green-400 text-xs">
-                <TrendingUp className="w-3 h-3" />
-                +8%
-              </span>
             </div>
             <p className="text-3xl font-bold text-white">{totalClicks.toLocaleString()}</p>
             <p className="text-gray-500 text-sm mt-1">Clicks totales</p>
@@ -164,7 +162,7 @@ export default function DashboardPage() {
                       <p className="text-gray-500 text-xs truncate">{link.url}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-white font-medium">{link.clicks}</p>
+                      <p className="text-white font-medium">{link.clicks || 0}</p>
                       <p className="text-gray-500 text-xs">clicks</p>
                     </div>
                   </div>
@@ -173,36 +171,18 @@ export default function DashboardPage() {
             )}
           </div>
 
-          {/* Recent Activity */}
+          {/* Activity Placeholder */}
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-white">Actividad reciente</h2>
-              <Link href="/dashboard/analytics" className="text-purple-400 text-sm hover:text-purple-300 transition">
-                Ver todo
-              </Link>
             </div>
 
-            <div className="space-y-4">
-              {recentActivity.map((activity, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                    activity.type === 'view' ? 'bg-blue-500/20' : 'bg-pink-500/20'
-                  }`}>
-                    {activity.type === 'view' ? (
-                      <Eye className="w-4 h-4 text-blue-400" />
-                    ) : (
-                      <MousePointer className="w-4 h-4 text-pink-400" />
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-gray-300 text-sm">{activity.message}</p>
-                    <p className="text-gray-600 text-xs flex items-center gap-1 mt-1">
-                      <Clock className="w-3 h-3" />
-                      {activity.time}
-                    </p>
-                  </div>
-                </div>
-              ))}
+            <div className="text-center py-8">
+              <Clock className="w-10 h-10 text-gray-600 mx-auto mb-3" />
+              <p className="text-gray-400 mb-2">Actividad en tiempo real</p>
+              <p className="text-gray-600 text-sm">
+                Aquí aparecerán las visitas y clicks a tu página en tiempo real.
+              </p>
             </div>
           </div>
         </div>

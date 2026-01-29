@@ -1,286 +1,269 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { v4 as uuidv4 } from 'uuid';
 import { UserProfile, Link, ThemeId, Analytics } from '@/types';
 
 interface UserState {
   user: UserProfile | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  error: string | null;
 
   // Auth actions
   login: (email: string, password: string) => Promise<boolean>;
   register: (email: string, password: string, username: string) => Promise<boolean>;
-  logout: () => void;
+  logout: () => Promise<void>;
+  checkAuth: () => Promise<void>;
 
   // Profile actions
-  updateProfile: (updates: Partial<UserProfile>) => void;
-  setTheme: (theme: ThemeId) => void;
+  updateProfile: (updates: Partial<UserProfile>) => Promise<void>;
+  setTheme: (theme: ThemeId) => Promise<void>;
 
   // Link actions
-  addLink: (title: string, url: string) => boolean;
-  updateLink: (id: string, updates: Partial<Link>) => void;
-  deleteLink: (id: string) => void;
-  reorderLinks: (links: Link[]) => void;
-  toggleLink: (id: string) => void;
+  addLink: (title: string, url: string) => Promise<boolean>;
+  updateLink: (id: string, updates: Partial<Link>) => Promise<void>;
+  deleteLink: (id: string) => Promise<void>;
+  toggleLink: (id: string) => Promise<void>;
 
-  // Pro actions
+  // Pro actions (redirect to upgrade page)
   upgradeToPro: () => void;
-  downgradeFromPro: () => void;
 
-  // Analytics
-  incrementViews: (username: string) => void;
-  incrementClicks: (linkId: string) => void;
+  // Clear error
+  clearError: () => void;
 }
 
-const MAX_FREE_LINKS = 5;
+export const useUserStore = create<UserState>()((set, get) => ({
+  user: null,
+  isAuthenticated: false,
+  isLoading: true,
+  error: null,
 
-const createEmptyAnalytics = (): Analytics => ({
-  totalViews: 0,
-  totalClicks: 0,
-  viewsByDay: [],
-  clicksByLink: [],
-});
+  clearError: () => set({ error: null }),
 
-const createDefaultUser = (email: string, username: string): UserProfile => ({
-  id: uuidv4(),
-  username: username.toLowerCase().replace(/[^a-z0-9]/g, ''),
-  email,
-  displayName: username,
-  bio: '',
-  avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${username}`,
-  theme: 'minimal-light',
-  links: [],
-  isPro: false,
-  createdAt: new Date(),
-  analytics: createEmptyAnalytics(),
-});
+  checkAuth: async () => {
+    try {
+      set({ isLoading: true });
+      const res = await fetch('/api/auth/me');
 
-// Simulated user database for demo (localStorage)
-const getUsersDB = (): Record<string, { user: UserProfile; password: string }> => {
-  if (typeof window === 'undefined') return {};
-  const data = localStorage.getItem('linkforge-users-db');
-  return data ? JSON.parse(data) : {};
-};
-
-const saveUsersDB = (db: Record<string, { user: UserProfile; password: string }>) => {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem('linkforge-users-db', JSON.stringify(db));
-};
-
-export const useUserStore = create<UserState>()(
-  persist(
-    (set, get) => ({
-      user: null,
-      isAuthenticated: false,
-      isLoading: false,
-
-      login: async (email: string, password: string) => {
-        set({ isLoading: true });
-        await new Promise((r) => setTimeout(r, 500)); // Simulate API call
-
-        const db = getUsersDB();
-        const userEntry = Object.values(db).find(
-          (entry) => entry.user.email === email && entry.password === password
-        );
-
-        if (userEntry) {
-          set({ user: userEntry.user, isAuthenticated: true, isLoading: false });
-          return true;
-        }
-
-        set({ isLoading: false });
-        return false;
-      },
-
-      register: async (email: string, password: string, username: string) => {
-        set({ isLoading: true });
-        await new Promise((r) => setTimeout(r, 500)); // Simulate API call
-
-        const db = getUsersDB();
-        const normalizedUsername = username.toLowerCase().replace(/[^a-z0-9]/g, '');
-
-        // Check if email or username already exists
-        const exists = Object.values(db).some(
-          (entry) =>
-            entry.user.email === email || entry.user.username === normalizedUsername
-        );
-
-        if (exists) {
-          set({ isLoading: false });
-          return false;
-        }
-
-        const newUser = createDefaultUser(email, username);
-        db[newUser.id] = { user: newUser, password };
-        saveUsersDB(db);
-
-        set({ user: newUser, isAuthenticated: true, isLoading: false });
-        return true;
-      },
-
-      logout: () => {
-        set({ user: null, isAuthenticated: false });
-      },
-
-      updateProfile: (updates: Partial<UserProfile>) => {
-        const { user } = get();
-        if (!user) return;
-
-        const updatedUser = { ...user, ...updates };
-        set({ user: updatedUser });
-
-        // Also update in DB
-        const db = getUsersDB();
-        if (db[user.id]) {
-          db[user.id].user = updatedUser;
-          saveUsersDB(db);
-        }
-      },
-
-      setTheme: (theme: ThemeId) => {
-        get().updateProfile({ theme });
-      },
-
-      addLink: (title: string, url: string) => {
-        const { user } = get();
-        if (!user) return false;
-
-        if (!user.isPro && user.links.length >= MAX_FREE_LINKS) {
-          return false;
-        }
-
-        const newLink: Link = {
-          id: uuidv4(),
-          title,
-          url: url.startsWith('http') ? url : `https://${url}`,
-          clicks: 0,
-          enabled: true,
-          createdAt: new Date(),
-        };
-
-        get().updateProfile({ links: [...user.links, newLink] });
-        return true;
-      },
-
-      updateLink: (id: string, updates: Partial<Link>) => {
-        const { user } = get();
-        if (!user) return;
-
-        const updatedLinks = user.links.map((link) =>
-          link.id === id ? { ...link, ...updates } : link
-        );
-        get().updateProfile({ links: updatedLinks });
-      },
-
-      deleteLink: (id: string) => {
-        const { user } = get();
-        if (!user) return;
-
-        get().updateProfile({ links: user.links.filter((link) => link.id !== id) });
-      },
-
-      reorderLinks: (links: Link[]) => {
-        get().updateProfile({ links });
-      },
-
-      toggleLink: (id: string) => {
-        const { user } = get();
-        if (!user) return;
-
-        const updatedLinks = user.links.map((link) =>
-          link.id === id ? { ...link, enabled: !link.enabled } : link
-        );
-        get().updateProfile({ links: updatedLinks });
-      },
-
-      upgradeToPro: () => {
-        get().updateProfile({ isPro: true });
-      },
-
-      downgradeFromPro: () => {
-        get().updateProfile({ isPro: false });
-      },
-
-      incrementViews: (username: string) => {
-        const db = getUsersDB();
-        const userEntry = Object.values(db).find(
-          (entry) => entry.user.username === username
-        );
-        if (!userEntry) return;
-
-        const today = new Date().toISOString().split('T')[0];
-        const analytics = userEntry.user.analytics || createEmptyAnalytics();
-
-        analytics.totalViews += 1;
-
-        const todayEntry = analytics.viewsByDay.find((v) => v.date === today);
-        if (todayEntry) {
-          todayEntry.views += 1;
-        } else {
-          analytics.viewsByDay.push({ date: today, views: 1 });
-        }
-
-        // Keep only last 30 days
-        analytics.viewsByDay = analytics.viewsByDay.slice(-30);
-
-        userEntry.user.analytics = analytics;
-        db[userEntry.user.id] = userEntry;
-        saveUsersDB(db);
-
-        // Update current user if it's the same
-        const { user } = get();
-        if (user && user.username === username) {
-          set({ user: { ...user, analytics } });
-        }
-      },
-
-      incrementClicks: (linkId: string) => {
-        const { user } = get();
-        if (!user) return;
-
-        const analytics = user.analytics || createEmptyAnalytics();
-        analytics.totalClicks += 1;
-
-        const clickEntry = analytics.clicksByLink.find((c) => c.linkId === linkId);
-        if (clickEntry) {
-          clickEntry.clicks += 1;
-        } else {
-          analytics.clicksByLink.push({ linkId, clicks: 1 });
-        }
-
-        // Also update link's own click count
-        const updatedLinks = user.links.map((link) =>
-          link.id === linkId ? { ...link, clicks: link.clicks + 1 } : link
-        );
-
-        const updatedUser = { ...user, analytics, links: updatedLinks };
-        set({ user: updatedUser });
-
-        // Update in DB
-        const db = getUsersDB();
-        if (db[user.id]) {
-          db[user.id].user = updatedUser;
-          saveUsersDB(db);
-        }
-      },
-    }),
-    {
-      name: 'linkforge-storage',
-      partialize: (state) => ({
-        user: state.user,
-        isAuthenticated: state.isAuthenticated,
-      }),
+      if (res.ok) {
+        const data = await res.json();
+        set({ user: data.user, isAuthenticated: true, isLoading: false });
+      } else {
+        set({ user: null, isAuthenticated: false, isLoading: false });
+      }
+    } catch {
+      set({ user: null, isAuthenticated: false, isLoading: false });
     }
-  )
-);
+  },
 
-// Helper to get public profile (for profile pages)
-export const getPublicProfile = (username: string): UserProfile | null => {
-  if (typeof window === 'undefined') return null;
-  const db = getUsersDB();
-  const userEntry = Object.values(db).find(
-    (entry) => entry.user.username === username.toLowerCase()
-  );
-  return userEntry?.user || null;
-};
+  login: async (email: string, password: string) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        set({ isLoading: false, error: data.error });
+        return false;
+      }
+
+      // Fetch full user data
+      await get().checkAuth();
+      return true;
+    } catch {
+      set({ isLoading: false, error: 'Error de conexión' });
+      return false;
+    }
+  },
+
+  register: async (email: string, password: string, username: string) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, username, displayName: username }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        set({ isLoading: false, error: data.error });
+        return false;
+      }
+
+      // Fetch full user data
+      await get().checkAuth();
+      return true;
+    } catch {
+      set({ isLoading: false, error: 'Error de conexión' });
+      return false;
+    }
+  },
+
+  logout: async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } finally {
+      set({ user: null, isAuthenticated: false });
+    }
+  },
+
+  updateProfile: async (updates: Partial<UserProfile>) => {
+    const { user } = get();
+    if (!user) return;
+
+    // Optimistic update
+    set({ user: { ...user, ...updates } });
+
+    try {
+      const res = await fetch('/api/user', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates),
+      });
+
+      if (!res.ok) {
+        // Revert on error
+        await get().checkAuth();
+      }
+    } catch {
+      // Revert on error
+      await get().checkAuth();
+    }
+  },
+
+  setTheme: async (theme: ThemeId) => {
+    await get().updateProfile({ theme });
+  },
+
+  addLink: async (title: string, url: string) => {
+    const { user } = get();
+    if (!user) return false;
+
+    set({ error: null });
+
+    try {
+      const res = await fetch('/api/links', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title,
+          url: url.startsWith('http') ? url : `https://${url}`
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        set({ error: data.error });
+        return false;
+      }
+
+      // Add new link to state
+      set({
+        user: {
+          ...user,
+          links: [...user.links, data.link]
+        }
+      });
+      return true;
+    } catch {
+      set({ error: 'Error al añadir link' });
+      return false;
+    }
+  },
+
+  updateLink: async (id: string, updates: Partial<Link>) => {
+    const { user } = get();
+    if (!user) return;
+
+    // Optimistic update
+    const updatedLinks = user.links.map((link) =>
+      link.id === id ? { ...link, ...updates } : link
+    );
+    set({ user: { ...user, links: updatedLinks } });
+
+    try {
+      const res = await fetch('/api/links', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, ...updates }),
+      });
+
+      if (!res.ok) {
+        // Revert on error
+        await get().checkAuth();
+      }
+    } catch {
+      // Revert on error
+      await get().checkAuth();
+    }
+  },
+
+  deleteLink: async (id: string) => {
+    const { user } = get();
+    if (!user) return;
+
+    // Optimistic update
+    set({ user: { ...user, links: user.links.filter((link) => link.id !== id) } });
+
+    try {
+      const res = await fetch(`/api/links?id=${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) {
+        // Revert on error
+        await get().checkAuth();
+      }
+    } catch {
+      // Revert on error
+      await get().checkAuth();
+    }
+  },
+
+  toggleLink: async (id: string) => {
+    const { user } = get();
+    if (!user) return;
+
+    const link = user.links.find((l) => l.id === id);
+    if (!link) return;
+
+    await get().updateLink(id, { enabled: !link.enabled });
+  },
+
+  upgradeToPro: () => {
+    // Redirect handled in UI
+  },
+}));
+
+// Helper function to get public profile (used in profile page)
+export async function getPublicProfile(username: string) {
+  try {
+    const res = await fetch(`/api/profile/${username}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.profile;
+  } catch {
+    return null;
+  }
+}
+
+// Helper function to record link click
+export async function recordLinkClick(username: string, linkId: string) {
+  try {
+    await fetch(`/api/profile/${username}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ linkId }),
+    });
+  } catch {
+    // Silently fail
+  }
+}
