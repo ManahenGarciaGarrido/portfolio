@@ -928,7 +928,63 @@ const articles: Record<string, ArticleContent> = {
 const slugToArticle: Record<string, string> = {
   // Direct mappings
   ...Object.keys(articles).reduce((acc, key) => ({ ...acc, [key]: key }), {}),
-  // Alternative slugs
+  // Primeros Pasos
+  'primera-pagina': 'crear-cuenta',
+  'anadir-links': 'agregar-enlaces',
+  'compartir-pagina': 'crear-cuenta',
+  // Facturación
+  'planes': 'cambiar-plan',
+  'actualizar-plan': 'cambiar-plan',
+  'cancelar': 'cancelar-suscripcion',
+  'reembolsos': 'cancelar-suscripcion',
+  // Personalización
+  'cambiar-tema': 'elegir-tema',
+  'colores': 'css-personalizado',
+  'foto-perfil': 'personalizar-perfil',
+  'bio': 'personalizar-perfil',
+  'fondos': 'fondos-animados',
+  // Links
+  'tipos-links': 'tipos-enlaces',
+  'programar-links': 'programar-enlaces',
+  'links-privados': 'tipos-enlaces',
+  'redirecciones': 'enlaces-inteligentes',
+  'deep-links': 'enlaces-inteligentes',
+  // Analytics
+  'entender-analytics': 'analytics-basico',
+  'metricas': 'analytics-basico',
+  'exportar': 'exportar-datos',
+  'google-analytics': 'integraciones-analytics',
+  'conversiones': 'analytics-avanzado',
+  // Dominios
+  'configurar-dominio': 'dominio-personalizado',
+  'dns': 'dns-configuracion',
+  'ssl': 'dominio-personalizado',
+  'subdominios': 'dominio-personalizado',
+  'problemas-dominio': 'dns-configuracion',
+  // Integraciones
+  'integraciones-disponibles': 'integraciones-zapier',
+  'mailchimp': 'integraciones-zapier',
+  'stripe': 'integraciones-zapier',
+  'webhooks': 'webhooks-configurar',
+  'zapier': 'integraciones-zapier',
+  // API
+  'api-intro': 'api-introduccion',
+  'api-auth': 'api-introduccion',
+  'api-endpoints': 'api-introduccion',
+  'api-limits': 'api-introduccion',
+  'api-sdks': 'api-introduccion',
+  // Seguridad
+  '2fa': 'seguridad-cuenta',
+  'cambiar-password': 'cambiar-contrasena',
+  'sesiones': 'seguridad-cuenta',
+  'privacidad': 'seguridad-cuenta',
+  'reportar': 'reportar-bug',
+  // Equipos
+  'crear-equipo': 'facturacion-empresas',
+  'invitar': 'facturacion-empresas',
+  'roles': 'facturacion-empresas',
+  'facturacion-equipos': 'facturacion-empresas',
+  // English alternatives
   'getting-started': 'crear-cuenta',
   'customize-profile': 'personalizar-perfil',
   'add-links': 'agregar-enlaces',
@@ -952,11 +1008,8 @@ const slugToArticle: Record<string, string> = {
   'animated-backgrounds': 'fondos-animados',
   'custom-domain': 'dominio-personalizado',
   'dns-setup': 'dns-configuracion',
-  'api-intro': 'api-introduccion',
   'setup-webhooks': 'webhooks-configurar',
-  'google-analytics': 'integraciones-analytics',
   'meta-pixel': 'integraciones-pixel',
-  'zapier': 'integraciones-zapier',
   'contact-support': 'contactar-soporte',
   'report-bug': 'reportar-bug',
   'service-status': 'estado-servicio',

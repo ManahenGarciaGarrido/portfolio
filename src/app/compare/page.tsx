@@ -309,28 +309,34 @@ export default function ComparePage() {
         </div>
       </section>
 
-      {/* Testimonial */}
+      {/* Try It Section */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-3xl p-8 md:p-12 border border-purple-500/30 text-center">
-            <div className="flex justify-center gap-1 mb-6">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />
-              ))}
+            <div className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center mx-auto mb-6">
+              <Zap className="w-8 h-8 text-purple-400" />
             </div>
-            <blockquote className="text-xl md:text-2xl text-white mb-6">
-              &ldquo;Cambié de Linktree a LinkForge y estoy pagando menos por más funcionalidades. Los analytics avanzados me han ayudado a entender mejor a mi audiencia.&rdquo;
-            </blockquote>
-            <div className="flex items-center justify-center gap-3">
-              <img
-                src="https://api.dicebear.com/7.x/avataaars/svg?seed=reviewer"
-                alt="Reviewer"
-                className="w-12 h-12 rounded-full"
-              />
-              <div className="text-left">
-                <p className="text-white font-medium">Sara González</p>
-                <p className="text-gray-400 text-sm">Influencer de Lifestyle • 50K seguidores</p>
-              </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              Pruébalo tú mismo
+            </h2>
+            <p className="text-gray-300 mb-6 max-w-xl mx-auto">
+              La mejor forma de comparar es probar. Crea tu cuenta gratuita y descubre
+              por qué LinkForge ofrece la mejor relación calidad-precio del mercado.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                href="/auth/register"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-600 hover:to-pink-600 transition"
+              >
+                Empezar Gratis
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center gap-2 bg-white/10 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition border border-white/20"
+              >
+                Ver Precios
+              </Link>
             </div>
           </div>
         </div>

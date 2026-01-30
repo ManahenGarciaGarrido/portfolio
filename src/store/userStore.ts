@@ -33,7 +33,7 @@ interface UserState {
 export const useUserStore = create<UserState>()((set, get) => ({
   user: null,
   isAuthenticated: false,
-  isLoading: true,
+  isLoading: false,
   error: null,
 
   clearError: () => set({ error: null }),
