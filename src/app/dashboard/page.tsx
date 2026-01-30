@@ -1,11 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
 import Link from 'next/link';
 import {
-  Link2, Eye, MousePointer, TrendingUp, Plus,
+  Link2, Eye, MousePointer, Plus,
   Clock, Zap, Crown, BarChart3,
-  Palette, QrCode, ExternalLink, AlertCircle
+  Palette, QrCode, ExternalLink
 } from 'lucide-react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import { useUserStore } from '@/store/userStore';
@@ -18,20 +17,9 @@ const quickActions = [
 ];
 
 export default function DashboardPage() {
-  const { user, checkAuth, isLoading } = useUserStore();
+  const { user } = useUserStore();
 
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
-
+  // DashboardLayout already handles auth check and loading state
   if (!user) return null;
 
   const totalClicks = user.links.reduce((acc, link) => acc + (link.clicks || 0), 0);
