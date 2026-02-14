@@ -1,299 +1,319 @@
-'use client';
+'use client'
 
-import { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Bed, Bath, Square, MapPin, Search, ArrowRight, Phone } from 'lucide-react';
-import DemoNavBar from '@/components/demos/DemoNavBar';
-import { staggerContainer, fadeUp } from '@/lib/animations';
+import { motion, useInView } from 'framer-motion'
+import { useRef, useState } from 'react'
+import Link from 'next/link'
 
-const NAVY = '#001a4d';
-const GOLD = '#c9a227';
+const gold = '#c9a227'
+const navy = '#001a4d'
+
+function StatCard({ number, label }: { number: string; label: string }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true })
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6 }}
+      style={{ textAlign: 'center', padding: '2rem' }}
+    >
+      <div style={{ fontSize: '3.5rem', fontWeight: 900, color: gold, lineHeight: 1 }}>{number}</div>
+      <div style={{ fontSize: '1.1rem', color: navy, fontWeight: 600, marginTop: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{label}</div>
+    </motion.div>
+  )
+}
 
 const properties = [
-  { type: 'Ático', zone: 'Centro', beds: 3, baths: 2, area: 120, price: '€380.000', badge: 'NUEVO', grad: 'linear-gradient(160deg, #e8edf5, #d0dae8)' },
-  { type: 'Piso', zone: 'Salamanca', beds: 4, baths: 3, area: 180, price: '€620.000', badge: 'PRECIO REDUCIDO', grad: 'linear-gradient(160deg, #dde4f0, #c8d4e8)' },
-  { type: 'Casa', zone: 'Norte', beds: 5, baths: 4, area: 350, price: '€890.000', badge: 'EXCLUSIVA', grad: 'linear-gradient(160deg, #e4eaf5, #d4dced)' },
-  { type: 'Piso', zone: 'Sur', beds: 2, baths: 1, area: 75, price: '€195.000', badge: null, grad: 'linear-gradient(160deg, #eaeef6, #dde4ee)' },
-  { type: 'Ático', zone: 'Este', beds: 2, baths: 2, area: 90, price: '€265.000', badge: 'NUEVO', grad: 'linear-gradient(160deg, #e0e8f4, #cdd7e8)' },
-  { type: 'Local', zone: 'Centro', beds: 0, baths: 1, area: 200, price: '€450.000', badge: null, grad: 'linear-gradient(160deg, #e8eef6, #d8e0ec)' },
-];
+  { id: 1, seed: 'property1', type: 'Ático', address: 'Calle Serrano 42, Salamanca', beds: 3, baths: 2, sqm: 180, price: '1.250.000 €', badge: 'EXCLUSIVA' },
+  { id: 2, seed: 'property2', type: 'Piso', address: 'Paseo de Gracia 88, Eixample', beds: 4, baths: 3, sqm: 220, price: '980.000 €', badge: 'NUEVO' },
+  { id: 3, seed: 'property3', type: 'Casa', address: 'Urb. La Moraleja, Alcobendas', beds: 5, baths: 4, sqm: 450, price: '2.100.000 €', badge: 'PRECIO REDUCIDO' },
+  { id: 4, seed: 'property4', type: 'Piso', address: 'Gran Vía 60, Madrid Centro', beds: 2, baths: 1, sqm: 95, price: '420.000 €', badge: 'OPORTUNIDAD' },
+]
 
-const filterTypes = ['Todos', 'Piso', 'Casa', 'Ático', 'Local'];
-const filterZones = ['Todas', 'Centro', 'Norte', 'Sur', 'Este', 'Salamanca'];
-
-export default function InmobiliariaPage() {
-  const [typeFilter, setTypeFilter] = useState('Todos');
-  const [zoneFilter, setZoneFilter] = useState('Todas');
-  const propsRef = useRef(null);
-  const propsInView = useInView(propsRef, { once: true, margin: '-80px' });
-
-  const filtered = properties.filter(p =>
-    (typeFilter === 'Todos' || p.type === typeFilter) &&
-    (zoneFilter === 'Todas' || p.zone === zoneFilter)
-  );
-
+function PropertyCard({ prop, index }: { prop: typeof properties[0]; index: number }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true })
+  const [hovered, setHovered] = useState(false)
   return (
-    <div style={{ background: '#fff', color: NAVY, fontFamily: 'sans-serif' }}>
-      <DemoNavBar siteName="Inmobiliaria Arco" sector="agencia inmobiliaria" />
-
-      {/* ── HERO ── */}
-      <section className="relative min-h-screen grid md:grid-cols-5 overflow-hidden pt-12">
-        {/* Left: Navy */}
-        <div className="md:col-span-3 flex items-center px-8 md:px-16 py-20" style={{ background: NAVY }}>
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <p className="uppercase tracking-[0.3em] text-xs mb-4" style={{ color: GOLD }}>
-              Propiedades Exclusivas
-            </p>
-            <h1
-              className="font-black leading-tight text-white mb-6"
-              style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
-            >
-              ENCUENTRA<br />TU HOGAR IDEAL
-            </h1>
-            <p className="text-white/50 text-lg mb-8 max-w-lg">
-              Más de 500 propiedades seleccionadas. Expertos locales, resultados excepcionales.
-            </p>
-
-            {/* Search bar */}
-            <div className="bg-white rounded-xl p-4 flex flex-col sm:flex-row gap-3">
-              <input
-                type="text"
-                placeholder="Ciudad, barrio o dirección..."
-                className="flex-1 bg-transparent text-sm px-2 focus:outline-none"
-                style={{ color: NAVY }}
-              />
-              <select
-                className="bg-transparent text-sm focus:outline-none border-l border-gray-200 pl-3"
-                style={{ color: NAVY }}
-              >
-                <option>Tipo de propiedad</option>
-                <option>Piso</option>
-                <option>Casa</option>
-                <option>Ático</option>
-                <option>Local</option>
-              </select>
-              <button
-                className="flex items-center gap-2 px-6 py-3 font-bold text-sm text-white rounded-lg hover:opacity-90 transition-opacity"
-                style={{ background: GOLD }}
-              >
-                <Search size={16} />
-                BUSCAR
-              </button>
-            </div>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: '#fff',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        boxShadow: hovered ? '0 20px 60px rgba(0,26,77,0.18)' : '0 4px 20px rgba(0,26,77,0.08)',
+        transition: 'box-shadow 0.3s',
+        cursor: 'pointer',
+      }}
+    >
+      <div style={{ position: 'relative', overflow: 'hidden' }}>
+        <motion.img
+          src={`https://picsum.photos/seed/${prop.seed}/700/480`}
+          alt={prop.address}
+          style={{ objectFit: 'cover', height: '240px', width: '100%', display: 'block' }}
+          animate={{ scale: hovered ? 1.05 : 1 }}
+          transition={{ duration: 0.4 }}
+        />
+        <span style={{
+          position: 'absolute', top: '1rem', left: '1rem',
+          background: gold, color: '#fff', fontSize: '0.7rem', fontWeight: 800,
+          padding: '0.3rem 0.75rem', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.08em',
+        }}>{prop.badge}</span>
+        <span style={{
+          position: 'absolute', top: '1rem', right: '1rem',
+          background: 'rgba(0,26,77,0.85)', color: '#fff', fontSize: '0.75rem', fontWeight: 700,
+          padding: '0.3rem 0.75rem', borderRadius: '20px',
+        }}>{prop.type}</span>
+      </div>
+      <div style={{ padding: '1.5rem' }}>
+        <p style={{ color: navy + '88', fontSize: '0.8rem', marginBottom: '0.3rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{prop.address}</p>
+        <div style={{ display: 'flex', gap: '1.5rem', margin: '0.75rem 0', color: navy + 'aa', fontSize: '0.85rem' }}>
+          <span>🛏 {prop.beds} hab.</span>
+          <span>🚿 {prop.baths} baños</span>
+          <span>📐 {prop.sqm} m²</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '1rem' }}>
+          <span style={{ fontSize: '1.5rem', fontWeight: 900, color: navy }}>{prop.price}</span>
+          <motion.div animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : 10 }} transition={{ duration: 0.2 }}>
+            <Link href={`/demos/inmobiliaria/propiedades/${prop.id}`} style={{
+              background: gold, color: '#fff', fontSize: '0.75rem', fontWeight: 800,
+              padding: '0.6rem 1.25rem', borderRadius: '6px', textDecoration: 'none',
+              textTransform: 'uppercase', letterSpacing: '0.08em', display: 'inline-block',
+            }}>VER PROPIEDAD</Link>
           </motion.div>
         </div>
+      </div>
+    </motion.div>
+  )
+}
 
-        {/* Right: Property mosaic */}
-        <motion.div
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="md:col-span-2 grid grid-cols-2 gap-2 p-4"
-          style={{ background: '#f0f4f8' }}
-        >
-          {properties.slice(0, 4).map((p, i) => (
-            <div
-              key={i}
-              className="rounded-xl overflow-hidden"
-              style={{ background: p.grad, aspectRatio: '1/1' }}
-            >
-              <div className="h-full p-3 flex flex-col justify-end">
-                <p className="text-xs font-bold" style={{ color: NAVY }}>{p.type} · {p.zone}</p>
-                <p className="text-sm font-black" style={{ color: NAVY }}>{p.price}</p>
-              </div>
-            </div>
-          ))}
-        </motion.div>
+const services = [
+  { icon: '🏠', title: 'Compra', desc: 'Te acompañamos en cada paso de la compra de tu vivienda. Asesoramiento legal, financiero y técnico personalizado para que tomes la mejor decisión.' },
+  { icon: '💰', title: 'Venta', desc: 'Maximizamos el valor de tu propiedad con estrategias de marketing digital, fotografía profesional y una red de compradores cualificados.' },
+  { icon: '🔑', title: 'Alquiler', desc: 'Gestión integral de alquileres: selección de inquilinos, contratos, seguros de impago y mantenimiento. Tu tranquilidad, garantizada.' },
+]
+
+const testimonials = [
+  {
+    name: 'Carmen Rodríguez',
+    role: 'Compradora, Madrid',
+    avatar: 'https://picsum.photos/seed/client-realty1/80/80',
+    text: 'El equipo de Arco nos ayudó a encontrar el piso de nuestros sueños en Salamanca. Su profesionalidad y dedicación fueron excepcionales. ¡Muy recomendables!',
+    rating: 5,
+  },
+  {
+    name: 'Javier Morales',
+    role: 'Vendedor, Barcelona',
+    avatar: 'https://picsum.photos/seed/client-realty2/80/80',
+    text: 'Vendí mi apartamento en tiempo récord y por encima del precio de mercado. La estrategia de marketing que implementaron fue impresionante. Resultados que hablan solos.',
+    rating: 5,
+  },
+]
+
+export default function InmobiliariaHome() {
+  return (
+    <main style={{ background: '#ffffff', minHeight: '100vh', fontFamily: 'Georgia, serif' }}>
+
+      {/* HERO */}
+      <section style={{ position: 'relative', height: '100vh', minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <img
+          src="https://picsum.photos/seed/luxury-home/1400/800"
+          alt="Luxury home"
+          style={{ objectFit: 'cover', position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,26,77,0.65) 0%, rgba(0,26,77,0.5) 100%)' }} />
+        <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', padding: '0 1.5rem', maxWidth: '800px' }}>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            style={{ display: 'inline-block', background: gold, color: '#fff', fontSize: '0.75rem', fontWeight: 800, padding: '0.4rem 1.25rem', borderRadius: '20px', marginBottom: '1.5rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}
+          >
+            Desde 2002 · Agencia Premium
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            style={{ fontSize: 'clamp(2.2rem, 6vw, 4.5rem)', fontWeight: 900, color: '#ffffff', lineHeight: 1.05, marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '-0.02em' }}
+          >
+            ENCUENTRA TU<br /><span style={{ color: gold }}>HOGAR IDEAL</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.15rem', marginBottom: '2.5rem', fontStyle: 'italic' }}
+          >
+            Más de 500 propiedades exclusivas en las mejores ubicaciones de España
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45 }}
+            style={{
+              background: 'rgba(255,255,255,0.97)',
+              borderRadius: '12px',
+              padding: '1.25rem 1.5rem',
+              display: 'flex',
+              gap: '0.75rem',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
+            }}
+          >
+            <input
+              type="text"
+              placeholder="📍 Localización, barrio o ciudad..."
+              style={{ flex: 2, minWidth: '180px', border: '1.5px solid #e5e7eb', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.9rem', color: navy, outline: 'none', fontFamily: 'Georgia, serif' }}
+            />
+            <select style={{ flex: 1, minWidth: '130px', border: '1.5px solid #e5e7eb', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.9rem', color: navy, outline: 'none', background: '#fff' }}>
+              <option>Tipo de propiedad</option>
+              <option>Piso</option>
+              <option>Casa / Chalet</option>
+              <option>Ático</option>
+              <option>Local Comercial</option>
+            </select>
+            <select style={{ flex: 1, minWidth: '130px', border: '1.5px solid #e5e7eb', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.9rem', color: navy, outline: 'none', background: '#fff' }}>
+              <option>Precio máximo</option>
+              <option>Hasta 200.000 €</option>
+              <option>Hasta 500.000 €</option>
+              <option>Hasta 1.000.000 €</option>
+              <option>Sin límite</option>
+            </select>
+            <button style={{
+              background: gold, color: '#fff', fontWeight: 800, fontSize: '0.9rem',
+              padding: '0.75rem 2rem', borderRadius: '8px', border: 'none', cursor: 'pointer',
+              textTransform: 'uppercase', letterSpacing: '0.1em', whiteSpace: 'nowrap',
+              fontFamily: 'Georgia, serif',
+            }}>
+              BUSCAR
+            </button>
+          </motion.div>
+        </div>
+        <div style={{ position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)', zIndex: 2 }}>
+          <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Infinity, duration: 2 }} style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.5rem' }}>↓</motion.div>
+        </div>
       </section>
 
-      {/* ── FILTERS ── */}
-      <section className="py-8 px-6 border-b border-gray-100" style={{ background: '#f9fafb' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-wrap gap-4 items-center">
-            <span className="font-semibold text-sm" style={{ color: NAVY }}>Tipo:</span>
-            {filterTypes.map(f => (
-              <button
-                key={f}
-                onClick={() => setTypeFilter(f)}
-                className="px-4 py-1.5 rounded-full text-xs font-bold border transition-all"
+      {/* STATS */}
+      <section style={{ background: '#f9f7f2', borderTop: `4px solid ${gold}`, borderBottom: `1px solid #e8e0d0` }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+          <StatCard number="500+" label="Propiedades" />
+          <div style={{ borderLeft: `1px solid #e8e0d0`, borderRight: `1px solid #e8e0d0` }}>
+            <StatCard number="20 Años" label="de Experiencia" />
+          </div>
+          <StatCard number="98%" label="Satisfacción" />
+        </div>
+      </section>
+
+      {/* FEATURED PROPERTIES */}
+      <section style={{ padding: '5rem 1.5rem', maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: '60px' }}
+            viewport={{ once: true }}
+            style={{ height: '3px', background: gold, margin: '0 auto 1rem' }}
+          />
+          <h2 style={{ fontSize: '2.2rem', fontWeight: 900, color: navy, textTransform: 'uppercase', letterSpacing: '-0.02em' }}>Propiedades Destacadas</h2>
+          <p style={{ color: navy + '88', marginTop: '0.75rem', fontSize: '1.05rem', fontStyle: 'italic' }}>Selección exclusiva de nuestras mejores propiedades</p>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(440px, 1fr))', gap: '2rem' }}>
+          {properties.map((prop, i) => <PropertyCard key={prop.id} prop={prop} index={i} />)}
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+          <Link href="/demos/inmobiliaria/propiedades" style={{
+            display: 'inline-block', border: `2px solid ${gold}`, color: gold,
+            fontWeight: 800, fontSize: '0.9rem', padding: '0.9rem 2.5rem',
+            borderRadius: '8px', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em',
+            transition: 'all 0.2s',
+          }}>
+            Ver Todas las Propiedades →
+          </Link>
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section style={{ background: navy, padding: '5rem 1.5rem' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <div style={{ height: '3px', background: gold, width: '60px', margin: '0 auto 1rem' }} />
+            <h2 style={{ fontSize: '2.2rem', fontWeight: 900, color: '#fff', textTransform: 'uppercase', letterSpacing: '-0.02em' }}>Nuestros Servicios</h2>
+            <p style={{ color: 'rgba(255,255,255,0.65)', marginTop: '0.75rem', fontStyle: 'italic' }}>Todo lo que necesitas para tu operación inmobiliaria</p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+            {services.map((s, i) => (
+              <motion.div
+                key={s.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
                 style={{
-                  background: typeFilter === f ? GOLD : 'transparent',
-                  color: typeFilter === f ? '#fff' : NAVY,
-                  borderColor: typeFilter === f ? GOLD : NAVY + '33',
+                  background: 'rgba(255,255,255,0.06)',
+                  border: `1px solid rgba(201,162,39,0.3)`,
+                  borderRadius: '12px',
+                  padding: '2.5rem 2rem',
+                  textAlign: 'center',
                 }}
               >
-                {f}
-              </button>
-            ))}
-            <span className="font-semibold text-sm ml-4" style={{ color: NAVY }}>Zona:</span>
-            {filterZones.map(z => (
-              <button
-                key={z}
-                onClick={() => setZoneFilter(z)}
-                className="px-4 py-1.5 rounded-full text-xs font-bold border transition-all"
-                style={{
-                  background: zoneFilter === z ? NAVY : 'transparent',
-                  color: zoneFilter === z ? '#fff' : NAVY,
-                  borderColor: zoneFilter === z ? NAVY : NAVY + '33',
-                }}
-              >
-                {z}
-              </button>
+                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{s.icon}</div>
+                <div style={{ height: '2px', background: gold, width: '40px', margin: '0 auto 1.25rem' }} />
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.title}</h3>
+                <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, fontSize: '0.95rem' }}>{s.desc}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── PROPERTIES ── */}
-      <section id="propiedades" className="py-20 px-6" style={{ background: '#fff' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-end justify-between mb-10">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="font-black text-3xl md:text-4xl"
-              style={{ color: NAVY }}
-            >
-              PROPIEDADES DESTACADAS
-            </motion.h2>
-            <span className="text-sm" style={{ color: GOLD }}>
-              {filtered.length} resultado{filtered.length !== 1 ? 's' : ''}
-            </span>
+      {/* TESTIMONIALS */}
+      <section style={{ padding: '5rem 1.5rem', background: '#f9f7f2' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <div style={{ height: '3px', background: gold, width: '60px', margin: '0 auto 1rem' }} />
+            <h2 style={{ fontSize: '2.2rem', fontWeight: 900, color: navy, textTransform: 'uppercase' }}>Lo Que Dicen Nuestros Clientes</h2>
           </div>
-          <motion.div
-            ref={propsRef}
-            variants={staggerContainer}
-            initial="hidden"
-            animate={propsInView ? 'visible' : 'hidden'}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {filtered.map((p, i) => (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem' }}>
+            {testimonials.map((t, i) => (
               <motion.div
-                key={i}
-                variants={fadeUp}
-                className="group rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+                key={t.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.15 }}
+                style={{
+                  background: '#fff', borderRadius: '12px', padding: '2rem',
+                  boxShadow: '0 4px 30px rgba(0,26,77,0.08)',
+                  borderLeft: `4px solid ${gold}`,
+                }}
               >
-                {/* Property image */}
-                <div className="relative aspect-[4/3]" style={{ background: p.grad }}>
-                  {p.badge && (
-                    <span
-                      className="absolute top-3 left-3 text-xs font-bold uppercase px-3 py-1 rounded"
-                      style={{ background: GOLD, color: '#fff' }}
-                    >
-                      {p.badge}
-                    </span>
-                  )}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4"
-                    style={{ background: 'linear-gradient(to top, rgba(0,26,77,0.7), transparent)' }}>
-                    <span className="text-white font-bold text-sm flex items-center gap-1">
-                      VER PROPIEDAD <ArrowRight size={14} />
-                    </span>
+                <div style={{ color: gold, fontSize: '1.2rem', marginBottom: '1rem' }}>{'★'.repeat(t.rating)}</div>
+                <p style={{ color: navy + 'cc', lineHeight: 1.8, fontSize: '1rem', fontStyle: 'italic', marginBottom: '1.5rem' }}>"{t.text}"</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <img src={t.avatar} alt={t.name} style={{ width: '52px', height: '52px', borderRadius: '50%', objectFit: 'cover', border: `2px solid ${gold}` }} />
+                  <div>
+                    <div style={{ fontWeight: 800, color: navy, fontSize: '0.95rem' }}>{t.name}</div>
+                    <div style={{ color: navy + '88', fontSize: '0.8rem' }}>{t.role}</div>
                   </div>
-                </div>
-
-                {/* Details */}
-                <div className="p-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <MapPin size={12} style={{ color: GOLD }} />
-                    <span className="text-xs" style={{ color: NAVY + '80' }}>{p.type} · {p.zone}</span>
-                  </div>
-                  <div className="flex items-center gap-4 mb-3 text-xs" style={{ color: NAVY + '80' }}>
-                    {p.beds > 0 && <span className="flex items-center gap-1"><Bed size={12} /> {p.beds}</span>}
-                    <span className="flex items-center gap-1"><Bath size={12} /> {p.baths}</span>
-                    <span className="flex items-center gap-1"><Square size={12} /> {p.area} m²</span>
-                  </div>
-                  <p className="font-black text-xl" style={{ color: NAVY }}>{p.price}</p>
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── MAP PLACEHOLDER ── */}
-      <section className="py-16 px-6" style={{ background: NAVY }}>
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-white/60 uppercase tracking-widest text-xs mb-3">Zona de búsqueda</p>
-          <div
-            className="rounded-2xl mx-auto relative overflow-hidden"
-            style={{ background: '#001440', height: 200, maxWidth: 600 }}
-          >
-            {/* Fake map dots */}
-            {[
-              { top: '40%', left: '30%' },
-              { top: '30%', left: '55%' },
-              { top: '60%', left: '50%' },
-              { top: '50%', left: '70%' },
-              { top: '25%', left: '40%' },
-            ].map((dot, i) => (
-              <div
-                key={i}
-                className="absolute w-4 h-4 rounded-full -translate-x-1/2 -translate-y-1/2 animate-pulse"
-                style={{ top: dot.top, left: dot.left, background: GOLD, animationDelay: `${i * 0.3}s` }}
-              />
-            ))}
-            <div className="absolute inset-0 opacity-10"
-              style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}
-            />
-          </div>
-          <p className="text-white/60 text-sm mt-4">
-            <span className="font-bold" style={{ color: GOLD }}>48 propiedades</span> en esta zona
-          </p>
-        </div>
-      </section>
-
-      {/* ── CONTACT AGENT ── */}
-      <section className="py-20 px-6" style={{ background: '#f9fafb' }}>
-        <div className="max-w-lg mx-auto">
-          <div
-            className="p-8 rounded-2xl border-2"
-            style={{ borderColor: GOLD }}
-          >
-            <h3 className="font-black text-2xl mb-2" style={{ color: NAVY }}>Habla con un agente</h3>
-            <p className="text-sm mb-6" style={{ color: NAVY + '80' }}>Respuesta garantizada en 2 horas</p>
-            <div className="space-y-3 mb-4">
-              {['Tu nombre', 'Teléfono de contacto'].map(ph => (
-                <input
-                  key={ph}
-                  type="text"
-                  placeholder={ph}
-                  className="w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#c9a227]"
-                  style={{ borderColor: NAVY + '22', color: NAVY }}
-                />
-              ))}
-              <select
-                className="w-full border rounded-xl px-4 py-3 text-sm focus:outline-none"
-                style={{ borderColor: NAVY + '22', color: NAVY }}
-              >
-                <option>¿Qué te interesa?</option>
-                <option>Comprar</option>
-                <option>Alquilar</option>
-                <option>Vender</option>
-                <option>Invertir</option>
-              </select>
-            </div>
-            <button
-              className="w-full py-4 font-black text-white rounded-xl hover:opacity-90 transition-opacity"
-              style={{ background: GOLD }}
-            >
-              SOLICITAR INFORMACIÓN
-            </button>
-            <div className="flex items-center gap-2 mt-4 justify-center text-sm" style={{ color: NAVY + '60' }}>
-              <Phone size={14} style={{ color: GOLD }} />
-              +34 91 456 7890
-            </div>
           </div>
         </div>
       </section>
 
-      <footer className="py-8 px-6 text-center border-t border-gray-100 text-sm" style={{ color: NAVY + '60' }}>
-        © {new Date().getFullYear()} Inmobiliaria Arco — Demo por Manahen García Garrido
+      {/* FOOTER */}
+      <footer style={{ background: navy, color: 'rgba(255,255,255,0.6)', textAlign: 'center', padding: '2rem', fontSize: '0.85rem' }}>
+        <span style={{ color: gold, fontWeight: 800 }}>ARCO INMOBILIARIA</span> · Desde 2002 · Todos los derechos reservados
       </footer>
-    </div>
-  );
+    </main>
+  )
 }

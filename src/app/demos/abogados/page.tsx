@@ -1,329 +1,311 @@
-'use client';
+'use client'
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Scale, Shield, Briefcase, Building2, FileText, Home, Phone, Mail, MapPin } from 'lucide-react';
-import DemoNavBar from '@/components/demos/DemoNavBar';
-import { staggerContainer, fadeUp, slideLeft, slideRight } from '@/lib/animations';
+import { motion, useInView } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import Link from 'next/link'
 
-const NAVY = '#0d1b2a';
-const GOLD = '#c9a227';
-const LIGHT = '#e8e8e8';
+const BG = '#0d1b2a'
+const ACCENT = '#c9a227'
+const TEXT = '#e8e8e8'
+const DARK = '#071220'
 
-const areas = [
-  { icon: Scale, name: 'Derecho Civil', desc: 'Contratos, herencias, responsabilidad civil y reclamaciones patrimoniales.' },
-  { icon: Briefcase, name: 'Derecho Mercantil', desc: 'Constitución de sociedades, fusiones, contratos empresariales.' },
-  { icon: Shield, name: 'Derecho Penal', desc: 'Defensa penal, delitos económicos y recursos de apelación.' },
-  { icon: FileText, name: 'Derecho Laboral', desc: 'Despidos, EREs, negociación colectiva y sanciones laborales.' },
-  { icon: Building2, name: 'Derecho Fiscal', desc: 'Planificación fiscal, inspecciones y recursos tributarios.' },
-  { icon: Home, name: 'Derecho Inmobiliario', desc: 'Compraventa, arrendamientos, comunidades y urbanismo.' },
-];
+function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
+  const [count, setCount] = useState(0)
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true })
+  useEffect(() => {
+    if (!inView) return
+    let start = 0
+    const duration = 1800
+    const step = target / (duration / 16)
+    const timer = setInterval(() => {
+      start += step
+      if (start >= target) { setCount(target); clearInterval(timer) }
+      else setCount(Math.floor(start))
+    }, 16)
+    return () => clearInterval(timer)
+  }, [inView, target])
+  return <span ref={ref}>{count.toLocaleString('es-ES')}{suffix}</span>
+}
 
-const attorneys = [
-  { name: 'Dr. Carlos Mendoza', specialty: 'Derecho Mercantil & Penal', years: 25, num: 'COM-4821' },
-  { name: 'Dra. Laura Vidal', specialty: 'Derecho Civil & Familiar', years: 18, num: 'COM-6134' },
-  { name: 'D. Roberto Arce', specialty: 'Derecho Fiscal & Laboral', years: 20, num: 'COM-5290' },
-];
+const areasPractica = [
+  { icon: '⚖️', name: 'Derecho Civil', desc: 'Contratos, responsabilidad civil, herencias y familia. Protegemos tus derechos en toda disputa civil.' },
+  { icon: '🏢', name: 'Derecho Mercantil', desc: 'Constitución de sociedades, fusiones, contratos comerciales y resolución de conflictos empresariales.' },
+  { icon: '🔒', name: 'Derecho Penal', desc: 'Defensa penal integral en todas las instancias. Protección de tus derechos fundamentales.' },
+  { icon: '👷', name: 'Derecho Laboral', desc: 'Despidos, negociación colectiva, accidentes laborales. Tu empleo y derechos protegidos.' },
+  { icon: '📋', name: 'Derecho Fiscal', desc: 'Planificación tributaria, inspecciones de Hacienda, recursos fiscales y optimización legal.' },
+  { icon: '🏠', name: 'Derecho Inmobiliario', desc: 'Compraventas, arrendamientos, comunidades de propietarios y reclamaciones hipotecarias.' },
+]
 
-export default function AbogadosPage() {
-  const areasRef = useRef(null);
-  const areasInView = useInView(areasRef, { once: true, margin: '-80px' });
-  const statsRef = useRef(null);
-  const statsInView = useInView(statsRef, { once: true, margin: '-80px' });
-
+export default function AbogadosHome() {
   return (
-    <div style={{ background: NAVY, color: LIGHT, fontFamily: "'Playfair Display', Georgia, serif" }}>
-      <DemoNavBar siteName="Mendoza & Asociados" sector="despacho de abogados" />
+    <div style={{ background: BG, color: TEXT, overflowX: 'hidden' }}>
 
-      {/* ── HERO ── */}
-      <section className="relative min-h-screen flex items-center pt-12 px-6 md:px-16 overflow-hidden">
-        {/* Grid background */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `linear-gradient(${LIGHT} 1px, transparent 1px), linear-gradient(90deg, ${LIGHT} 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
-          }}
+      {/* ═══ HERO ═══ */}
+      <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', textAlign: 'center', overflow: 'hidden' }}>
+        {/* Background image */}
+        <img
+          src="https://picsum.photos/seed/law-office/1400/900"
+          alt="Despacho de abogados"
+          style={{ objectFit: 'cover', position: 'absolute', inset: 0, width: '100%', height: '100%', filter: 'brightness(0.25)' }}
         />
+        {/* Grid pattern overlay */}
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: `linear-gradient(${ACCENT}08 1px, transparent 1px), linear-gradient(90deg, ${ACCENT}08 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
+        {/* Bottom gradient */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '30%', background: `linear-gradient(transparent, ${BG})` }} />
 
-        <div className="relative z-10 max-w-3xl">
-          <motion.p
-            initial={{ opacity: 0, letterSpacing: '0.5em' }}
-            animate={{ opacity: 1, letterSpacing: '0.4em' }}
-            transition={{ duration: 0.7 }}
-            className="uppercase text-xs mb-6"
-            style={{ color: GOLD }}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 36, border: `1px solid ${ACCENT}50`, borderRadius: 2, padding: '8px 20px', fontSize: 12, letterSpacing: 3, color: ACCENT, textTransform: 'uppercase', fontWeight: 600 }}
           >
-            Expertos en Derecho — Desde 1999
-          </motion.p>
+            <span style={{ fontSize: 16 }}>⚖</span>
+            Fundado en 1999 · Madrid, España
+          </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, x: -60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-black italic leading-tight mb-6"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', color: '#fff' }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            style={{ fontSize: 'clamp(38px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.0, letterSpacing: '-1px', marginBottom: 0, fontFamily: 'Georgia, serif', textTransform: 'uppercase' }}
           >
-            Defendemos tus derechos<br />
-            <span style={{ color: GOLD }}>con rigor y dedicación</span>
+            DEFENDEMOS
+          </motion.h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            style={{ fontSize: 'clamp(38px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.0, letterSpacing: '-1px', marginBottom: 32, fontFamily: 'Georgia, serif', textTransform: 'uppercase', color: ACCENT }}
+          >
+            TUS DERECHOS
           </motion.h1>
 
-          {/* Gold divider with scale icon */}
+          {/* Gold divider */}
           <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: '100%', maxWidth: '320px' }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="flex items-center gap-3 mb-8"
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginBottom: 32 }}
           >
-            <div className="h-px flex-1" style={{ background: GOLD }} />
-            <Scale size={16} style={{ color: GOLD }} />
-            <div className="h-px flex-1" style={{ background: GOLD }} />
+            <div style={{ height: 1, width: 100, background: `linear-gradient(90deg, transparent, ${ACCENT})` }} />
+            <span style={{ color: ACCENT, fontSize: 24 }}>⚖</span>
+            <div style={{ height: 1, width: 100, background: `linear-gradient(90deg, ${ACCENT}, transparent)` }} />
           </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="text-lg mb-10"
-            style={{ color: LIGHT + '99' }}
+            transition={{ delay: 0.35 }}
+            style={{ fontSize: 18, color: '#ffffffb0', maxWidth: 560, margin: '0 auto 40px', lineHeight: 1.8 }}
           >
-            Asesoramiento jurídico integral para personas y empresas. Más de 25 años protegiendo
-            sus intereses con transparencia y eficacia.
+            Más de 25 años defendiendo personas y empresas en toda España. Experiencia, rigor y compromiso absoluto con tu caso.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.5 }}
-            className="flex flex-col sm:flex-row gap-4"
+            transition={{ delay: 0.45 }}
+            style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}
           >
-            <a
-              href="#consulta"
-              className="flex items-center justify-center gap-2 px-8 py-4 font-bold uppercase tracking-widest text-sm text-black hover:opacity-90 transition-opacity"
-              style={{ background: GOLD }}
-            >
-              CONSULTA GRATUITA
-            </a>
-            <a
-              href="#areas"
-              className="flex items-center justify-center gap-2 px-8 py-4 font-bold uppercase tracking-widest text-sm border hover:bg-white/10 transition-colors"
-              style={{ borderColor: GOLD + '60', color: GOLD }}
-            >
-              ÁREAS DE PRÁCTICA
-            </a>
+            <Link href="/demos/abogados/consulta" style={{ background: ACCENT, color: '#0d1b2a', padding: '16px 36px', fontWeight: 800, fontSize: 15, textDecoration: 'none', letterSpacing: 1, textTransform: 'uppercase', display: 'inline-block' }}>
+              Consulta Gratuita
+            </Link>
+            <Link href="/demos/abogados/areas" style={{ background: 'transparent', border: `1px solid ${ACCENT}80`, color: TEXT, padding: '16px 36px', fontWeight: 600, fontSize: 15, textDecoration: 'none', letterSpacing: 1, textTransform: 'uppercase', display: 'inline-block' }}>
+              Nuestras Áreas
+            </Link>
           </motion.div>
         </div>
-
-        {/* Side decoration */}
-        <motion.div
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="hidden lg:flex absolute right-16 top-1/2 -translate-y-1/2 flex-col items-center gap-2 text-xs uppercase tracking-widest"
-          style={{ color: GOLD + '60' }}
-        >
-          <div className="w-px h-24" style={{ background: GOLD + '40' }} />
-          <span style={{ writingMode: 'vertical-rl' }}>Mendoza & Asociados</span>
-          <div className="w-px h-24" style={{ background: GOLD + '40' }} />
-        </motion.div>
       </section>
 
-      {/* ── AREAS ── */}
-      <section id="areas" className="py-24 px-6 border-t" style={{ borderColor: GOLD + '22', background: '#112238' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="uppercase tracking-widest text-xs mb-3"
-              style={{ color: GOLD }}
-            >
-              Especialidades
-            </motion.p>
-            <motion.h2
+      {/* ═══ PRACTICE AREAS PREVIEW ═══ */}
+      <section style={{ padding: '80px 24px', maxWidth: 1100, margin: '0 auto' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          style={{ textAlign: 'center', marginBottom: 60 }}
+        >
+          <p style={{ color: ACCENT, letterSpacing: 3, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>Especialidades</p>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, fontFamily: 'Georgia, serif', marginBottom: 16 }}>Áreas de práctica</h2>
+          <div style={{ width: 60, height: 2, background: ACCENT, margin: '0 auto' }} />
+        </motion.div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 0 }}>
+          {areasPractica.map((area, i) => (
+            <motion.div
+              key={area.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="font-black italic text-4xl md:text-5xl text-white"
+              transition={{ delay: i * 0.08 }}
+              whileHover={{ borderLeftColor: ACCENT, borderLeftWidth: 4 }}
+              style={{ padding: '32px 28px', border: `1px solid ${ACCENT}15`, borderLeft: '3px solid transparent', cursor: 'pointer', transition: 'all 0.3s', background: 'rgba(201,162,39,0.03)' }}
             >
-              Áreas de Práctica
-            </motion.h2>
+              <div style={{ fontSize: 32, marginBottom: 16 }}>{area.icon}</div>
+              <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 12, fontFamily: 'Georgia, serif' }}>{area.name}</h3>
+              <p style={{ color: `${TEXT}80`, fontSize: 14, lineHeight: 1.7, marginBottom: 16 }}>{area.desc}</p>
+              <Link href="/demos/abogados/areas" style={{ color: ACCENT, fontSize: 13, fontWeight: 700, textDecoration: 'none', letterSpacing: 1 }}>
+                Saber más →
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══ STATS ═══ */}
+      <section style={{ background: DARK, borderTop: `1px solid ${ACCENT}20`, borderBottom: `1px solid ${ACCENT}20`, padding: '60px 24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 40, maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
+          {[
+            { target: 25, suffix: '+', label: 'Años de experiencia' },
+            { target: 1500, suffix: '+', label: 'Casos resueltos' },
+            { target: 98, suffix: '%', label: 'Tasa de éxito' },
+            { target: 3, suffix: '', label: 'Sedes en España' },
+          ].map((stat) => (
             <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: '60px' }}
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="h-0.5 mx-auto mt-4"
-              style={{ background: GOLD }}
-            />
-          </div>
-          <motion.div
-            ref={areasRef}
-            variants={staggerContainer}
-            initial="hidden"
-            animate={areasInView ? 'visible' : 'hidden'}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-          >
-            {areas.map((area) => (
-              <motion.div
-                key={area.name}
-                variants={fadeUp}
-                className="p-6 border-l-4 transition-all hover:translate-x-1"
-                style={{ background: NAVY + 'cc', borderLeftColor: GOLD }}
-              >
-                <area.icon size={24} style={{ color: GOLD }} className="mb-4" />
-                <h3 className="font-bold text-white text-lg mb-2" style={{ fontFamily: 'sans-serif' }}>
-                  {area.name}
-                </h3>
-                <p className="text-sm italic" style={{ color: LIGHT + '70' }}>{area.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
+            >
+              <div style={{ fontSize: 'clamp(42px, 6vw, 64px)', fontWeight: 900, color: ACCENT, lineHeight: 1, fontFamily: 'Georgia, serif' }}>
+                <AnimatedCounter target={stat.target} suffix={stat.suffix} />
+              </div>
+              <div style={{ fontSize: 14, color: `${TEXT}80`, marginTop: 8, letterSpacing: 1 }}>{stat.label}</div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* ── STATS & ABOUT ── */}
-      <section className="py-24 px-6" style={{ background: NAVY }}>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      {/* ═══ FEATURED ATTORNEYS ═══ */}
+      <section style={{ padding: '80px 24px', maxWidth: 1100, margin: '0 auto' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          style={{ textAlign: 'center', marginBottom: 60 }}
+        >
+          <p style={{ color: ACCENT, letterSpacing: 3, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>El equipo</p>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, fontFamily: 'Georgia, serif', marginBottom: 16 }}>Nuestros socios directores</h2>
+          <div style={{ width: 60, height: 2, background: ACCENT, margin: '0 auto' }} />
+        </motion.div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 32 }}>
+          {[
+            { name: 'Ricardo Mendoza Álvarez', role: 'Socio Director', specialty: 'Derecho Mercantil & Civil', bar: 'Col. Nº 28.456 ICAM', seed: 'lawyer1' },
+            { name: 'Isabel Castro Ferrer', role: 'Socia Directora', specialty: 'Derecho Penal & Laboral', bar: 'Col. Nº 28.891 ICAM', seed: 'lawyer2' },
+            { name: 'Fernando Ruiz Montoya', role: 'Socio Senior', specialty: 'Derecho Fiscal & Tributario', bar: 'Col. Nº 28.234 ICAM', seed: 'lawyer3' },
+          ].map((atty) => (
+            <motion.div
+              key={atty.name}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -6 }}
+              style={{ background: '#0a1520', border: `1px solid ${ACCENT}20`, overflow: 'hidden' }}
+            >
+              <div style={{ overflow: 'hidden', position: 'relative' }}>
+                <img
+                  src={`https://picsum.photos/seed/${atty.seed}/400/500`}
+                  alt={atty.name}
+                  style={{ objectFit: 'cover', aspectRatio: '4/5', width: '100%', display: 'block', filter: 'grayscale(20%)' }}
+                />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40%', background: 'linear-gradient(transparent, #0a1520)' }} />
+              </div>
+              <div style={{ padding: '24px 24px 28px' }}>
+                <div style={{ width: 40, height: 2, background: ACCENT, marginBottom: 16 }} />
+                <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 6, fontFamily: 'Georgia, serif' }}>{atty.name}</h3>
+                <p style={{ color: ACCENT, fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 8 }}>{atty.role}</p>
+                <p style={{ color: `${TEXT}80`, fontSize: 13, marginBottom: 12 }}>{atty.specialty}</p>
+                <p style={{ color: `${TEXT}40`, fontSize: 11, letterSpacing: 1 }}>{atty.bar}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        <div style={{ textAlign: 'center', marginTop: 40 }}>
+          <Link href="/demos/abogados/equipo" style={{ display: 'inline-block', border: `1px solid ${ACCENT}`, color: ACCENT, padding: '12px 36px', fontWeight: 700, textDecoration: 'none', fontSize: 13, letterSpacing: 2, textTransform: 'uppercase' }}>
+            Ver todo el equipo
+          </Link>
+        </div>
+      </section>
+
+      {/* ═══ LATEST NEWS ═══ */}
+      <section style={{ padding: '60px 24px 80px', background: DARK }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <motion.div
-            ref={statsRef}
-            variants={staggerContainer}
-            initial="hidden"
-            animate={statsInView ? 'visible' : 'hidden'}
-            className="grid grid-cols-1 gap-4"
-          >
-            {[
-              { val: '25+', label: 'Años de experiencia' },
-              { val: '1.500+', label: 'Casos resueltos con éxito' },
-              { val: '98%', label: 'Tasa de satisfacción del cliente' },
-            ].map((stat) => (
-              <motion.div
-                key={stat.label}
-                variants={fadeUp}
-                className="flex items-center gap-6 p-5 border-l-2"
-                style={{ borderColor: GOLD }}
-              >
-                <p className="font-black text-4xl flex-shrink-0" style={{ color: GOLD }}>{stat.val}</p>
-                <p className="font-semibold text-white/60">{stat.label}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-          <motion.div
-            variants={slideRight}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            style={{ textAlign: 'center', marginBottom: 50 }}
           >
-            <p className="uppercase tracking-widest text-xs mb-3" style={{ color: GOLD }}>Sobre Nosotros</p>
-            <h2 className="font-black italic text-3xl text-white mb-4">Un despacho de confianza</h2>
-            <p className="text-base leading-relaxed mb-4" style={{ color: LIGHT + '99' }}>
-              Fundado en 1999, Mendoza & Asociados es un despacho de abogados de referencia en Madrid.
-              Nuestro equipo de expertos jurídicos ofrece asesoramiento integral y personalizado.
-            </p>
-            <p className="text-base leading-relaxed" style={{ color: LIGHT + '80' }}>
-              Nos distingue la dedicación, la transparencia y los resultados. Su caso es nuestra prioridad.
-            </p>
+            <p style={{ color: ACCENT, letterSpacing: 3, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>Blog jurídico</p>
+            <h2 style={{ fontSize: 'clamp(24px, 4vw, 40px)', fontWeight: 900, fontFamily: 'Georgia, serif' }}>Actualidad legal</h2>
           </motion.div>
-        </div>
-      </section>
-
-      {/* ── ATTORNEYS ── */}
-      <section className="py-20 px-6 border-t" style={{ background: '#112238', borderColor: GOLD + '22' }}>
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="font-black italic text-3xl md:text-4xl text-white">Nuestro Equipo</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            {attorneys.map((a, i) => (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
+            {[
+              { title: 'Nuevos cambios en el Estatuto de los Trabajadores 2026', cat: 'LABORAL', date: '12 Feb 2026', seed: 'legal1' },
+              { title: 'Reforma fiscal para autónomos: claves para el ejercicio actual', cat: 'FISCAL', date: '8 Feb 2026', seed: 'legal2' },
+              { title: 'Guía completa sobre herencias y testamentos en España', cat: 'CIVIL', date: '3 Feb 2026', seed: 'legal3' },
+            ].map((post) => (
               <motion.div
-                key={a.name}
+                key={post.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="text-center group"
+                whileHover={{ y: -4 }}
+                style={{ background: BG, border: `1px solid ${ACCENT}15`, overflow: 'hidden', cursor: 'pointer' }}
               >
-                <div
-                  className="w-28 h-28 rounded-full mx-auto mb-4 transition-all group-hover:scale-105"
-                  style={{
-                    background: `linear-gradient(135deg, ${NAVY}, #1f3a55)`,
-                    border: `2px solid ${GOLD}44`,
-                    boxShadow: `0 0 0 0 ${GOLD}`,
-                    transition: 'box-shadow 0.3s',
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.boxShadow = `0 0 0 3px ${GOLD}33`)}
-                  onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}
-                />
-                <h3 className="font-bold text-white" style={{ fontFamily: 'sans-serif' }}>{a.name}</h3>
-                <p className="text-sm mt-1" style={{ color: GOLD }}>{a.specialty}</p>
-                <p className="text-xs mt-1" style={{ color: LIGHT + '40' }}>Colegiado {a.num}</p>
+                <div style={{ overflow: 'hidden' }}>
+                  <img src={`https://picsum.photos/seed/${post.seed}/600/380`} alt={post.title} style={{ width: '100%', display: 'block', transition: 'transform 0.4s' }} />
+                </div>
+                <div style={{ padding: 24 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+                    <span style={{ background: ACCENT, color: '#0d1b2a', fontSize: 10, fontWeight: 800, letterSpacing: 2, padding: '3px 10px' }}>{post.cat}</span>
+                    <span style={{ color: `${TEXT}50`, fontSize: 12 }}>{post.date}</span>
+                  </div>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.5, marginBottom: 16, fontFamily: 'Georgia, serif' }}>{post.title}</h3>
+                  <Link href="/demos/abogados/blog" style={{ color: ACCENT, fontSize: 12, fontWeight: 700, textDecoration: 'none', letterSpacing: 1 }}>
+                    Leer artículo →
+                  </Link>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CONSULTATION FORM ── */}
-      <section id="consulta" className="py-24 px-6" style={{ background: NAVY }}>
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="font-black italic text-3xl text-white mb-2">Consulta Gratuita</h2>
-            <p className="text-sm italic" style={{ color: LIGHT + '70' }}>
-              Sin compromiso. Respondemos en menos de 24 horas.
-            </p>
-            <div className="h-0.5 w-16 mx-auto mt-4" style={{ background: GOLD }} />
-          </div>
-          <div className="p-8 border" style={{ borderColor: GOLD + '33', background: '#112238' }}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              {['Nombre completo', 'Email'].map(ph => (
-                <input
-                  key={ph}
-                  type="text"
-                  placeholder={ph}
-                  className="bg-transparent border-b px-0 py-3 text-sm focus:outline-none"
-                  style={{ borderColor: GOLD + '40', color: LIGHT, caretColor: GOLD }}
-                />
-              ))}
+      {/* ═══ CONSULTATION CTA ═══ */}
+      <section style={{ padding: '80px 24px' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          style={{ maxWidth: 860, margin: '0 auto', background: `linear-gradient(135deg, #0a1520, #12202e)`, border: `1px solid ${ACCENT}40`, padding: '60px 48px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}
+        >
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
+          <div style={{ fontSize: 40, marginBottom: 20 }}>⚖</div>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, fontFamily: 'Georgia, serif', marginBottom: 16, color: TEXT }}>
+            CONSULTA <span style={{ color: ACCENT }}>GRATUITA</span>
+          </h2>
+          <p style={{ color: `${TEXT}70`, fontSize: 16, lineHeight: 1.8, maxWidth: 540, margin: '0 auto 36px' }}>
+            Primera consulta sin coste ni compromiso. Analizamos tu caso y te informamos sobre tus opciones legales con total confidencialidad.
+          </p>
+          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Link href="/demos/abogados/consulta" style={{ background: ACCENT, color: '#0d1b2a', padding: '16px 40px', fontWeight: 800, fontSize: 15, textDecoration: 'none', letterSpacing: 1, textTransform: 'uppercase', display: 'inline-block' }}>
+              Solicitar consulta
+            </Link>
+            <div style={{ color: `${TEXT}60`, fontSize: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span>📞</span>
+              <span>+34 91 555 00 00</span>
             </div>
-            <select
-              className="w-full bg-transparent border-b px-0 py-3 text-sm focus:outline-none mb-4"
-              style={{ borderColor: GOLD + '40', color: LIGHT + '80' }}
-            >
-              <option value="">Área legal de interés</option>
-              {areas.map(a => <option key={a.name} style={{ color: '#000' }}>{a.name}</option>)}
-            </select>
-            <textarea
-              placeholder="Descripción breve de su caso..."
-              rows={4}
-              className="w-full bg-transparent border-b px-0 py-3 text-sm focus:outline-none resize-none mb-6"
-              style={{ borderColor: GOLD + '40', color: LIGHT }}
-            />
-            <button
-              className="w-full py-4 font-bold uppercase tracking-widest text-sm text-black hover:opacity-90 transition-opacity"
-              style={{ background: GOLD }}
-            >
-              ENVIAR CONSULTA
-            </button>
-            <p className="text-xs text-center mt-4" style={{ color: LIGHT + '40' }}>
-              Sus datos son tratados con absoluta confidencialidad conforme al RGPD.
-            </p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t text-center" style={{ borderColor: GOLD + '22', background: '#091526' }}>
-        <p className="font-black italic text-xl mb-4" style={{ color: GOLD }}>Mendoza & Asociados</p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm mb-6" style={{ color: LIGHT + '60' }}>
-          <span className="flex items-center gap-2"><MapPin size={14} style={{ color: GOLD }} /> Paseo de la Castellana 120, Madrid</span>
-          <span className="flex items-center gap-2"><Phone size={14} style={{ color: GOLD }} /> +34 91 345 6789</span>
-          <span className="flex items-center gap-2"><Mail size={14} style={{ color: GOLD }} /> info@mendozaasociados.es</span>
-        </div>
-        <p className="text-xs" style={{ color: LIGHT + '30' }}>
-          © {new Date().getFullYear()} Mendoza & Asociados — Demo por Manahen García Garrido
-        </p>
+      <footer style={{ borderTop: `1px solid ${ACCENT}20`, padding: '40px 24px', textAlign: 'center', color: `${TEXT}40`, fontSize: 13 }}>
+        <div style={{ fontFamily: 'Georgia, serif', fontSize: 18, fontWeight: 700, color: ACCENT, marginBottom: 12 }}>Mendoza & Asociados</div>
+        <p>© 2026 Mendoza & Asociados S.L. · Calle de Velázquez 28, 28001 Madrid · Todos los derechos reservados</p>
+        <p style={{ marginTop: 8, fontSize: 11, color: `${TEXT}20` }}>Demo creado por Manahen · Esta es una web de demostración</p>
       </footer>
     </div>
-  );
+  )
 }

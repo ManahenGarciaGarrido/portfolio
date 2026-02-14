@@ -1,283 +1,407 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { MapPin, Phone, Clock } from 'lucide-react';
-import DemoNavBar from '@/components/demos/DemoNavBar';
-import { staggerContainer, fadeUp, slideLeft, slideRight } from '@/lib/animations';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import Link from 'next/link';
 
-const GOLD = '#d4a017';
-const DARK = '#1a0a00';
-const CREAM = '#fff5e6';
+const bg = '#1a0a00';
+const gold = '#d4a017';
+const cream = '#fff5e6';
+const darkBrown = '#0d0500';
 
-const menuItems = {
-  Entrantes: [
-    { name: 'Croquetas de Ibérico', desc: 'Con alioli de trufa y crujiente de jamón', price: '€14' },
-    { name: 'Carpaccio de Buey', desc: 'Con rúcula, parmesano y aceite de oliva virgen', price: '€18' },
-    { name: 'Vieiras a la Gallega', desc: 'Con pimentón ahumado y cebolla pochada', price: '€22' },
-  ],
-  Principales: [
-    { name: 'Lubina a la Sal', desc: 'Con patatas panadera y salsa de limón', price: '€32' },
-    { name: 'Chuletón de Vaca', desc: 'Madurado 45 días, con patatas y pimientos', price: '€48' },
-    { name: 'Risotto de Setas', desc: 'Boletus, trompeta y trufa negra', price: '€26' },
-  ],
-  Postres: [
-    { name: 'Tarta de Queso', desc: 'Cremosa, con coulis de frutos rojos', price: '€9' },
-    { name: 'Coulant de Chocolate', desc: 'Con helado de vainilla bourbon', price: '€11' },
-    { name: 'Torrija Caramelizada', desc: 'Con helado de canela y miel de azahar', price: '€10' },
-  ],
-};
+const featuredDishes = [
+  { id: 1, name: 'Vieira con Espuma de Mar', price: '32€', category: 'Entrante', seed: 'dish1', desc: 'Vieira gallega, espuma de alga nori, tierra de aceitunas negras' },
+  { id: 2, name: 'Pichón Asado a la Brasa', price: '48€', category: 'Principal', seed: 'dish2', desc: 'Pichón de Bresse, trufa de temporada, consomé de aves al Jerez' },
+  { id: 3, name: 'Chocolate & Café', price: '18€', category: 'Postre', seed: 'dish3', desc: 'Cremoso de cacao 72%, helado de café de especialidad, crumble de avellana' },
+];
 
-export default function RestaurantePage() {
-  const [activeTab, setActiveTab] = useState<'Entrantes' | 'Principales' | 'Postres'>('Principales');
-  const menuRef = useRef(null);
-  const menuInView = useInView(menuRef, { once: true, margin: '-60px' });
+const highlights = [
+  { icon: '★', label: 'Estrella Michelin 2024', sub: 'Reconocimiento a la excelencia' },
+  { icon: '◆', label: 'Más de 25 Años', sub: 'Tradición y vanguardia' },
+  { icon: '✦', label: 'Chef Destacado', sub: 'TOP 50 Best Restaurants España' },
+];
+
+function DishCard({ dish, delay = 0 }: { dish: typeof featuredDishes[0]; delay?: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const [hovered, setHovered] = useState(false);
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        backgroundColor: '#0d0500',
+        overflow: 'hidden',
+        border: `1px solid ${hovered ? gold : '#2a1800'}`,
+        transition: 'border-color 0.4s ease',
+        cursor: 'pointer',
+      }}
+    >
+      <div style={{ overflow: 'hidden', aspectRatio: '3/2' }}>
+        <img
+          src={`https://picsum.photos/seed/${dish.seed}/600/400`}
+          alt={dish.name}
+          style={{
+            width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+            transition: 'transform 0.7s ease',
+            transform: hovered ? 'scale(1.05)' : 'scale(1)'
+          }}
+        />
+      </div>
+      <div style={{ padding: '28px 28px 32px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+          <span style={{ color: gold, fontSize: '11px', letterSpacing: '0.2em', fontWeight: 600 }}>
+            {dish.category.toUpperCase()}
+          </span>
+          <span style={{ color: gold, fontWeight: 700, fontSize: '18px', fontFamily: 'Georgia, serif' }}>
+            {dish.price}
+          </span>
+        </div>
+        <h3 style={{ color: cream, fontSize: '20px', fontWeight: 600, fontFamily: 'Georgia, serif', fontStyle: 'italic', margin: '0 0 10px' }}>
+          {dish.name}
+        </h3>
+        <p style={{ color: '#9a7a5a', fontSize: '14px', lineHeight: 1.6, margin: 0 }}>{dish.desc}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function RestauranteHome() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
+  const highlightsRef = useRef(null);
+  const dishesRef = useRef(null);
+  const chefRef = useRef(null);
+  const reservaRef = useRef(null);
+  const highlightsInView = useInView(highlightsRef, { once: true, margin: '-60px' });
+  const dishesInView = useInView(dishesRef, { once: true, margin: '-80px' });
+  const chefInView = useInView(chefRef, { once: true, margin: '-80px' });
+  const reservaInView = useInView(reservaRef, { once: true, margin: '-80px' });
+
+  const [formData, setFormData] = useState({ name: '', date: '', guests: '2' });
+  const [submitted, setSubmitted] = useState(false);
 
   return (
-    <div style={{ background: DARK, color: CREAM, fontFamily: "'Playfair Display', Georgia, serif" }}>
-      <DemoNavBar siteName="Restaurante Arcos" sector="restaurante de alta cocina" />
+    <div style={{ backgroundColor: bg, color: cream }}>
 
-      {/* ── HERO ── */}
-      <section className="relative min-h-screen flex items-center justify-center pt-12 px-6 overflow-hidden">
-        {/* Floating dish circles */}
-        {[
-          { size: 180, top: '15%', left: '10%', delay: '0s', grad: 'radial-gradient(circle at 40% 40%, #2a1500, #1a0a00)' },
-          { size: 140, top: '60%', right: '8%', left: undefined, delay: '1s', grad: 'radial-gradient(circle at 60% 40%, #3a1800, #1a0a00)' },
-          { size: 120, top: '30%', right: '20%', left: undefined, delay: '2s', grad: 'radial-gradient(circle at 50% 50%, #2a1a00, #1a0a00)' },
-        ].map((circle, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full animate-float border opacity-60"
-            style={{
-              width: circle.size,
-              height: circle.size,
-              top: circle.top,
-              left: circle.left,
-              right: (circle as { right?: string }).right,
-              background: circle.grad,
-              borderColor: GOLD + '33',
-              animationDelay: circle.delay,
-            }}
-          />
-        ))}
-
+      {/* HERO FULLSCREEN */}
+      <section
+        ref={heroRef}
+        style={{ position: 'relative', height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <motion.img
+          src="https://picsum.photos/seed/restaurant-hero/1400/900"
+          alt="Restaurante Arcos"
+          style={{
+            position: 'absolute', inset: 0, width: '100%', height: '116%',
+            objectFit: 'cover', objectPosition: 'center',
+            y: heroY,
+          }}
+        />
+        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)' }} />
         <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="relative z-10 text-center max-w-3xl"
+          style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 40px', opacity: heroOpacity }}
         >
-          {/* Logo */}
-          <motion.div variants={fadeUp} className="mb-6">
-            <p className="uppercase tracking-[0.4em] text-sm mb-2" style={{ color: GOLD }}>
-              Restaurante
-            </p>
-            <h1
-              className="font-black italic leading-tight"
-              style={{ fontSize: 'clamp(3rem, 9vw, 7rem)', color: CREAM }}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            style={{ color: gold, fontSize: '12px', letterSpacing: '0.5em', fontWeight: 600, marginBottom: '24px' }}
+          >
+            ALTA COCINA · MADRID
+          </motion.p>
+          <div style={{ overflow: 'hidden', marginBottom: '20px' }}>
+            <motion.h1
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              style={{
+                fontSize: 'clamp(72px, 14vw, 180px)',
+                fontFamily: 'Georgia, serif',
+                fontStyle: 'italic',
+                fontWeight: 400,
+                color: gold,
+                margin: 0,
+                lineHeight: 0.9,
+                letterSpacing: '-0.02em',
+              }}
             >
               Arcos
-            </h1>
-          </motion.div>
-
-          {/* Gold divider */}
-          <motion.div
-            variants={{ hidden: { width: 0 }, visible: { width: '200px', transition: { duration: 1, delay: 0.4 } } }}
-            className="h-px mx-auto mb-6 relative"
-            style={{ background: GOLD }}
-          >
-            <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rotate-45"
-              style={{ background: GOLD }}
-            />
-          </motion.div>
-
+            </motion.h1>
+          </div>
           <motion.p
-            variants={fadeUp}
-            className="text-lg italic mb-10"
-            style={{ color: CREAM + 'aa', fontSize: '1.1rem' }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            style={{ color: '#ddd', fontSize: 'clamp(14px, 2vw, 18px)', fontFamily: 'Georgia, serif', fontStyle: 'italic', marginBottom: '48px', letterSpacing: '0.05em' }}
           >
-            Una experiencia culinaria inigualable
+            Donde la tradición se convierte en vanguardia
           </motion.p>
-
-          <motion.a
-            variants={fadeUp}
-            href="#reservar"
-            className="inline-flex items-center gap-3 px-10 py-4 font-bold uppercase tracking-widest text-sm border-2 hover:text-black transition-all"
-            style={{ borderColor: GOLD, color: GOLD, ':hover': { background: GOLD } } as React.CSSProperties}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = GOLD; (e.currentTarget as HTMLElement).style.color = '#000'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = GOLD; }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}
           >
-            RESERVAR MESA
-          </motion.a>
+            <Link href="/demos/restaurante/reservar">
+              <button style={{
+                backgroundColor: gold, color: darkBrown,
+                border: 'none', padding: '16px 44px',
+                fontWeight: 700, fontSize: '13px', letterSpacing: '0.2em', cursor: 'pointer',
+                fontFamily: 'inherit'
+              }}>
+                RESERVAR MESA
+              </button>
+            </Link>
+            <Link href="/demos/restaurante/carta">
+              <button style={{
+                backgroundColor: 'transparent', color: cream,
+                border: `1px solid ${cream}`, padding: '16px 44px',
+                fontWeight: 600, fontSize: '13px', letterSpacing: '0.2em', cursor: 'pointer',
+                fontFamily: 'inherit'
+              }}>
+                VER CARTA
+              </button>
+            </Link>
+          </motion.div>
+        </motion.div>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', textAlign: 'center' }}
+        >
+          <div style={{ width: '1px', height: '50px', backgroundColor: gold, margin: '0 auto' }} />
         </motion.div>
       </section>
 
-      {/* ── MENU ── */}
-      <section id="carta" className="py-24 px-6" style={{ background: '#110800' }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="uppercase tracking-[0.4em] text-xs mb-3"
-              style={{ color: GOLD }}
-            >
-              Gastronomía
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="font-black italic text-4xl md:text-5xl"
-              style={{ color: CREAM }}
-            >
-              Nuestra Carta
-            </motion.h2>
-            <div className="h-px w-20 mx-auto mt-4" style={{ background: GOLD }} />
-          </div>
-
-          {/* Tabs */}
-          <div className="flex justify-center gap-1 mb-10">
-            {(['Entrantes', 'Principales', 'Postres'] as const).map(tab => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className="px-6 py-2 text-sm font-semibold uppercase tracking-wider transition-all"
-                style={{
-                  background: activeTab === tab ? GOLD : 'transparent',
-                  color: activeTab === tab ? '#000' : CREAM + '80',
-                  border: `1px solid ${activeTab === tab ? GOLD : GOLD + '30'}`,
-                }}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* Menu items */}
+      {/* HIGHLIGHTS STRIP */}
+      <motion.section
+        ref={highlightsRef}
+        initial={{ opacity: 0, y: 40 }}
+        animate={highlightsInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}
+        style={{
+          backgroundColor: darkBrown,
+          padding: '60px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '40px',
+          borderBottom: `1px solid #2a1800`,
+        }}
+      >
+        {highlights.map((h, i) => (
           <motion.div
-            ref={menuRef}
-            variants={staggerContainer}
-            initial="hidden"
-            animate={menuInView ? 'visible' : 'hidden'}
+            key={h.label}
+            initial={{ opacity: 0, y: 20 }}
+            animate={highlightsInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: i * 0.15 }}
+            style={{ textAlign: 'center', borderRight: i < 2 ? `1px solid #2a1800` : 'none', padding: '0 20px' }}
           >
-            {menuItems[activeTab].map((item) => (
-              <motion.div
-                key={item.name}
-                variants={fadeUp}
-                className="flex justify-between items-start py-5 border-b"
-                style={{ borderColor: GOLD + '22' }}
-              >
-                <div className="flex-1 pr-6">
-                  <p className="font-bold text-lg" style={{ color: CREAM }}>{item.name}</p>
-                  <p className="text-sm italic mt-1" style={{ color: CREAM + '80' }}>{item.desc}</p>
-                </div>
-                <span className="font-black text-xl flex-shrink-0" style={{ color: GOLD }}>{item.price}</span>
-              </motion.div>
-            ))}
+            <div style={{ fontSize: '28px', color: gold, marginBottom: '12px' }}>{h.icon}</div>
+            <p style={{ color: cream, fontWeight: 700, fontSize: '16px', margin: '0 0 6px', fontFamily: 'Georgia, serif' }}>{h.label}</p>
+            <p style={{ color: '#9a7a5a', fontSize: '13px', margin: 0, letterSpacing: '0.05em' }}>{h.sub}</p>
           </motion.div>
+        ))}
+      </motion.section>
+
+      {/* FEATURED DISHES */}
+      <section ref={dishesRef} style={{ padding: '100px 60px', maxWidth: '1300px', margin: '0 auto' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={dishesInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          style={{ textAlign: 'center', marginBottom: '70px' }}
+        >
+          <p style={{ color: gold, fontSize: '11px', letterSpacing: '0.4em', fontWeight: 600, marginBottom: '16px' }}>
+            — NUESTRA CARTA
+          </p>
+          <h2 style={{
+            fontSize: 'clamp(32px, 5vw, 64px)',
+            fontFamily: 'Georgia, serif', fontStyle: 'italic',
+            fontWeight: 400, margin: '0 0 20px', color: cream
+          }}>
+            Creaciones de temporada
+          </h2>
+          <div style={{ width: '60px', height: '1px', backgroundColor: gold, margin: '0 auto' }} />
+        </motion.div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
+          {featuredDishes.map((d, i) => <DishCard key={d.id} dish={d} delay={i * 0.12} />)}
         </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={dishesInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.6, duration: 0.7 }}
+          style={{ textAlign: 'center', marginTop: '60px' }}
+        >
+          <Link href="/demos/restaurante/carta">
+            <button style={{
+              backgroundColor: 'transparent', color: gold,
+              border: `1px solid ${gold}`, padding: '14px 44px',
+              fontWeight: 600, fontSize: '13px', letterSpacing: '0.2em', cursor: 'pointer'
+            }}>
+              VER CARTA COMPLETA
+            </button>
+          </Link>
+        </motion.div>
       </section>
 
-      {/* ── STORY ── */}
-      <section className="py-24 px-6" style={{ background: DARK }}>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      {/* CHEF SECTION */}
+      <section ref={chefRef} style={{ backgroundColor: darkBrown, padding: '100px 60px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center', maxWidth: '1200px', margin: '0 auto' }}>
           <motion.div
-            variants={slideLeft}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={chefInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            style={{ position: 'relative' }}
           >
-            <p className="uppercase tracking-widest text-xs mb-3" style={{ color: GOLD }}>Nuestra Historia</p>
-            <h2 className="font-black italic text-3xl md:text-4xl mb-6" style={{ color: CREAM }}>
-              Pasión por la cocina desde 1998
-            </h2>
-            <p className="text-base leading-relaxed mb-4" style={{ color: CREAM + '99' }}>
-              Fundado por el chef Antonio Arcos, nuestro restaurante nació de la pasión por los productos
-              de temporada y las técnicas tradicionales de la cocina española.
-            </p>
-            <p className="text-base leading-relaxed" style={{ color: CREAM + '80' }}>
-              Cada plato es una historia, cada ingrediente una promesa de calidad.
-              Bienvenido a Arcos.
-            </p>
-          </motion.div>
-          <motion.div
-            variants={slideRight}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-2 gap-4"
-          >
-            {[
-              { val: '25+', label: 'Años de experiencia' },
-              { val: '★ 4.9', label: 'Valoración media' },
-              { val: '3', label: 'Estrellas Michelin' },
-              { val: '200+', label: 'Recetas únicas' },
-            ].map((stat) => (
-              <div key={stat.label} className="p-6 text-center rounded-lg" style={{ background: '#2a1500' }}>
-                <p className="font-black text-2xl mb-1" style={{ color: GOLD }}>{stat.val}</p>
-                <p className="text-xs uppercase tracking-widest" style={{ color: CREAM + '60' }}>{stat.label}</p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── RESERVATION ── */}
-      <section id="reservar" className="py-24 px-6" style={{ background: '#110800' }}>
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="font-black italic text-4xl" style={{ color: CREAM }}>Hacer una Reserva</h2>
-            <div className="h-px w-16 mx-auto mt-4" style={{ background: GOLD }} />
-          </div>
-          <div className="p-8 rounded-2xl border" style={{ borderColor: GOLD + '33', background: '#1a0a00' }}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              {[
-                { placeholder: 'Nombre completo', type: 'text' },
-                { placeholder: 'Email', type: 'email' },
-                { placeholder: 'Fecha', type: 'date' },
-                { placeholder: 'Hora', type: 'time' },
-              ].map(({ placeholder, type }) => (
-                <input
-                  key={placeholder}
-                  type={type}
-                  placeholder={placeholder}
-                  className="w-full bg-transparent border-b px-0 py-3 text-sm focus:outline-none"
-                  style={{ borderColor: GOLD + '40', color: CREAM, caretColor: GOLD }}
-                />
-              ))}
-            </div>
-            <input
-              type="number"
-              placeholder="Número de personas"
-              min={1}
-              max={12}
-              className="w-full bg-transparent border-b px-0 py-3 text-sm focus:outline-none mb-6"
-              style={{ borderColor: GOLD + '40', color: CREAM }}
+            <img
+              src="https://picsum.photos/seed/chef/600/700"
+              alt="Chef Arcos"
+              style={{ width: '100%', aspectRatio: '6/7', objectFit: 'cover', display: 'block' }}
             />
-            <button
-              className="w-full py-4 font-bold uppercase tracking-widest text-sm transition-opacity hover:opacity-90"
-              style={{ background: GOLD, color: '#000' }}
+            <div style={{
+              position: 'absolute', bottom: '-20px', right: '-20px',
+              backgroundColor: gold, padding: '20px 28px'
+            }}>
+              <p style={{ color: darkBrown, fontWeight: 900, fontSize: '14px', letterSpacing: '0.1em', margin: 0 }}>
+                CHEF EJECUTIVO
+              </p>
+              <p style={{ color: darkBrown, fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: '20px', margin: '4px 0 0', fontWeight: 600 }}>
+                Carlos de Arcos
+              </p>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={chefInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p style={{ color: gold, fontSize: '11px', letterSpacing: '0.4em', fontWeight: 600, marginBottom: '20px' }}>
+              — EL ARTISTA
+            </p>
+            <h2 style={{
+              fontSize: 'clamp(28px, 4vw, 52px)', fontFamily: 'Georgia, serif',
+              fontStyle: 'italic', fontWeight: 400, margin: '0 0 28px', color: cream, lineHeight: 1.2
+            }}>
+              Una vida dedicada<br />al sabor
+            </h2>
+            <div style={{ width: '50px', height: '1px', backgroundColor: gold, marginBottom: '28px' }} />
+            <p style={{ color: '#b8956a', fontSize: '16px', lineHeight: 1.8, marginBottom: '20px' }}>
+              Carlos de Arcos comenzó su andadura culinaria a los 14 años en la cocina de su abuela en La Rioja. Formado en el Basque Culinary Center y con experiencia en restaurantes con tres estrellas Michelin en Francia y Japón, regresó a España con una visión clara: honrar el producto autóctono con técnicas de vanguardia.
+            </p>
+            <p style={{ color: '#b8956a', fontSize: '16px', lineHeight: 1.8, marginBottom: '32px' }}>
+              Su filosofía se resume en tres palabras: producto, honestidad y emoción. Cada plato que sale de su cocina cuenta una historia, evoca un recuerdo, transforma un ingrediente humilde en una experiencia sublime.
+            </p>
+            <Link href="/demos/restaurante/historia">
+              <button style={{
+                backgroundColor: 'transparent', color: gold,
+                border: `1px solid ${gold}`, padding: '14px 36px',
+                fontWeight: 600, fontSize: '12px', letterSpacing: '0.2em', cursor: 'pointer'
+              }}>
+                NUESTRA HISTORIA
+              </button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* RESERVATION CTA */}
+      <motion.section
+        ref={reservaRef}
+        initial={{ opacity: 0, y: 40 }}
+        animate={reservaInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.9 }}
+        style={{
+          padding: '100px 60px', textAlign: 'center',
+          background: `linear-gradient(135deg, ${darkBrown} 0%, #2a1400 100%)`
+        }}
+      >
+        <p style={{ color: gold, fontSize: '11px', letterSpacing: '0.4em', fontWeight: 600, marginBottom: '20px' }}>
+          — RESERVAS
+        </p>
+        <h2 style={{
+          fontSize: 'clamp(32px, 5vw, 70px)', fontFamily: 'Georgia, serif',
+          fontStyle: 'italic', fontWeight: 400, margin: '0 0 16px', color: cream, lineHeight: 1.1
+        }}>
+          Reserve su mesa hoy
+        </h2>
+        <p style={{ color: '#b8956a', fontSize: '16px', lineHeight: 1.7, maxWidth: '600px', margin: '0 auto 40px' }}>
+          Disponemos de un comedor principal, una sala privada y una terraza de temporada. Le recomendamos hacer su reserva con al menos 48 horas de antelación.
+        </p>
+        {submitted ? (
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+            <p style={{ color: gold, fontSize: '20px', fontFamily: 'Georgia, serif', fontStyle: 'italic' }}>
+              Gracias. Le confirmaremos su reserva por correo electrónico.
+            </p>
+          </motion.div>
+        ) : (
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', maxWidth: '700px', margin: '0 auto' }}>
+            <input
+              type="text"
+              placeholder="Nombre completo"
+              value={formData.name}
+              onChange={e => setFormData(f => ({ ...f, name: e.target.value }))}
+              style={{
+                backgroundColor: '#0d0500', border: `1px solid #3a2010`,
+                color: cream, padding: '14px 20px', fontSize: '14px',
+                outline: 'none', flex: '1', minWidth: '180px'
+              }}
+            />
+            <input
+              type="date"
+              value={formData.date}
+              onChange={e => setFormData(f => ({ ...f, date: e.target.value }))}
+              style={{
+                backgroundColor: '#0d0500', border: `1px solid #3a2010`,
+                color: cream, padding: '14px 20px', fontSize: '14px',
+                outline: 'none', flex: '1', minWidth: '160px'
+              }}
+            />
+            <select
+              value={formData.guests}
+              onChange={e => setFormData(f => ({ ...f, guests: e.target.value }))}
+              style={{
+                backgroundColor: '#0d0500', border: `1px solid #3a2010`,
+                color: cream, padding: '14px 20px', fontSize: '14px',
+                outline: 'none', cursor: 'pointer'
+              }}
             >
-              CONFIRMAR RESERVA
+              {[1,2,3,4,5,6,7,8].map(n => (
+                <option key={n} value={n}>{n} {n === 1 ? 'persona' : 'personas'}</option>
+              ))}
+            </select>
+            <button
+              onClick={() => formData.name && formData.date && setSubmitted(true)}
+              style={{
+                backgroundColor: gold, color: darkBrown,
+                border: 'none', padding: '14px 32px',
+                fontWeight: 700, fontSize: '13px', letterSpacing: '0.15em', cursor: 'pointer'
+              }}
+            >
+              RESERVAR
             </button>
           </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-6 border-t text-center" style={{ borderColor: GOLD + '22', background: '#0d0600' }}>
-        <p className="font-black italic text-2xl mb-4" style={{ color: GOLD }}>Arcos</p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm" style={{ color: CREAM + '60' }}>
-          <span className="flex items-center gap-2"><MapPin size={14} style={{ color: GOLD }} /> Calle Mayor 14, Madrid</span>
-          <span className="flex items-center gap-2"><Phone size={14} style={{ color: GOLD }} /> +34 91 234 5678</span>
-          <span className="flex items-center gap-2"><Clock size={14} style={{ color: GOLD }} /> Mar-Dom 13:00 – 23:00</span>
-        </div>
-        <p className="text-xs mt-6" style={{ color: CREAM + '30' }}>
-          © {new Date().getFullYear()} Restaurante Arcos — Demo por Manahen García Garrido
+        )}
+        <p style={{ color: '#5a3a20', fontSize: '13px', marginTop: '20px' }}>
+          También puede reservar llamando al +34 91 234 56 78
         </p>
+      </motion.section>
+
+      {/* FOOTER */}
+      <footer style={{ borderTop: `1px solid #2a1800`, padding: '40px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+        <span style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: '24px', color: gold }}>Arcos</span>
+        <div style={{ textAlign: 'center', color: '#5a3a20', fontSize: '13px' }}>
+          <p style={{ margin: '0 0 4px' }}>Calle del Prado 28, Madrid · Martes a Domingo, 13:30–15:30 y 20:30–23:00</p>
+          <p style={{ margin: 0 }}>© 2025 Restaurante Arcos. Todos los derechos reservados.</p>
+        </div>
+        <span style={{ color: '#5a3a20', fontSize: '13px' }}>+34 91 234 56 78</span>
       </footer>
     </div>
   );

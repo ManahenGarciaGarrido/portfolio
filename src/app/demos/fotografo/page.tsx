@@ -1,346 +1,326 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight, Camera, Award, Clock, ArrowRight } from 'lucide-react';
-import DemoNavBar from '@/components/demos/DemoNavBar';
-import { staggerContainer, fadeUp } from '@/lib/animations';
+import { useRef, useState, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
+import Link from 'next/link';
 
-// CSS gradient "photos"
-const gallery = [
-  { id: 1, span: 'row-span-2', cat: 'Boda', grad: 'linear-gradient(135deg, #1a1a1a, #b8860b)' },
-  { id: 2, span: '', cat: 'Retrato', grad: 'linear-gradient(135deg, #0d0d0d, #4a4a4a)' },
-  { id: 3, span: '', cat: 'Corporativo', grad: 'linear-gradient(135deg, #1f1f1f, #8b7355)' },
-  { id: 4, span: 'col-span-2', cat: 'Boda', grad: 'linear-gradient(135deg, #2a1a00, #b8860b)' },
-  { id: 5, span: '', cat: 'Retrato', grad: 'linear-gradient(135deg, #111, #888)' },
-  { id: 6, span: 'row-span-2', cat: 'Moda', grad: 'linear-gradient(135deg, #0a0a0a, #c0a060)' },
-  { id: 7, span: '', cat: 'Corporativo', grad: 'linear-gradient(135deg, #1a1000, #a07840)' },
-  { id: 8, span: '', cat: 'Boda', grad: 'linear-gradient(135deg, #0f0f0f, #b8860b)' },
-  { id: 9, span: '', cat: 'Retrato', grad: 'linear-gradient(135deg, #1a1a1a, #666)' },
-];
+const GOLD = '#b8860b';
+const WHITE = '#ffffff';
+const BLACK = '#000000';
 
-const services = [
-  {
-    num: '01',
-    title: 'Boda',
-    price: 'Desde €900',
-    items: ['Sesión completa 10h', 'Retoque profesional', '400+ fotos editadas', 'Álbum digital', 'Videoclip 3min'],
-  },
-  {
-    num: '02',
-    title: 'Retrato',
-    price: 'Desde €200',
-    items: ['Sesión 2h', '30 fotos editadas', '5 formatos de entrega', 'Uso personal y profesional'],
-  },
-  {
-    num: '03',
-    title: 'Corporativo',
-    price: 'Desde €400',
-    items: ['Media jornada', 'Producto, equipo o evento', '80+ fotos editadas', 'Licencia comercial'],
-  },
-];
+function LetterByLetter({ text, delay = 0 }: { text: string; delay?: number }) {
+  return (
+    <span>
+      {text.split('').map((char, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: delay + i * 0.04, duration: 0.4 }}
+          style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
+        >
+          {char}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
-export default function FotografoPage() {
-  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
-  const galleryRef = useRef(null);
-  const servicesRef = useRef(null);
-  const galleryInView = useInView(galleryRef, { once: true, margin: '-80px' });
-  const servicesInView = useInView(servicesRef, { once: true, margin: '-80px' });
+function StatCounter({ end, label, suffix = '' }: { end: number; label: string; suffix?: string }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
 
-  const nameLetters = 'ALEJANDRO\nVEGA'.split('');
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const duration = 1800;
+    const step = end / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= end) { setCount(end); clearInterval(timer); }
+      else setCount(Math.floor(start));
+    }, 16);
+    return () => clearInterval(timer);
+  }, [inView, end]);
 
   return (
-    <div style={{ background: '#000', color: '#fff', fontFamily: 'sans-serif' }}>
-      <DemoNavBar siteName="Alejandro Vega Fotografía" sector="fotógrafo profesional" />
+    <div ref={ref} style={{ textAlign: 'center' }}>
+      <div style={{ fontSize: '3.5rem', fontWeight: 900, color: GOLD, lineHeight: 1 }}>
+        {count}{suffix}
+      </div>
+      <div style={{ color: '#aaa', marginTop: '0.5rem', letterSpacing: '0.1em', fontSize: '0.85rem' }}>
+        {label}
+      </div>
+    </div>
+  );
+}
 
-      {/* ── HERO ── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-6 text-center pt-12">
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #b8860b 1px, transparent 0)', backgroundSize: '40px 40px' }}
-        />
+const galleryItems = [
+  { seed: 'photo1', w: 800, h: 900, category: 'RETRATO', gridRow: 'span 2', gridCol: 'span 1' },
+  { seed: 'photo2', w: 500, h: 400, category: 'BODA', gridRow: 'span 1', gridCol: 'span 1' },
+  { seed: 'photo3', w: 500, h: 400, category: 'MODA', gridRow: 'span 1', gridCol: 'span 1' },
+  { seed: 'photo4', w: 900, h: 450, category: 'CORPORATIVO', gridRow: 'span 1', gridCol: 'span 2' },
+  { seed: 'photo5', w: 450, h: 450, category: 'NATURALEZA', gridRow: 'span 1', gridCol: 'span 1' },
+  { seed: 'photo6', w: 450, h: 600, category: 'RETRATO', gridRow: 'span 1', gridCol: 'span 1' },
+];
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="relative z-10 max-w-3xl"
-        >
-          {/* Name */}
+function GalleryCard({ item, index }: { item: typeof galleryItems[0]; index: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-50px' });
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={inView ? { opacity: 1, scale: 1 } : {}}
+      transition={{ delay: index * 0.1, duration: 0.6 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        cursor: 'pointer',
+        gridRow: item.gridRow,
+        gridColumn: item.gridCol,
+        border: hovered ? `2px solid ${GOLD}` : '2px solid transparent',
+        transition: 'border 0.3s ease',
+      }}
+    >
+      <img
+        src={`https://picsum.photos/seed/${item.seed}/${item.w}/${item.h}`}
+        alt={item.category}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s ease', transform: hovered ? 'scale(1.05)' : 'scale(1)' }}
+      />
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: hovered ? 'rgba(0,0,0,0.6)' : 'transparent',
+        transition: 'background 0.3s ease',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      }}>
+        {hovered && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }} style={{ textAlign: 'center' }}>
+            <div style={{ color: GOLD, fontSize: '0.7rem', letterSpacing: '0.2em', fontWeight: 700, marginBottom: '0.5rem' }}>{item.category}</div>
+            <div style={{ color: WHITE, fontSize: '1.5rem', fontWeight: 900 }}>VER +</div>
+          </motion.div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+export default function FotografoHome() {
+  const statsRef = useRef(null);
+  const galleryRef = useRef(null);
+  const galleryInView = useInView(galleryRef, { once: true });
+
+  return (
+    <main style={{ background: BLACK, color: WHITE, overflowX: 'hidden' }}>
+
+      {/* HERO - Fullscreen Split */}
+      <section style={{ height: '100vh', display: 'flex', minHeight: '600px' }}>
+        {/* LEFT 40% */}
+        <div style={{
+          width: '40%', background: BLACK,
+          display: 'flex', flexDirection: 'column', justifyContent: 'center',
+          padding: '0 3rem 0 4rem', position: 'relative', zIndex: 2,
+        }}>
           <motion.div
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.04 } } }}
-            className="font-black leading-none mb-6"
-            style={{ fontSize: 'clamp(3rem, 9vw, 8rem)', letterSpacing: '0.1em' }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: GOLD, marginBottom: '1.5rem', fontWeight: 700 }}
           >
-            {'ALEJANDRO'.split('').map((l, i) => (
-              <motion.span
-                key={`a-${i}`}
-                variants={{ hidden: { opacity: 0, scale: 0.4 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } } }}
-                className="inline-block"
-              >
-                {l}
-              </motion.span>
-            ))}
+            FOTOGRAFÍA PROFESIONAL · MADRID
+          </motion.div>
+
+          <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 900, lineHeight: 1.0, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
+            <LetterByLetter text="ALEJANDRO" delay={0.3} />
             <br />
-            {'VEGA'.split('').map((l, i) => (
-              <motion.span
-                key={`v-${i}`}
-                variants={{ hidden: { opacity: 0, scale: 0.4 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } } }}
-                className="inline-block"
-                style={{ color: '#b8860b' }}
-              >
-                {l}
-              </motion.span>
-            ))}
-          </motion.div>
+            <LetterByLetter text="VEGA" delay={0.8} />
+          </h1>
 
-          <motion.p
-            variants={fadeUp}
-            className="uppercase tracking-[0.4em] text-white/40 text-sm mb-3"
-          >
-            Fotógrafo Profesional
-          </motion.p>
-
-          <motion.div
-            variants={{ hidden: { width: 0 }, visible: { width: '100%', transition: { duration: 1, delay: 0.5 } } }}
-            className="h-px bg-[#b8860b] mx-auto mb-6"
-          />
-
-          <motion.p
-            variants={fadeUp}
-            className="text-white/40 text-lg italic"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
-            "Capturando momentos que duran para siempre"
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="flex gap-4 justify-center mt-10">
-            <a
-              href="#galeria"
-              className="px-8 py-4 font-semibold text-black hover:scale-105 transition-transform"
-              style={{ background: '#b8860b' }}
-            >
-              VER GALERÍA
-            </a>
-            <a
-              href="#servicios"
-              className="px-8 py-4 font-semibold border border-white/20 text-white/80 hover:bg-white/10 transition-colors"
-            >
-              SERVICIOS
-            </a>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* ── GALLERY ── */}
-      <section id="galeria" className="py-24 px-6" style={{ background: '#050505' }}>
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-black text-4xl md:text-5xl text-white mb-16 text-center"
-          >
-            GALERÍA
-          </motion.h2>
-          <motion.div
-            ref={galleryRef}
-            variants={staggerContainer}
-            initial="hidden"
-            animate={galleryInView ? 'visible' : 'hidden'}
-            className="grid grid-cols-3 gap-3 auto-rows-[200px]"
-          >
-            {gallery.map((item, idx) => (
-              <motion.div
-                key={item.id}
-                variants={{
-                  hidden: { opacity: 0, filter: 'blur(10px)' },
-                  visible: { opacity: 1, filter: 'blur(0px)', transition: { duration: 0.6, delay: idx * 0.07 } },
-                }}
-                className={`relative group cursor-zoom-in overflow-hidden rounded-lg ${item.span}`}
-                style={{ background: item.grad }}
-                onClick={() => setLightboxIdx(idx)}
-              >
-                {/* Subtle camera icon */}
-                <Camera size={24} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/10" />
-                {/* Hover overlay */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
-                  style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)' }}>
-                  <span
-                    className="text-xs font-bold uppercase tracking-widest px-2 py-1"
-                    style={{ color: '#b8860b' }}
-                  >
-                    {item.cat}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── LIGHTBOX ── */}
-      <AnimatePresence>
-        {lightboxIdx !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center"
-            style={{ background: 'rgba(0,0,0,0.95)' }}
-            onClick={() => setLightboxIdx(null)}
+            transition={{ delay: 1.5, duration: 0.6 }}
+            style={{ fontSize: '0.75rem', letterSpacing: '0.25em', color: '#888', marginBottom: '1.5rem', fontWeight: 600 }}
           >
-            <button
-              onClick={() => setLightboxIdx(null)}
-              className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors z-10"
-            >
-              <X size={32} />
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); setLightboxIdx(i => i! > 0 ? i! - 1 : gallery.length - 1); }}
-              className="absolute left-6 text-white/40 hover:text-white transition-colors z-10"
-            >
-              <ChevronLeft size={40} />
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); setLightboxIdx(i => i! < gallery.length - 1 ? i! + 1 : 0); }}
-              className="absolute right-6 text-white/40 hover:text-white transition-colors z-10"
-            >
-              <ChevronRight size={40} />
-            </button>
-            <motion.div
-              key={lightboxIdx}
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              className="w-[80vw] h-[80vh] max-w-4xl rounded-2xl"
-              style={{ background: gallery[lightboxIdx].grad }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="h-full flex flex-col items-center justify-center">
-                <Camera size={48} className="text-white/20 mb-4" />
-                <p className="text-white/40 text-sm uppercase tracking-widest">{gallery[lightboxIdx].cat}</p>
-              </div>
-            </motion.div>
+            FOTÓGRAFO PROFESIONAL
           </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* ── SERVICES ── */}
-      <section id="servicios" className="py-24 px-6" style={{ background: '#000' }}>
-        <div className="max-w-5xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-black text-4xl md:text-5xl text-white text-center mb-16"
-          >
-            SERVICIOS
-          </motion.h2>
           <motion.div
-            ref={servicesRef}
-            variants={staggerContainer}
-            initial="hidden"
-            animate={servicesInView ? 'visible' : 'hidden'}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            initial={{ width: 0 }}
+            animate={{ width: '60px' }}
+            transition={{ delay: 1.8, duration: 0.6 }}
+            style={{ height: '2px', background: GOLD, marginBottom: '1.5rem' }}
+          />
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.0, duration: 0.6 }}
+            style={{ color: '#aaa', lineHeight: 1.7, fontSize: '0.9rem', marginBottom: '2.5rem', maxWidth: '320px' }}
           >
-            {services.map((s) => (
-              <motion.div
-                key={s.title}
-                variants={fadeUp}
-                className="p-8 border border-white/10 hover:border-[#b8860b]/50 transition-colors"
-              >
-                <p className="text-[#b8860b] font-mono text-sm mb-3">{s.num}</p>
-                <h3 className="font-black text-white text-2xl mb-1">{s.title}</h3>
-                <p className="text-[#b8860b] font-semibold mb-5">{s.price}</p>
-                <ul className="space-y-2">
-                  {s.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-white/60">
-                      <span className="w-1 h-1 rounded-full bg-[#b8860b]" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
+            Capturo momentos que perduran para siempre. Más de 15 años inmortalizando bodas, retratos y proyectos corporativos con una visión única y personal.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.2, duration: 0.6 }}
+            style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
+          >
+            <Link href="/demos/fotografo/galeria" style={{
+              background: GOLD, color: BLACK, padding: '0.85rem 1.8rem',
+              fontWeight: 800, fontSize: '0.75rem', letterSpacing: '0.15em',
+              textDecoration: 'none', display: 'inline-block',
+            }}>
+              VER GALERÍA
+            </Link>
+            <Link href="/demos/fotografo/contacto" style={{
+              border: `1px solid ${GOLD}`, color: GOLD, padding: '0.85rem 1.8rem',
+              fontWeight: 800, fontSize: '0.75rem', letterSpacing: '0.15em',
+              textDecoration: 'none', display: 'inline-block',
+            }}>
+              CONTRATAR
+            </Link>
           </motion.div>
         </div>
-      </section>
 
-      {/* ── PROCESS ── */}
-      <section className="py-20 px-6 border-t border-white/5" style={{ background: '#050505' }}>
-        <div className="max-w-5xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-black text-3xl text-white text-center mb-12"
-          >
-            ¿CÓMO FUNCIONA?
-          </motion.h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative">
-            {[
-              { step: '1', icon: Camera, title: 'Consulta', desc: 'Hablamos de tu proyecto y necesidades.' },
-              { step: '2', icon: Award, title: 'Sesión', desc: 'Fotografiamos en locación o estudio.' },
-              { step: '3', icon: Clock, title: 'Edición', desc: 'Retoque profesional de cada imagen.' },
-              { step: '4', icon: ArrowRight, title: 'Entrega', desc: 'Galería digital en 7 días.' },
-            ].map((step, i) => (
-              <motion.div
-                key={step.step}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="text-center"
-              >
-                <div
-                  className="w-12 h-12 rounded-full border-2 flex items-center justify-center mx-auto mb-3"
-                  style={{ borderColor: '#b8860b' }}
-                >
-                  <span className="font-black text-[#b8860b]">{step.step}</span>
-                </div>
-                <h4 className="font-bold text-white mb-1">{step.title}</h4>
-                <p className="text-white/40 text-sm">{step.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+        {/* RIGHT 60% */}
+        <div style={{ width: '60%', position: 'relative', overflow: 'hidden' }}>
+          <HeroImageHover />
         </div>
       </section>
 
-      {/* ── CONTACT ── */}
-      <section className="py-24 px-6 text-center" style={{ background: '#000' }}>
-        <motion.h2
+      {/* CATEGORIES BAR */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        style={{ borderTop: `1px solid ${GOLD}33`, borderBottom: `1px solid ${GOLD}33`, overflow: 'hidden' }}
+      >
+        <motion.div
+          animate={{ x: [0, -800] }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          style={{ display: 'flex', gap: '0', whiteSpace: 'nowrap', padding: '1rem 0' }}
+        >
+          {['BODA', 'RETRATO', 'CORPORATIVO', 'NATURALEZA', 'MODA', 'BODA', 'RETRATO', 'CORPORATIVO', 'NATURALEZA', 'MODA'].map((cat, i) => (
+            <span key={i} style={{ padding: '0 2.5rem', fontSize: '0.75rem', letterSpacing: '0.3em', fontWeight: 700, color: i % 2 === 0 ? GOLD : '#555' }}>
+              {cat} {i < 9 && <span style={{ color: GOLD, marginLeft: '2.5rem' }}>·</span>}
+            </span>
+          ))}
+        </motion.div>
+      </motion.section>
+
+      {/* GALLERY PREVIEW */}
+      <section ref={galleryRef} style={{ padding: '5rem 4rem' }}>
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="font-black text-4xl md:text-6xl text-white mb-4"
-          style={{ fontWeight: 100, letterSpacing: '0.05em' }}
+          style={{ marginBottom: '3rem' }}
         >
-          TRABAJEMOS JUNTOS
-        </motion.h2>
-        <div className="h-px w-24 mx-auto mb-8" style={{ background: '#b8860b' }} />
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="mailto:hola@alejandrovega.es"
-            className="px-8 py-4 font-semibold text-black hover:scale-105 transition-transform"
-            style={{ background: '#b8860b' }}
-          >
-            ENVIAR EMAIL
-          </a>
-          <a
-            href="https://wa.me/34640038508"
-            className="px-8 py-4 font-semibold border border-white/20 text-white/80 hover:bg-white/10 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            WHATSAPP
-          </a>
+          <div style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: GOLD, marginBottom: '0.75rem', fontWeight: 700 }}>TRABAJOS RECIENTES</div>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-0.02em' }}>Últimas Obras</h2>
+        </motion.div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateRows: 'auto',
+          gap: '0.75rem',
+          height: '700px',
+        }}>
+          {galleryItems.map((item, i) => (
+            <GalleryCard key={item.seed} item={item} index={i} />
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          viewport={{ once: true }}
+          style={{ textAlign: 'center', marginTop: '3rem' }}
+        >
+          <Link href="/demos/fotografo/galeria" style={{
+            border: `1px solid ${GOLD}`, color: GOLD, padding: '1rem 3rem',
+            fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.2em',
+            textDecoration: 'none', display: 'inline-block',
+          }}>
+            VER GALERÍA COMPLETA
+          </Link>
+        </motion.div>
+      </section>
+
+      {/* STATS */}
+      <section style={{ padding: '4rem', borderTop: `1px solid ${GOLD}22`, borderBottom: `1px solid ${GOLD}22` }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', maxWidth: '700px', margin: '0 auto' }}>
+          <StatCounter end={850} label="SESIONES REALIZADAS" suffix="+" />
+          <StatCounter end={15} label="AÑOS DE EXPERIENCIA" suffix="" />
+          <StatCounter end={49} label="VALORACIÓN MEDIA" suffix="" />
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
+          <span style={{ color: GOLD, fontSize: '2rem', fontWeight: 900 }}>4.9★</span>
         </div>
       </section>
 
-      <footer className="py-8 px-6 text-center border-t border-white/10 text-white/30 text-sm">
-        © {new Date().getFullYear()} Alejandro Vega Fotografía — Demo por Manahen García Garrido
-      </footer>
+      {/* CTA */}
+      <section style={{ position: 'relative', height: '400px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <img
+          src="https://picsum.photos/seed/photographer-cta/1400/400"
+          alt="Trabaja con nosotros"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.75)' }} />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}
+        >
+          <div style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: GOLD, marginBottom: '1rem', fontWeight: 700 }}>LISTO PARA EMPEZAR</div>
+          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, marginBottom: '2rem', letterSpacing: '-0.02em' }}>
+            TRABAJEMOS JUNTOS
+          </h2>
+          <Link href="/demos/fotografo/contacto" style={{
+            background: GOLD, color: BLACK, padding: '1rem 3rem',
+            fontWeight: 800, fontSize: '0.8rem', letterSpacing: '0.2em',
+            textDecoration: 'none', display: 'inline-block',
+          }}>
+            SOLICITAR PRESUPUESTO
+          </Link>
+        </motion.div>
+      </section>
+
+    </main>
+  );
+}
+
+function HeroImageHover() {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', cursor: 'pointer' }}
+    >
+      <img
+        src="https://picsum.photos/seed/photographer-hero/800/1000"
+        alt="Fotografía profesional"
+        style={{ objectFit: 'cover', width: '100%', height: '100%', transition: 'transform 0.8s ease', transform: hovered ? 'scale(1.03)' : 'scale(1)' }}
+      />
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: hovered ? `rgba(184,134,11,0.15)` : 'rgba(0,0,0,0.1)',
+        transition: 'background 0.5s ease',
+      }} />
     </div>
   );
 }

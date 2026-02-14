@@ -1,277 +1,329 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { ShoppingBag, ArrowRight, Star } from 'lucide-react';
-import DemoNavBar from '@/components/demos/DemoNavBar';
-import { staggerContainer, fadeUp } from '@/lib/animations';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 const products = [
-  { name: 'BOMBER JACKET', price: '€129', category: 'CHAQUETAS', grad: 'linear-gradient(160deg, #1a1a00, #3a3a00)' },
-  { name: 'CARGO PANTS', price: '€89', category: 'PANTALONES', grad: 'linear-gradient(160deg, #111, #222)' },
-  { name: 'CROP TEE', price: '€45', category: 'CAMISETAS', grad: 'linear-gradient(160deg, #1a1a00, #444400)' },
-  { name: 'HIGH-TOP SNEAKERS', price: '€159', category: 'ZAPATILLAS', grad: 'linear-gradient(160deg, #0d0d0d, #2a2a00)' },
-  { name: 'BIKER JACKET', price: '€199', category: 'CHAQUETAS', grad: 'linear-gradient(160deg, #1c1c00, #3d3d00)' },
-  { name: 'WIDE-LEG PANTS', price: '€95', category: 'PANTALONES', grad: 'linear-gradient(160deg, #111, #333)' },
+  { id: 1, name: 'Chaqueta Oversized', price: '189€', seed: 'fashion1' },
+  { id: 2, name: 'Vestido Asimétrico', price: '145€', seed: 'fashion2' },
+  { id: 3, name: 'Pantalón Wide Leg', price: '98€', seed: 'fashion3' },
+  { id: 4, name: 'Blazer Estructurado', price: '220€', seed: 'fashion4' },
+  { id: 5, name: 'Top Minimal', price: '65€', seed: 'fashion5' },
+  { id: 6, name: 'Falda Plisada', price: '112€', seed: 'fashion6' },
 ];
 
-const categories = ['CAMISETAS', 'PANTALONES', 'CHAQUETAS', 'ACCESORIOS', 'ZAPATILLAS', 'SUDADERAS'];
+const categories = ['CHAQUETAS', 'VESTIDOS', 'PANTALONES', 'TOPS', 'ZAPATOS', 'ACCESORIOS', 'NUEVOS', 'OFERTAS'];
 
-export default function TiendaModaPage() {
-  const heroRef = useRef(null);
-  const productsRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const heroTextY = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const productsInView = useInView(productsRef, { once: true, margin: '-80px' });
+function Countdown() {
+  const [time, setTime] = useState({ hours: 47, minutes: 59, seconds: 59 });
+  useEffect(() => {
+    const t = setInterval(() => {
+      setTime(prev => {
+        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
+        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        if (prev.hours > 0) return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        return prev;
+      });
+    }, 1000);
+    return () => clearInterval(t);
+  }, []);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return (
+    <div style={{ display: 'flex', gap: '24px', alignItems: 'center', justifyContent: 'center', marginTop: '24px' }}>
+      {[['HORAS', time.hours], ['MIN', time.minutes], ['SEG', time.seconds]].map(([label, val]) => (
+        <div key={label as string} style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '48px', fontWeight: 900, color: '#000', lineHeight: 1 }}>{pad(val as number)}</div>
+          <div style={{ fontSize: '11px', letterSpacing: '0.2em', color: '#000', fontWeight: 700 }}>{label as string}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ProductCard({ product }: { product: typeof products[0] }) {
+  const [hovered, setHovered] = useState(false);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 60 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ position: 'relative', cursor: 'pointer' }}
+    >
+      <div style={{ position: 'relative', aspectRatio: '3/4', overflow: 'hidden', backgroundColor: '#111' }}>
+        <img
+          src={`https://picsum.photos/seed/${product.seed}/500/700`}
+          alt={product.name}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease', transform: hovered ? 'scale(1.05)' : 'scale(1)' }}
+        />
+        <AnimatePresence>
+          {hovered && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.25 }}
+              style={{
+                position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-end',
+                justifyContent: 'center', paddingBottom: '24px',
+                background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)'
+              }}
+            >
+              <button style={{
+                backgroundColor: '#FFE600', color: '#000', border: 'none', padding: '12px 28px',
+                fontWeight: 800, fontSize: '12px', letterSpacing: '0.15em', cursor: 'pointer'
+              }}>
+                AÑADIR AL CARRITO
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      <div style={{ paddingTop: '14px' }}>
+        <p style={{ color: '#fff', fontWeight: 600, fontSize: '14px', letterSpacing: '0.05em', margin: 0 }}>{product.name}</p>
+        <p style={{ color: '#FFE600', fontWeight: 800, fontSize: '16px', marginTop: '4px' }}>{product.price}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function TiendaModaHome() {
+  const heroWords = ['MODA', 'QUE', 'IMPACTA'];
+  const stripRef = useRef<HTMLDivElement>(null);
+  const featuredRef = useRef(null);
+  const promoRef = useRef(null);
+  const newsletterRef = useRef(null);
+  const featuredInView = useInView(featuredRef, { once: true, margin: '-100px' });
+  const promoInView = useInView(promoRef, { once: true, margin: '-80px' });
+  const newsletterInView = useInView(newsletterRef, { once: true, margin: '-80px' });
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
 
   return (
-    <div style={{ background: '#000', color: '#fff', fontFamily: 'sans-serif' }}>
-      <DemoNavBar siteName="NOIR — Moda" sector="tienda de moda y ropa" />
+    <div style={{ backgroundColor: '#000', color: '#fff', overflow: 'hidden' }}>
 
-      {/* ── HERO ── */}
-      <section
-        ref={heroRef}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-12"
-        style={{ background: '#000' }}
-      >
-        {/* Background diagonal lines */}
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(45deg, #FFE600 0px, #FFE600 1px, transparent 1px, transparent 40px)',
-          }}
-        />
-
-        <motion.div
-          style={{ y: heroTextY }}
-          className="relative z-10 text-center px-6 max-w-5xl mx-auto"
-        >
-          <motion.p
-            initial={{ opacity: 0, letterSpacing: '0.5em' }}
-            animate={{ opacity: 1, letterSpacing: '0.3em' }}
-            transition={{ duration: 0.8 }}
-            className="uppercase text-sm mb-6 font-bold"
-            style={{ color: '#FFE600' }}
-          >
-            NUEVA COLECCIÓN SS25
-          </motion.p>
-
-          <motion.h1
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="font-black leading-none mb-6"
-            style={{ fontSize: 'clamp(4rem, 13vw, 12rem)' }}
-          >
-            {'MODA'.split('').map((l, i) => (
-              <motion.span
-                key={`m-${i}`}
-                variants={{ hidden: { opacity: 0, x: -60 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: i * 0.12 } } }}
-                className="inline-block text-white"
-              >
-                {l}
-              </motion.span>
-            ))}
-            <br />
-            {'QUE'.split('').map((l, i) => (
-              <motion.span
-                key={`q-${i}`}
-                variants={{ hidden: { opacity: 0, x: -60 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: (4 + i) * 0.12 } } }}
-                className="inline-block"
-                style={{ color: '#FFE600' }}
-              >
-                {l}
-              </motion.span>
-            ))}
-            {' '}
-            {'IMPACTA'.split('').map((l, i) => (
-              <motion.span
-                key={`i-${i}`}
-                variants={{ hidden: { opacity: 0, x: -60 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: (7 + i) * 0.12 } } }}
-                className="inline-block text-white"
-              >
-                {l}
-              </motion.span>
-            ))}
-          </motion.h1>
-
+      {/* HERO */}
+      <section style={{ minHeight: '100vh', display: 'grid', gridTemplateColumns: '1fr 1fr', position: 'relative' }}>
+        <div style={{
+          display: 'flex', flexDirection: 'column', justifyContent: 'center',
+          padding: '80px 60px', zIndex: 1
+        }}>
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{ marginBottom: '16px' }}
           >
-            <a
-              href="#productos"
-              className="flex items-center justify-center gap-2 px-10 py-4 font-black text-black hover:scale-105 transition-transform"
-              style={{ background: '#FFE600' }}
-            >
-              COMPRAR AHORA
-              <ArrowRight size={18} />
-            </a>
-            <a
-              href="#"
-              className="flex items-center justify-center gap-2 px-10 py-4 font-bold text-white border-2 border-[#FFE600] hover:bg-[#FFE600] hover:text-black transition-all"
-            >
-              VER LOOKBOOK
-            </a>
+            <span style={{ color: '#FFE600', fontSize: '11px', letterSpacing: '0.3em', fontWeight: 700 }}>
+              — NUEVA COLECCIÓN SS25
+            </span>
           </motion.div>
-        </motion.div>
-
-        {/* Floating cart */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0px', marginBottom: '32px' }}>
+            {heroWords.map((word, i) => (
+              <div key={word} style={{ overflow: 'hidden' }}>
+                <motion.h1
+                  initial={{ y: '110%' }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.1 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    fontSize: 'clamp(56px, 8vw, 110px)', fontWeight: 900, lineHeight: 0.9,
+                    color: i === 1 ? '#FFE600' : '#fff', margin: 0, letterSpacing: '-0.02em'
+                  }}
+                >
+                  {word}
+                </motion.h1>
+              </div>
+            ))}
+          </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+            style={{ color: '#aaa', fontSize: '16px', lineHeight: 1.7, maxWidth: '380px', marginBottom: '40px' }}
+          >
+            Diseño sin concesiones. Cada pieza es una declaración. Descubre la colección que redefine los límites de la moda contemporánea.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.75 }}
+            style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}
+          >
+            <Link href="/demos/tienda-moda/productos">
+              <button style={{
+                backgroundColor: '#FFE600', color: '#000', border: 'none',
+                padding: '16px 36px', fontWeight: 900, fontSize: '13px',
+                letterSpacing: '0.15em', cursor: 'pointer'
+              }}>
+                VER COLECCIÓN
+              </button>
+            </Link>
+            <Link href="/demos/tienda-moda/lookbook">
+              <button style={{
+                backgroundColor: 'transparent', color: '#fff',
+                border: '2px solid #fff', padding: '16px 36px',
+                fontWeight: 700, fontSize: '13px', letterSpacing: '0.15em', cursor: 'pointer'
+              }}>
+                LOOKBOOK SS25
+              </button>
+            </Link>
+          </motion.div>
+        </div>
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 1.5, type: 'spring' }}
-          className="fixed bottom-8 right-8 z-40 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform"
-          style={{ background: '#FFE600' }}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          style={{ position: 'relative', overflow: 'hidden' }}
         >
-          <ShoppingBag size={22} className="text-black" />
+          <img
+            src="https://picsum.photos/seed/fashion-model/700/900"
+            alt="Model"
+            style={{ objectFit: 'cover', width: '100%', height: '100%', display: 'block' }}
+          />
+          <div style={{
+            position: 'absolute', bottom: '40px', right: '40px', textAlign: 'right'
+          }}>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.1, duration: 0.6 }}
+              style={{
+                backgroundColor: '#FFE600', color: '#000',
+                padding: '12px 20px', display: 'inline-block'
+              }}
+            >
+              <p style={{ margin: 0, fontWeight: 900, fontSize: '13px', letterSpacing: '0.1em' }}>DESDE 65€</p>
+            </motion.div>
+          </div>
         </motion.div>
       </section>
 
-      {/* ── CATEGORIES MARQUEE ── */}
-      <div className="overflow-hidden py-4 border-t border-b border-[#FFE600]/30" style={{ background: '#0a0a00' }}>
-        <div className="flex gap-12 animate-marquee whitespace-nowrap">
+      {/* TRENDING STRIP */}
+      <div style={{ backgroundColor: '#FFE600', padding: '18px 0', overflow: 'hidden' }}>
+        <div ref={stripRef} style={{ display: 'flex', gap: '60px', whiteSpace: 'nowrap' }}>
           {[...categories, ...categories].map((cat, i) => (
-            <span key={i} className="font-black text-sm uppercase tracking-widest" style={{ color: i % 2 === 0 ? '#FFE600' : '#fff' }}>
-              {cat}
-            </span>
+            <motion.span
+              key={i}
+              initial={{ x: 0 }}
+              animate={{ x: '-50%' }}
+              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              style={{
+                display: 'inline-block', fontSize: '13px', fontWeight: 900,
+                letterSpacing: '0.25em', color: '#000'
+              }}
+            >
+              {cat} ★
+            </motion.span>
           ))}
         </div>
       </div>
 
-      {/* ── PRODUCTS ── */}
-      <section id="productos" className="py-24 px-6" style={{ background: '#000' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-end justify-between mb-12">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="font-black text-4xl md:text-5xl text-white"
-            >
-              NUEVOS ARRIVALS
-            </motion.h2>
-            <a href="#" className="text-[#FFE600] font-bold text-sm hover:underline hidden sm:block">
-              VER TODO →
-            </a>
-          </div>
-          <motion.div
-            ref={productsRef}
-            variants={staggerContainer}
-            initial="hidden"
-            animate={productsInView ? 'visible' : 'hidden'}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-          >
-            {products.map((product) => (
-              <motion.div
-                key={product.name}
-                variants={fadeUp}
-                className="group relative cursor-pointer"
-              >
-                {/* Product image area */}
-                <div
-                  className="aspect-[3/4] rounded-xl overflow-hidden relative mb-3"
-                  style={{ background: product.grad }}
-                >
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-end pb-6"
-                    style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }}
-                  >
-                    <span
-                      className="px-6 py-3 font-black text-black text-sm transition-transform group-hover:translate-y-0 translate-y-4"
-                      style={{ background: '#FFE600' }}
-                    >
-                      AÑADIR AL CARRITO
-                    </span>
-                  </div>
-                  <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span
-                      className="text-xs font-bold uppercase tracking-widest px-2 py-1 rounded"
-                      style={{ background: '#FFE60022', color: '#FFE600', border: '1px solid #FFE60040' }}
-                    >
-                      {product.category}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="font-black text-white text-sm">{product.name}</p>
-                    <div className="flex items-center gap-1 mt-0.5">
-                      {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="#FFE600" color="#FFE600" />)}
-                    </div>
-                  </div>
-                  <span className="font-black text-[#FFE600] text-lg">{product.price}</span>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── PROMO BANNER ── */}
-      <section className="py-16 px-6 overflow-hidden relative" style={{ background: '#FFE600' }}>
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <p className="font-black leading-none text-black" style={{ fontSize: 'clamp(3rem, 8vw, 7rem)' }}>
-              HASTA 50%
-            </p>
-            <p className="font-black text-2xl text-black/60 mt-1">EN REBAJAS DE TEMPORADA</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <p className="font-bold text-black/60 uppercase tracking-widest text-sm mb-2">La oferta termina en</p>
-            <div className="flex gap-3">
-              {['02', '14', '36', '08'].map((v, i) => (
-                <div key={i} className="text-center">
-                  <p className="font-black text-4xl text-black bg-black/10 px-3 py-2 rounded">{v}</p>
-                  <p className="text-xs text-black/60 mt-1">
-                    {['DÍAS', 'HRS', 'MIN', 'SEG'][i]}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── NEWSLETTER ── */}
-      <section className="py-20 px-6 text-center" style={{ background: '#050500' }}>
-        <motion.h2
+      {/* FEATURED PRODUCTS */}
+      <section ref={featuredRef} style={{ padding: '100px 60px', maxWidth: '1400px', margin: '0 auto' }}>
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-black text-3xl md:text-4xl text-white mb-4"
+          animate={featuredInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '60px' }}
         >
-          ÚNETE AL CLUB <span style={{ color: '#FFE600' }}>NOIR</span>
-        </motion.h2>
-        <p className="text-white/40 mb-8">Descuentos exclusivos, lanzamientos anticipados.</p>
-        <div className="flex flex-col sm:flex-row gap-0 max-w-lg mx-auto">
-          <input
-            type="email"
-            placeholder="tu@email.com"
-            className="flex-1 bg-transparent border-2 border-[#FFE600]/60 px-6 py-4 text-white placeholder-white/30 focus:outline-none focus:border-[#FFE600]"
-          />
-          <button
-            className="px-8 py-4 font-black text-black hover:opacity-90 transition-opacity"
-            style={{ background: '#FFE600' }}
-          >
-            SUSCRIBIRSE
-          </button>
+          <div>
+            <p style={{ color: '#FFE600', fontSize: '11px', letterSpacing: '0.3em', margin: '0 0 8px', fontWeight: 700 }}>— DESTACADOS</p>
+            <h2 style={{ fontSize: 'clamp(32px, 5vw, 64px)', fontWeight: 900, margin: 0, lineHeight: 1 }}>PIEZAS CLAVE</h2>
+          </div>
+          <Link href="/demos/tienda-moda/productos">
+            <span style={{ color: '#FFE600', fontSize: '13px', fontWeight: 700, letterSpacing: '0.15em', borderBottom: '2px solid #FFE600', paddingBottom: '4px', cursor: 'pointer' }}>
+              VER TODO →
+            </span>
+          </Link>
+        </motion.div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
+          {products.map(p => <ProductCard key={p.id} product={p} />)}
         </div>
       </section>
 
-      <footer className="py-8 px-6 text-center border-t border-white/10 text-white/30 text-sm">
-        © {new Date().getFullYear()} NOIR Moda — Demo por Manahen García Garrido
+      {/* PROMO BANNER */}
+      <motion.section
+        ref={promoRef}
+        initial={{ opacity: 0 }}
+        animate={promoInView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.8 }}
+        style={{ backgroundColor: '#FFE600', padding: '80px 60px', textAlign: 'center' }}
+      >
+        <p style={{ color: '#000', fontSize: '11px', letterSpacing: '0.3em', fontWeight: 700, marginBottom: '12px' }}>OFERTA LIMITADA</p>
+        <h2 style={{
+          fontSize: 'clamp(28px, 5vw, 72px)', fontWeight: 900, color: '#000',
+          lineHeight: 1.1, margin: '0 0 8px', letterSpacing: '-0.02em'
+        }}>
+          HASTA -50%
+        </h2>
+        <p style={{ fontSize: '18px', fontWeight: 700, color: '#000', letterSpacing: '0.05em', marginBottom: '8px' }}>
+          EN TODA LA NUEVA COLECCIÓN
+        </p>
+        <p style={{ color: '#333', fontSize: '14px', marginBottom: '0' }}>La oferta termina en:</p>
+        <Countdown />
+        <button style={{
+          marginTop: '40px', backgroundColor: '#000', color: '#FFE600',
+          border: 'none', padding: '18px 48px', fontWeight: 900,
+          fontSize: '14px', letterSpacing: '0.2em', cursor: 'pointer'
+        }}>
+          COMPRAR AHORA
+        </button>
+      </motion.section>
+
+      {/* NEWSLETTER */}
+      <motion.section
+        ref={newsletterRef}
+        initial={{ opacity: 0, y: 40 }}
+        animate={newsletterInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}
+        style={{ padding: '100px 60px', textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}
+      >
+        <p style={{ color: '#FFE600', fontSize: '11px', letterSpacing: '0.3em', marginBottom: '16px', fontWeight: 700 }}>— ÚNETE A NOIR</p>
+        <h2 style={{ fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 900, margin: '0 0 16px', lineHeight: 1.1 }}>
+          SÉ EL PRIMERO EN SABERLO
+        </h2>
+        <p style={{ color: '#888', fontSize: '16px', lineHeight: 1.7, marginBottom: '40px' }}>
+          Acceso anticipado a nuevas colecciones, ofertas exclusivas y contenido editorial solo para suscriptores.
+        </p>
+        {subscribed ? (
+          <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ color: '#FFE600', fontWeight: 700, fontSize: '16px' }}>
+            ¡Bienvenido/a a NOIR! Revisa tu correo.
+          </motion.p>
+        ) : (
+          <div style={{ display: 'flex', gap: '0', maxWidth: '500px', margin: '0 auto' }}>
+            <input
+              type="email"
+              placeholder="tu@email.com"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              style={{
+                flex: 1, backgroundColor: '#111', border: '2px solid #333', color: '#fff',
+                padding: '16px 20px', fontSize: '14px', outline: 'none'
+              }}
+            />
+            <button
+              onClick={() => email && setSubscribed(true)}
+              style={{
+                backgroundColor: '#FFE600', color: '#000', border: 'none',
+                padding: '16px 28px', fontWeight: 900, fontSize: '13px',
+                letterSpacing: '0.1em', cursor: 'pointer', whiteSpace: 'nowrap'
+              }}
+            >
+              SUSCRIBIRSE
+            </button>
+          </div>
+        )}
+      </motion.section>
+
+      {/* FOOTER */}
+      <footer style={{ borderTop: '1px solid #222', padding: '40px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontWeight: 900, fontSize: '20px', letterSpacing: '0.1em', color: '#FFE600' }}>NOIR</span>
+        <span style={{ color: '#555', fontSize: '13px' }}>© 2025 NOIR Studio. Todos los derechos reservados.</span>
       </footer>
     </div>
   );
