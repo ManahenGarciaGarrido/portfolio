@@ -187,12 +187,8 @@ export default function RestauranteHome() {
         initial={{ opacity: 0, y: 40 }}
         animate={highlightsInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        style={{
+        className="r-grid-3 r-section-sm" style={{
           backgroundColor: darkBrown,
-          padding: '60px',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '40px',
           borderBottom: `1px solid #2a1800`,
         }}
       >
@@ -212,7 +208,7 @@ export default function RestauranteHome() {
       </motion.section>
 
       {/* FEATURED DISHES */}
-      <section ref={dishesRef} style={{ padding: '100px 60px', maxWidth: '1300px', margin: '0 auto' }}>
+      <section ref={dishesRef} className="r-section" style={{ maxWidth: '1300px', margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={dishesInView ? { opacity: 1, y: 0 } : {}}
@@ -231,7 +227,7 @@ export default function RestauranteHome() {
           </h2>
           <div style={{ width: '60px', height: '1px', backgroundColor: gold, margin: '0 auto' }} />
         </motion.div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
+        <div className="r-grid-3">
           {featuredDishes.map((d, i) => <DishCard key={d.id} dish={d} delay={i * 0.12} />)}
         </div>
         <motion.div
@@ -253,8 +249,8 @@ export default function RestauranteHome() {
       </section>
 
       {/* CHEF SECTION */}
-      <section ref={chefRef} style={{ backgroundColor: darkBrown, padding: '100px 60px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center', maxWidth: '1200px', margin: '0 auto' }}>
+      <section ref={chefRef} className="r-section" style={{ backgroundColor: darkBrown }}>
+        <div className="r-two-col" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={chefInView ? { opacity: 1, x: 0 } : {}}
@@ -318,8 +314,8 @@ export default function RestauranteHome() {
         initial={{ opacity: 0, y: 40 }}
         animate={reservaInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9 }}
-        style={{
-          padding: '100px 60px', textAlign: 'center',
+        className="r-section" style={{
+          textAlign: 'center',
           background: `linear-gradient(135deg, ${darkBrown} 0%, #2a1400 100%)`
         }}
       >
@@ -395,7 +391,7 @@ export default function RestauranteHome() {
       </motion.section>
 
       {/* FOOTER */}
-      <footer style={{ borderTop: `1px solid #2a1800`, padding: '40px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+      <footer className="r-footer" style={{ borderTop: `1px solid #2a1800` }}>
         <span style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: '24px', color: gold }}>Arcos</span>
         <div style={{ textAlign: 'center', color: '#5a3a20', fontSize: '13px' }}>
           <p style={{ margin: '0 0 4px' }}>Calle del Prado 28, Madrid · Martes a Domingo, 13:30–15:30 y 20:30–23:00</p>

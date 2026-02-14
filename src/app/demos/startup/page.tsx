@@ -117,7 +117,7 @@ export default function StartupHome() {
             </div>
           </div>
           {/* Dashboard */}
-          <div style={{ background: '#12002a', padding: 24, display: 'grid', gridTemplateColumns: '200px 1fr', gap: 20, minHeight: 380 }}>
+          <div className="r-overflow-hidden" style={{ background: '#12002a', padding: 24, display: 'grid', gridTemplateColumns: 'minmax(0,200px) 1fr', gap: 20, minHeight: 380 }}>
             {/* Sidebar */}
             <div style={{ background: '#1a003a', borderRadius: 10, padding: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
               {['Dashboard', 'Analíticas', 'Automatizaciones', 'Integraciones', 'Reportes', 'Ajustes'].map((item, i) => (
@@ -170,7 +170,7 @@ export default function StartupHome() {
       </section>
 
       {/* ═══ FEATURES ═══ */}
-      <section style={{ padding: '100px 24px', maxWidth: 1100, margin: '0 auto' }}>
+      <section className="r-section" style={{ maxWidth: 1100, margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -223,7 +223,7 @@ export default function StartupHome() {
       </section>
 
       {/* ═══ STATS ═══ */}
-      <section style={{ background: `linear-gradient(135deg, ${ACCENT}20, ${SECONDARY}10)`, border: `1px solid ${ACCENT}20`, margin: '0 24px', borderRadius: 24, padding: '80px 40px', maxWidth: 1100, marginLeft: 'auto', marginRight: 'auto' }}>
+      <section className="r-section" style={{ background: `linear-gradient(135deg, ${ACCENT}20, ${SECONDARY}10)`, border: `1px solid ${ACCENT}20`, borderRadius: 24, maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 40, textAlign: 'center' }}>
           {[
             { target: 12000, suffix: '+', label: 'Usuarios activos', sublabel: 'empresas que confían' },
@@ -255,7 +255,7 @@ export default function StartupHome() {
       </section>
 
       {/* ═══ TESTIMONIALS ═══ */}
-      <section style={{ padding: '100px 24px', maxWidth: 1100, margin: '0 auto' }}>
+      <section className="r-section" style={{ maxWidth: 1100, margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -296,7 +296,7 @@ export default function StartupHome() {
       </section>
 
       {/* ═══ PRICING PREVIEW ═══ */}
-      <section style={{ padding: '80px 24px', textAlign: 'center', background: `linear-gradient(180deg, transparent, ${ACCENT}10)` }}>
+      <section className="r-section" style={{ textAlign: 'center', background: `linear-gradient(180deg, transparent, ${ACCENT}10)` }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

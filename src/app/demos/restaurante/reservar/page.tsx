@@ -128,7 +128,7 @@ export default function ReservarPage() {
 
   return (
     <div style={{ backgroundColor: bg, color: cream, minHeight: '100vh' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '100vh' }}>
+      <div className="r-hero-split">
 
         {/* LEFT: IMAGE */}
         <motion.div
@@ -169,7 +169,7 @@ export default function ReservarPage() {
         {/* RIGHT: FORM */}
         <div
           ref={formRef}
-          style={{ padding: '80px 60px', overflowY: 'auto', backgroundColor: darkBrown }}
+          style={{ padding: 'clamp(40px,6vw,80px) clamp(24px,5vw,60px)', overflowY: 'auto', backgroundColor: darkBrown }}
         >
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -231,7 +231,7 @@ export default function ReservarPage() {
                 style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
               >
                 {/* Name + Email */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div className="r-two-col" style={{ gap: '20px' }}>
                   <div>
                     <InputField label="Nombre" value={form.name} onChange={update('name')} placeholder="Su nombre completo" required />
                     {errors.name && <p style={{ color: '#e05050', fontSize: '12px', marginTop: '4px' }}>{errors.name}</p>}
@@ -243,7 +243,7 @@ export default function ReservarPage() {
                   {errors.email && <p style={{ color: '#e05050', fontSize: '12px', marginTop: '4px' }}>{errors.email}</p>}
                 </div>
                 {/* Date + Time */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div className="r-two-col" style={{ gap: '20px' }}>
                   <div>
                     <InputField label="Fecha" value={form.date} onChange={update('date')} type="date" required />
                     {errors.date && <p style={{ color: '#e05050', fontSize: '12px', marginTop: '4px' }}>{errors.date}</p>}
@@ -263,7 +263,7 @@ export default function ReservarPage() {
                   </div>
                 </div>
                 {/* Guests + Occasion */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div className="r-two-col" style={{ gap: '20px' }}>
                   <SelectField
                     label="Número de personas"
                     value={form.guests}
@@ -339,8 +339,8 @@ export default function ReservarPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {openingHours.map(h => (
                 <div key={h.day} style={{
-                  display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr',
-                  gap: '12px', fontSize: '14px',
+                  display: 'flex', flexWrap: 'wrap',
+                  gap: '8px', fontSize: '14px',
                   opacity: h.lunch === 'Cerrado' && h.dinner === 'Cerrado' ? 0.4 : 1
                 }}>
                   <span style={{ color: cream, fontWeight: 500 }}>{h.day}</span>

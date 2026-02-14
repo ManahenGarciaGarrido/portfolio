@@ -252,7 +252,7 @@ export default function AgenciaContactoPage() {
             </div>
 
             {/* Response time */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+            <div className="r-grid-2" style={{ gap: '1rem', marginBottom: '1.5rem' }}>
               {[
                 { val: '< 24h', label: 'Tiempo de respuesta' },
                 { val: '100%', label: 'Clientes que repiten' },

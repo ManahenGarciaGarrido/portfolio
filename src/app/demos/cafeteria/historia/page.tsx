@@ -53,7 +53,7 @@ function TimelineItem({ item, index }: { item: typeof timeline[0]; index: number
   const isEven = index % 2 === 0
 
   return (
-    <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '1fr 80px 1fr', gap: '1rem', alignItems: 'center', marginBottom: '4rem', position: 'relative' }}>
+    <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '1fr min-content 1fr', gap: '1rem', alignItems: 'center', marginBottom: '4rem', position: 'relative' }}>
       {/* LEFT */}
       <motion.div
         initial={{ opacity: 0, x: -60 }}

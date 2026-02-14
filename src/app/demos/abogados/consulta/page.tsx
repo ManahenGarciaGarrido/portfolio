@@ -84,7 +84,7 @@ export default function ConsultaPage() {
       </section>
 
       {/* Main content: 2 columns */}
-      <section style={{ padding: '20px 24px 80px', maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 52, alignItems: 'start' }}>
+      <section className="r-section-sm" style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 52, alignItems: 'start' }}>
         {/* Left: image + what's included */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -152,7 +152,7 @@ export default function ConsultaPage() {
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          style={{ background: '#0a1520', border: `1px solid ${ACCENT}25`, padding: '40px 32px' }}
+          style={{ background: '#0a1520', border: `1px solid ${ACCENT}25`, padding: 'clamp(24px,5vw,40px) clamp(16px,4vw,32px)' }}
         >
           {sent ? (
             <motion.div
@@ -178,7 +178,7 @@ export default function ConsultaPage() {
               </div>
 
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
                   {[
                     { key: 'nombre', label: 'Nombre completo', type: 'text', placeholder: 'Juan García López', full: false },
                     { key: 'email', label: 'Correo electrónico', type: 'email', placeholder: 'juan@email.com', full: false },
@@ -268,7 +268,7 @@ export default function ConsultaPage() {
       </section>
 
       {/* Trust indicators */}
-      <section style={{ padding: '60px 24px 80px', background: DARK, borderTop: `1px solid ${ACCENT}15` }}>
+      <section className="r-section" style={{ background: DARK, borderTop: `1px solid ${ACCENT}15` }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 32, textAlign: 'center' }}>
           {[
             { icon: '⚖️', val: '25+', label: 'Años de experiencia', sub: 'Fundado en 1999' },

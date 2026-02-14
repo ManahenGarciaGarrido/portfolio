@@ -101,9 +101,9 @@ export default function AgenciaHome() {
   return (
     <main style={{ background: bg, color: text, fontFamily: "'Inter', 'Helvetica Neue', sans-serif", minHeight: '100vh' }}>
       {/* HERO */}
-      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+      <section className="r-hero-split" style={{ position: 'relative', overflow: 'hidden' }}>
         {/* LEFT half */}
-        <div style={{ background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6rem 3rem 6rem', position: 'relative', zIndex: 2 }}>
+        <div style={{ background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(3rem,8vw,6rem) clamp(1.5rem,4vw,3rem)', position: 'relative', zIndex: 2 }}>
           <div>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
               <div style={{ color: 'rgba(0,255,136,0.6)', fontSize: '0.85rem', letterSpacing: '0.1em', marginBottom: '1.5rem', fontFamily: 'monospace' }}>

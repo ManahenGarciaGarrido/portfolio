@@ -287,7 +287,7 @@ export default function CafeteriaHome() {
           </span>
           <h2 style={{ color: dark, fontSize: '1.8rem', fontWeight: 400, margin: 0 }}>@CafeArtesano en Instagram</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '0.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '0.5rem' }}>
           {igPhotos.map((seed, i) => (
             <motion.div
               key={seed}

@@ -62,7 +62,7 @@ export default function ContactoPage() {
       </section>
 
       {/* Contact options */}
-      <section style={{ padding: '20px 24px 60px', maxWidth: 1000, margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ maxWidth: 1000, margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
           {[
             { icon: '🎥', title: 'Demo en vivo', desc: 'Reserva una demostración personalizada con nuestro equipo. 30 minutos, sin compromiso.', action: 'Reservar demo', color: ACCENT },
@@ -89,7 +89,7 @@ export default function ContactoPage() {
       </section>
 
       {/* Main form + sidebar */}
-      <section style={{ padding: '20px 24px 80px', maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 40 }}>
+      <section className="r-grid-2 r-section-sm" style={{ maxWidth: 1000, margin: '0 auto', gap: 40 }}>
         {/* Form */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}

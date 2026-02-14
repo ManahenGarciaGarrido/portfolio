@@ -119,12 +119,12 @@ export default function FotografoHome() {
     <main style={{ background: BLACK, color: WHITE, overflowX: 'hidden' }}>
 
       {/* HERO - Fullscreen Split */}
-      <section style={{ height: '100vh', display: 'flex', minHeight: '600px' }}>
+      <section className="r-hero-split" style={{ minHeight: '600px' }}>
         {/* LEFT 40% */}
         <div style={{
-          width: '40%', background: BLACK,
+          background: BLACK,
           display: 'flex', flexDirection: 'column', justifyContent: 'center',
-          padding: '0 3rem 0 4rem', position: 'relative', zIndex: 2,
+          padding: 'clamp(2rem,5vw,4rem) clamp(1.5rem,4vw,4rem)', position: 'relative', zIndex: 2,
         }}>
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -190,7 +190,7 @@ export default function FotografoHome() {
         </div>
 
         {/* RIGHT 60% */}
-        <div style={{ width: '60%', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
           <HeroImageHover />
         </div>
       </section>
@@ -217,7 +217,7 @@ export default function FotografoHome() {
       </motion.section>
 
       {/* GALLERY PREVIEW */}
-      <section ref={galleryRef} style={{ padding: '5rem 4rem' }}>
+      <section ref={galleryRef} style={{ padding: 'clamp(2.5rem,6vw,5rem) clamp(1rem,4vw,4rem)' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -229,12 +229,10 @@ export default function FotografoHome() {
           <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-0.02em' }}>Últimas Obras</h2>
         </motion.div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
+        <div className="r-grid-3" style={{
           gridTemplateRows: 'auto',
           gap: '0.75rem',
-          height: '700px',
+          minHeight: 'clamp(300px,60vw,700px)',
         }}>
           {galleryItems.map((item, i) => (
             <GalleryCard key={item.seed} item={item} index={i} />
@@ -259,8 +257,8 @@ export default function FotografoHome() {
       </section>
 
       {/* STATS */}
-      <section style={{ padding: '4rem', borderTop: `1px solid ${GOLD}22`, borderBottom: `1px solid ${GOLD}22` }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', maxWidth: '700px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem)', borderTop: `1px solid ${GOLD}22`, borderBottom: `1px solid ${GOLD}22` }}>
+        <div className="r-grid-3" style={{ gap: '2rem', maxWidth: '700px', margin: '0 auto' }}>
           <StatCounter end={850} label="SESIONES REALIZADAS" suffix="+" />
           <StatCounter end={15} label="AÑOS DE EXPERIENCIA" suffix="" />
           <StatCounter end={49} label="VALORACIÓN MEDIA" suffix="" />

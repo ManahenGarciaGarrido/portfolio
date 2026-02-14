@@ -118,7 +118,7 @@ export default function PropiedadesPage() {
             <p style={{ fontSize: '1.1rem' }}>No hay propiedades con esos filtros. Prueba con otros criterios.</p>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(460px, 1fr))', gap: '2rem' }}>
+          <div className="r-grid-2" style={{ gap: '2rem' }}>
             {filtered.map((prop, i) => (
               <motion.div
                 key={prop.id}

@@ -105,7 +105,7 @@ export default function ProductosPage() {
     <div style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh' }}>
 
       {/* PAGE HEADER */}
-      <section ref={headerRef} style={{ padding: '80px 60px 40px', borderBottom: '1px solid #1a1a1a' }}>
+      <section ref={headerRef} className="r-section-sm" style={{ paddingBottom: '40px', borderBottom: '1px solid #1a1a1a' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
@@ -149,7 +149,7 @@ export default function ProductosPage() {
       </section>
 
       {/* PRODUCTS GRID */}
-      <section style={{ padding: '60px', maxWidth: '1400px', margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ maxWidth: '1400px', margin: '0 auto' }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={activeFilter}

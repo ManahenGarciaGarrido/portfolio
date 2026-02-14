@@ -108,10 +108,10 @@ export default function TiendaModaHome() {
     <div style={{ backgroundColor: '#000', color: '#fff', overflow: 'hidden' }}>
 
       {/* HERO */}
-      <section style={{ minHeight: '100vh', display: 'grid', gridTemplateColumns: '1fr 1fr', position: 'relative' }}>
+      <section className="r-hero-split" style={{ position: 'relative' }}>
         <div style={{
           display: 'flex', flexDirection: 'column', justifyContent: 'center',
-          padding: '80px 60px', zIndex: 1
+          padding: 'clamp(48px,8vw,80px) clamp(24px,5vw,60px)', zIndex: 1
         }}>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -224,12 +224,12 @@ export default function TiendaModaHome() {
       </div>
 
       {/* FEATURED PRODUCTS */}
-      <section ref={featuredRef} style={{ padding: '100px 60px', maxWidth: '1400px', margin: '0 auto' }}>
+      <section ref={featuredRef} className="r-section" style={{ maxWidth: '1400px', margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={featuredInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '60px' }}
+          className="r-flex-between" style={{ marginBottom: '60px' }}
         >
           <div>
             <p style={{ color: '#FFE600', fontSize: '11px', letterSpacing: '0.3em', margin: '0 0 8px', fontWeight: 700 }}>— DESTACADOS</p>
@@ -241,7 +241,7 @@ export default function TiendaModaHome() {
             </span>
           </Link>
         </motion.div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
+        <div className="r-grid-3">
           {products.map(p => <ProductCard key={p.id} product={p} />)}
         </div>
       </section>
@@ -252,7 +252,7 @@ export default function TiendaModaHome() {
         initial={{ opacity: 0 }}
         animate={promoInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.8 }}
-        style={{ backgroundColor: '#FFE600', padding: '80px 60px', textAlign: 'center' }}
+        className="r-section" style={{ backgroundColor: '#FFE600', textAlign: 'center' }}
       >
         <p style={{ color: '#000', fontSize: '11px', letterSpacing: '0.3em', fontWeight: 700, marginBottom: '12px' }}>OFERTA LIMITADA</p>
         <h2 style={{
@@ -281,7 +281,7 @@ export default function TiendaModaHome() {
         initial={{ opacity: 0, y: 40 }}
         animate={newsletterInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        style={{ padding: '100px 60px', textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}
+        className="r-section" style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}
       >
         <p style={{ color: '#FFE600', fontSize: '11px', letterSpacing: '0.3em', marginBottom: '16px', fontWeight: 700 }}>— ÚNETE A NOIR</p>
         <h2 style={{ fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 900, margin: '0 0 16px', lineHeight: 1.1 }}>
@@ -321,7 +321,7 @@ export default function TiendaModaHome() {
       </motion.section>
 
       {/* FOOTER */}
-      <footer style={{ borderTop: '1px solid #222', padding: '40px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <footer className="r-footer" style={{ borderTop: '1px solid #222' }}>
         <span style={{ fontWeight: 900, fontSize: '20px', letterSpacing: '0.1em', color: '#FFE600' }}>NOIR</span>
         <span style={{ color: '#555', fontSize: '13px' }}>© 2025 NOIR Studio. Todos los derechos reservados.</span>
       </footer>

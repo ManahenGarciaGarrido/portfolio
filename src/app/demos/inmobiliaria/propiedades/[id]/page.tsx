@@ -91,7 +91,7 @@ export default function PropertyDetailPage({ params }: { params: { id: string } 
       </div>
 
       {/* MAIN CONTENT */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2.5rem 1.5rem', display: 'grid', gridTemplateColumns: '1fr 380px', gap: '2.5rem' }}>
+      <div className="r-two-col" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2.5rem 1.5rem', gap: '2.5rem', alignItems: 'start' }}>
 
         {/* LEFT COLUMN */}
         <div>
@@ -236,7 +236,7 @@ export default function PropertyDetailPage({ params }: { params: { id: string } 
         <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: navy, marginBottom: '1.75rem', textTransform: 'uppercase' }}>
           Propiedades Similares
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
+        <div className="r-grid-3" style={{ gap: '1.5rem' }}>
           {similarProperties.map((p, i) => (
             <motion.div
               key={p.id}

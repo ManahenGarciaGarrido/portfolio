@@ -87,13 +87,14 @@ function TreatmentCard({ item, index }: { item: typeof ALL_TREATMENTS[0]; index:
       exit={{ opacity: 0, scale: 0.97 }}
       transition={{ delay: (index % 4) * 0.1, duration: 0.6 }}
       layout
+      className="trat-card"
       style={{
-        background: '#fff', display: 'flex', overflow: 'hidden',
+        background: '#fff', overflow: 'hidden',
         boxShadow: '0 4px 20px rgba(139,90,139,0.07)',
         border: `1px solid ${LIGHT_LAVENDER}`,
       }}
     >
-      <div style={{ width: '180px', flexShrink: 0, overflow: 'hidden' }}>
+      <div className="trat-card-img">
         <img
           src={`https://picsum.photos/seed/${item.seed}/500/350`}
           alt={item.name}
@@ -136,9 +137,10 @@ export default function TratamientosPage() {
 
   return (
     <main style={{ background: CREAM, color: DEEP, minHeight: '100vh' }}>
+      <style>{`.trat-layout { display: grid; grid-template-columns: 220px 1fr; align-items: start; } .trat-sidebar { position: sticky; top: 5rem; padding: 2rem 1.5rem; border-right: 1px solid rgba(201,160,201,0.22); min-height: 400px; } .trat-content { padding: clamp(1.5rem,4vw,3rem); } .trat-card { display: flex; overflow: hidden; } .trat-card-img { width: 180px; flex-shrink: 0; overflow: hidden; } @media (max-width: 768px) { .trat-layout { grid-template-columns: 1fr; } .trat-sidebar { position: static; border-right: none; border-bottom: 1px solid rgba(201,160,201,0.22); padding: 1.5rem clamp(1rem,4vw,4rem); display: flex; gap: 0.5rem; flex-wrap: wrap; min-height: auto; } .trat-card-img { width: 120px; } } @media (max-width: 480px) { .trat-card { flex-direction: column; } .trat-card-img { width: 100%; height: 180px; } }`}</style>
 
       {/* Header */}
-      <section style={{ padding: '4rem 4rem 2rem', borderBottom: `1px solid ${LAVENDER}33` }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem) 2rem', borderBottom: `1px solid ${LAVENDER}33` }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <div style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: LAVENDER, marginBottom: '0.75rem', fontWeight: 700 }}>MENÚ DE TRATAMIENTOS</div>
           <h1 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 300, fontStyle: 'italic', marginBottom: '1rem', color: DEEP }}>
@@ -151,10 +153,10 @@ export default function TratamientosPage() {
       </section>
 
       {/* Layout with sticky sidebar */}
-      <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', alignItems: 'start' }}>
+      <div className="trat-layout">
 
         {/* Sticky Sidebar */}
-        <aside style={{ position: 'sticky', top: '5rem', padding: '2rem 1.5rem', borderRight: `1px solid ${LAVENDER}22`, minHeight: '400px' }}>
+        <aside className="trat-sidebar">
           <div style={{ fontSize: '0.65rem', letterSpacing: '0.2em', color: LAVENDER, fontWeight: 700, marginBottom: '1rem' }}>CATEGORÍAS</div>
           {CATEGORIES_NAV.map(cat => (
             <button
@@ -189,7 +191,7 @@ export default function TratamientosPage() {
         </aside>
 
         {/* Main Content */}
-        <div style={{ padding: '3rem 3rem' }}>
+        <div className="trat-content">
           <motion.div
             key={active}
             initial={{ opacity: 0, y: 10 }}

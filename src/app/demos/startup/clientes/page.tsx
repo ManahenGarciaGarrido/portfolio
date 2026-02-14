@@ -107,7 +107,7 @@ export default function ClientesPage() {
       </section>
 
       {/* Case Studies */}
-      <section style={{ padding: '40px 24px 80px', maxWidth: 1100, margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ maxWidth: 1100, margin: '0 auto' }}>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -143,7 +143,7 @@ export default function ClientesPage() {
                   <div style={{ fontSize: 11, color: SECONDARY, fontWeight: 700, letterSpacing: 2, marginBottom: 8 }}>EL RETO</div>
                   <p style={{ color: '#ffffff80', fontSize: 14, lineHeight: 1.7, margin: 0 }}>{cs.challenge}</p>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 24 }}>
+                <div className="r-grid-3" style={{ gap: 12, marginBottom: 24 }}>
                   {cs.kpis.map((kpi) => (
                     <div key={kpi.label} style={{ textAlign: 'center', background: '#1a003a', borderRadius: 12, padding: '14px 8px', border: `1px solid ${ACCENT}20` }}>
                       <div style={{ fontSize: 22, fontWeight: 900, color: SECONDARY, lineHeight: 1 }}>{kpi.metric}</div>
@@ -162,7 +162,7 @@ export default function ClientesPage() {
       </section>
 
       {/* Video Testimonials */}
-      <section style={{ padding: '60px 24px 80px', background: '#12002a' }}>
+      <section className="r-section" style={{ background: '#12002a' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -202,12 +202,12 @@ export default function ClientesPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ padding: '80px 24px', textAlign: 'center' }}>
+      <section className="r-section" style={{ textAlign: 'center' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ background: `linear-gradient(135deg, ${ACCENT}25, ${SECONDARY}10)`, border: `1px solid ${ACCENT}30`, borderRadius: 24, padding: '60px 40px', maxWidth: 700, margin: '0 auto' }}
+          style={{ background: `linear-gradient(135deg, ${ACCENT}25, ${SECONDARY}10)`, border: `1px solid ${ACCENT}30`, borderRadius: 24, padding: 'clamp(32px,6vw,60px) clamp(20px,5vw,40px)', maxWidth: 700, margin: '0 auto' }}
         >
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, marginBottom: 16 }}>
             Únete a las empresas que ya crecen con NexusAI

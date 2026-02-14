@@ -215,7 +215,7 @@ export default function SpaHome() {
       </section>
 
       {/* SIGNATURE TREATMENTS */}
-      <section style={{ padding: '5rem 4rem' }}>
+      <section style={{ padding: 'clamp(2.5rem,6vw,5rem) clamp(1rem,4vw,4rem)' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -247,7 +247,7 @@ export default function SpaHome() {
       </section>
 
       {/* BENEFITS */}
-      <section style={{ padding: '4rem', background: LIGHT_LAVENDER }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem)', background: LIGHT_LAVENDER }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -276,7 +276,7 @@ export default function SpaHome() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section style={{ padding: '5rem 4rem' }}>
+      <section style={{ padding: 'clamp(2.5rem,6vw,5rem) clamp(1rem,4vw,4rem)' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -312,7 +312,7 @@ export default function SpaHome() {
       </section>
 
       {/* AMBIANCE GALLERY */}
-      <section style={{ padding: '0 4rem 5rem' }}>
+      <section style={{ padding: '0 clamp(1rem,4vw,4rem) clamp(2.5rem,5vw,5rem)' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -322,7 +322,7 @@ export default function SpaHome() {
           <div style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: LAVENDER, marginBottom: '0.75rem', fontWeight: 700 }}>NUESTRO ESPACIO</div>
           <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', fontWeight: 300, fontStyle: 'italic', color: DEEP }}>Un Refugio de Paz</h2>
         </motion.div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', maxWidth: '900px', margin: '0 auto' }}>
+        <div className="r-grid-2" style={{ gap: '0.75rem', maxWidth: '900px', margin: '0 auto' }}>
           {AMBIANCE.map((src, i) => (
             <motion.div
               key={i}
@@ -339,7 +339,7 @@ export default function SpaHome() {
       </section>
 
       {/* CTA Banner */}
-      <section style={{ padding: '4rem', background: `linear-gradient(135deg, ${LAVENDER}22 0%, ${DEEP}11 100%)`, borderTop: `1px solid ${LAVENDER}33`, textAlign: 'center' }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem)', background: `linear-gradient(135deg, ${LAVENDER}22 0%, ${DEEP}11 100%)`, borderTop: `1px solid ${LAVENDER}33`, textAlign: 'center' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -71,9 +71,9 @@ function MenuSection({ items, isActive }: { items: MenuItem[]; isActive: boolean
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.07 }}
               style={{
-                display: 'grid',
-                gridTemplateColumns: '120px 1fr auto',
-                gap: '24px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '16px',
                 alignItems: 'center',
                 padding: '24px 0',
                 borderBottom: `1px solid #2a1800`,
@@ -119,7 +119,7 @@ export default function CartaPage() {
     <div style={{ backgroundColor: bg, color: cream, minHeight: '100vh' }}>
 
       {/* HEADER */}
-      <section ref={headerRef} style={{ padding: '80px 60px 60px', textAlign: 'center', borderBottom: `1px solid #2a1800` }}>
+      <section ref={headerRef} className="r-section-sm" style={{ textAlign: 'center', borderBottom: `1px solid #2a1800` }}>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
@@ -183,7 +183,7 @@ export default function CartaPage() {
       </motion.div>
 
       {/* MENU CONTENT */}
-      <section style={{ padding: '60px', maxWidth: '1100px', margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ maxWidth: '1100px', margin: '0 auto' }}>
         {tabs.map(tab => (
           <MenuSection key={tab} items={menu[tab]} isActive={activeTab === tab} />
         ))}
@@ -195,11 +195,9 @@ export default function CartaPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.8 }}
-        style={{
-          padding: '60px',
+        className="r-grid-3 r-section-sm" style={{
           backgroundColor: darkBrown,
           borderTop: `1px solid #2a1800`,
-          display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '40px',
           maxWidth: '1100px', margin: '0 auto'
         }}
       >
@@ -219,7 +217,7 @@ export default function CartaPage() {
       </motion.section>
 
       {/* RESERVATION CTA */}
-      <div style={{ textAlign: 'center', padding: '80px 60px', borderTop: `1px solid #2a1800` }}>
+      <div className="r-section-sm" style={{ textAlign: 'center', borderTop: `1px solid #2a1800` }}>
         <p style={{ color: gold, fontSize: '11px', letterSpacing: '0.4em', fontWeight: 600, marginBottom: '20px' }}>
           — ¿LISTO PARA VIVIR LA EXPERIENCIA?
         </p>

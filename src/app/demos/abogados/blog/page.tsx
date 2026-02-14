@@ -116,7 +116,7 @@ export default function BlogPage() {
       </section>
 
       {/* Featured article */}
-      <section style={{ padding: '0 24px 60px', maxWidth: 1100, margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ maxWidth: 1100, margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -126,7 +126,7 @@ export default function BlogPage() {
           <div style={{ overflow: 'hidden', maxHeight: 400 }}>
             <img src="https://picsum.photos/seed/law-featured/900/500" alt="Artículo destacado" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'brightness(0.85)' }} />
           </div>
-          <div style={{ padding: '40px 36px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div style={{ padding: 'clamp(24px,5vw,40px) clamp(16px,4vw,36px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 20 }}>
               <span style={{ background: ACCENT, color: '#0d1b2a', fontSize: 10, fontWeight: 800, letterSpacing: 2, padding: '4px 12px' }}>DESTACADO</span>
               <span style={{ background: '#5c8a6e', fontSize: 10, fontWeight: 800, letterSpacing: 2, padding: '4px 10px', color: '#fff' }}>LABORAL</span>
@@ -151,7 +151,7 @@ export default function BlogPage() {
       </section>
 
       {/* Main content + sidebar */}
-      <section style={{ padding: '0 24px 80px', maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 300px', gap: 48 }}>
+      <section className="r-section-sm" style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: 48 }}>
         {/* Articles */}
         <div>
           {/* Category filter */}

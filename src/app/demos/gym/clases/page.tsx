@@ -207,7 +207,7 @@ export default function ClasesPage() {
         <h2 style={{ fontSize: '1.8rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '2rem', borderLeft: `4px solid ${red}`, paddingLeft: '1rem' }}>
           NUESTRAS CLASES
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1.25rem' }}>
+        <div className="r-grid-4" style={{ gap: '1.25rem' }}>
           {classesList.filter(c => selectedDiscipline === 'Todas' || c.name === selectedDiscipline).map((cls, i) => (
             <motion.div
               key={cls.name}

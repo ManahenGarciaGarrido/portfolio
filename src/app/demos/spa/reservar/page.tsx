@@ -65,9 +65,10 @@ export default function ReservarPage() {
 
   return (
     <main style={{ background: CREAM, color: DEEP, minHeight: '100vh' }}>
+      <style>{`.reservar-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.1rem; } @media (max-width: 480px) { .reservar-form-row { grid-template-columns: 1fr; } } .reservar-contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; } @media (max-width: 480px) { .reservar-contact-row { grid-template-columns: 1fr; } }`}</style>
 
       {/* Header */}
-      <section style={{ padding: '4rem 4rem 2rem', borderBottom: `1px solid ${LAVENDER}33`, textAlign: 'center', background: `linear-gradient(180deg, ${LIGHT_LAVENDER} 0%, ${CREAM} 100%)` }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem) 2rem', borderBottom: `1px solid ${LAVENDER}33`, textAlign: 'center', background: `linear-gradient(180deg, ${LIGHT_LAVENDER} 0%, ${CREAM} 100%)` }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <div style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: LAVENDER, marginBottom: '0.75rem', fontWeight: 700 }}>AGENDA TU VISITA</div>
           <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 300, fontStyle: 'italic', color: DEEP }}>
@@ -78,7 +79,7 @@ export default function ReservarPage() {
       </section>
 
       {/* Main Layout */}
-      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: 'calc(100vh - 200px)' }}>
+      <section className="r-hero-split" style={{ minHeight: 'auto' }}>
 
         {/* LEFT — Spa Image + Info */}
         <motion.div
@@ -94,7 +95,7 @@ export default function ReservarPage() {
           />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(139,90,139,0.75) 0%, rgba(201,160,201,0.5) 60%, rgba(255,249,240,0.2) 100%)' }} />
 
-          <div style={{ position: 'relative', zIndex: 2, padding: '3.5rem', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+          <div style={{ position: 'relative', zIndex: 2, padding: 'clamp(2rem,4vw,3.5rem)', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
 
             <div style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)', padding: '2rem', border: '1px solid rgba(255,255,255,0.2)' }}>
               <h2 style={{ color: '#fff', fontSize: '1.3rem', fontWeight: 300, fontStyle: 'italic', marginBottom: '1.5rem' }}>
@@ -133,7 +134,7 @@ export default function ReservarPage() {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          style={{ padding: '3.5rem', background: '#fff', overflowY: 'auto' }}
+          style={{ padding: 'clamp(2rem,4vw,3.5rem)', background: '#fff', overflowY: 'auto' }}
         >
           {!submitted ? (
             <form onSubmit={handleSubmit}>
@@ -145,7 +146,7 @@ export default function ReservarPage() {
               </p>
 
               {/* Name & Email */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.1rem' }}>
+              <div className="reservar-form-row">
                 <div>
                   <label style={labelStyle}>NOMBRE</label>
                   <input type="text" placeholder="Tu nombre" value={form.name}
@@ -176,7 +177,7 @@ export default function ReservarPage() {
               </div>
 
               {/* Date & Time */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.1rem' }}>
+              <div className="reservar-form-row">
                 <div>
                   <label style={labelStyle}>FECHA</label>
                   <input type="date" value={form.date}
@@ -225,7 +226,7 @@ export default function ReservarPage() {
               </div>
 
               {/* Direct contact */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1.5rem' }}>
+              <div className="reservar-contact-row">
                 <a href="tel:+34911234567" style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
                   padding: '0.85rem', border: `1.5px solid ${LAVENDER}55`, color: DEEP,

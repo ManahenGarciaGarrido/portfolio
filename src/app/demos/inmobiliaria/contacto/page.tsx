@@ -71,7 +71,7 @@ export default function ContactoPage() {
       </div>
 
       {/* MAIN 2-COLUMN SECTION */}
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '3.5rem 1.5rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem' }}>
+      <div className="r-two-col" style={{ maxWidth: '1100px', margin: '0 auto', padding: '3.5rem 1.5rem', gap: '3rem', alignItems: 'start' }}>
 
         {/* LEFT — FORM */}
         <motion.div

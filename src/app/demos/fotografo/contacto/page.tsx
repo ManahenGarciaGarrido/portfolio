@@ -48,7 +48,7 @@ export default function ContactoPage() {
     <main style={{ background: BLACK, color: WHITE, minHeight: '100vh' }}>
 
       {/* Header */}
-      <section style={{ padding: '4rem 4rem 2rem', borderBottom: `1px solid ${GOLD}22` }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem) 2rem', borderBottom: `1px solid ${GOLD}22` }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <div style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: GOLD, marginBottom: '0.75rem', fontWeight: 700 }}>PONTE EN CONTACTO</div>
           <h1 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 900, letterSpacing: '-0.02em' }}>
@@ -58,7 +58,7 @@ export default function ContactoPage() {
       </section>
 
       {/* Main Layout */}
-      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minHeight: 'calc(100vh - 200px)' }}>
+      <section className="r-hero-split" style={{ minHeight: 'auto' }}>
 
         {/* LEFT — Photo + Info */}
         <motion.div
@@ -74,7 +74,7 @@ export default function ContactoPage() {
           />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.7) 100%)' }} />
 
-          <div style={{ position: 'relative', zIndex: 2, padding: '4rem', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+          <div style={{ position: 'relative', zIndex: 2, padding: 'clamp(2rem,5vw,4rem)', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
             {/* Badge */}
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
@@ -114,7 +114,7 @@ export default function ContactoPage() {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          style={{ padding: '4rem', background: '#060606', overflowY: 'auto' }}
+          style={{ padding: 'clamp(2rem,5vw,4rem)', background: '#060606', overflowY: 'auto' }}
         >
           {!submitted ? (
             <form onSubmit={handleSubmit}>

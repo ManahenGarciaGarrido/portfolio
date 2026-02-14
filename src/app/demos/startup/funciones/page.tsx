@@ -109,7 +109,7 @@ export default function FuncionesPage() {
       </section>
 
       {/* Feature sections alternating */}
-      <section style={{ padding: '40px 24px 80px', maxWidth: 1100, margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ maxWidth: 1100, margin: '0 auto' }}>
         {features.map((feature, i) => {
           const isEven = i % 2 === 0
           return (
@@ -156,7 +156,7 @@ export default function FuncionesPage() {
       </section>
 
       {/* Integrations */}
-      <section style={{ padding: '80px 24px', background: '#12002a', textAlign: 'center' }}>
+      <section className="r-section" style={{ background: '#12002a', textAlign: 'center' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -179,7 +179,7 @@ export default function FuncionesPage() {
       </section>
 
       {/* FAQ */}
-      <section style={{ padding: '80px 24px', maxWidth: 780, margin: '0 auto' }}>
+      <section className="r-section" style={{ maxWidth: 780, margin: '0 auto' }}>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -220,7 +220,7 @@ export default function FuncionesPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ padding: '80px 24px', textAlign: 'center', background: `linear-gradient(180deg, transparent, ${ACCENT}15)` }}>
+      <section className="r-section" style={{ textAlign: 'center', background: `linear-gradient(180deg, transparent, ${ACCENT}15)` }}>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

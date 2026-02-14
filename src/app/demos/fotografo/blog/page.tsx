@@ -147,9 +147,10 @@ export default function BlogPage() {
 
   return (
     <main style={{ background: BLACK, color: WHITE, minHeight: '100vh' }}>
+      <style>{`.blog-layout { display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: start; padding: clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,4rem); } .blog-posts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; } @media (max-width: 900px) { .blog-layout { grid-template-columns: 1fr; } .blog-sidebar { display: none; } } @media (max-width: 640px) { .blog-posts-grid { grid-template-columns: 1fr; } }`}</style>
 
       {/* Header */}
-      <section style={{ padding: '4rem 4rem 2rem', borderBottom: `1px solid ${GOLD}22` }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem) 2rem', borderBottom: `1px solid ${GOLD}22` }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <div style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: GOLD, marginBottom: '0.75rem', fontWeight: 700 }}>BLOG DE FOTOGRAFÍA</div>
           <h1 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 900, letterSpacing: '-0.02em', marginBottom: '1rem' }}>
@@ -162,7 +163,7 @@ export default function BlogPage() {
       </section>
 
       {/* Content with Sidebar */}
-      <section style={{ padding: '3rem 4rem', display: 'grid', gridTemplateColumns: '1fr 300px', gap: '3rem', alignItems: 'start' }}>
+      <section className="blog-layout">
 
         {/* Main Content */}
         <div>
@@ -178,7 +179,7 @@ export default function BlogPage() {
           </div>
 
           {/* Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+          <div className="blog-posts-grid">
             {remainingPosts.map((post, i) => (
               <PostCard key={post.id} post={post} index={i + 1} />
             ))}
@@ -186,7 +187,7 @@ export default function BlogPage() {
         </div>
 
         {/* Sidebar */}
-        <aside style={{ position: 'sticky', top: '6rem' }}>
+        <aside className="blog-sidebar" style={{ position: 'sticky', top: '6rem' }}>
 
           {/* Categories */}
           <div style={{ background: '#0a0a0a', border: `1px solid ${GOLD}22`, padding: '1.5rem', marginBottom: '1.5rem' }}>

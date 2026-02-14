@@ -174,7 +174,7 @@ export default function LookbookPage() {
         initial={{ opacity: 0, y: 40 }}
         animate={introInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        style={{ padding: '100px 60px', maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}
+        className="r-section" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}
       >
         <p style={{ color: '#FFE600', fontSize: '11px', letterSpacing: '0.3em', fontWeight: 700, marginBottom: '24px' }}>
           — NOTA EDITORIAL
@@ -197,7 +197,7 @@ export default function LookbookPage() {
         </div>
 
         {/* 2 COL: look2 + look3 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', marginBottom: '4px' }}>
+        <div className="r-two-col" style={{ gap: '4px', marginBottom: '4px' }}>
           <div style={{ position: 'relative' }}>
             <ParallaxImage src="https://picsum.photos/seed/look2/600/800" alt="Look 2" height="80vh" />
             <EditorialCaption text="Volumen y silueta — Look 02" />
@@ -232,7 +232,7 @@ export default function LookbookPage() {
         </div>
 
         {/* 2 COL: look5 + look6 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
+        <div className="r-two-col" style={{ gap: '4px' }}>
           <div style={{ position: 'relative' }}>
             <ParallaxImage src="https://picsum.photos/seed/look5/600/800" alt="Look 5" height="80vh" />
             <EditorialCaption text="Detalles que definen — Look 05" />
@@ -250,8 +250,8 @@ export default function LookbookPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.8 }}
-        style={{
-          padding: '100px 60px', textAlign: 'center',
+        className="r-section" style={{
+          textAlign: 'center',
           borderTop: '1px solid #1a1a1a'
         }}
       >

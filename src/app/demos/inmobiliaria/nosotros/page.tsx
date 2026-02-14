@@ -39,6 +39,15 @@ export default function NosotrosPage() {
   return (
     <main style={{ background: '#ffffff', minHeight: '100vh', fontFamily: 'Georgia, serif' }}>
 
+      <style>{`
+        @media (max-width: 640px) {
+          .timeline-item { justify-content: flex-start !important; }
+          .timeline-card { width: 90% !important; }
+          .timeline-dot { left: 5% !important; }
+          .timeline-line { display: none; }
+        }
+      `}</style>
+
       {/* HERO */}
       <section style={{ position: 'relative', height: '480px', overflow: 'hidden' }}>
         <img
@@ -76,7 +85,7 @@ export default function NosotrosPage() {
       </section>
 
       {/* COMPANY STORY */}
-      <section style={{ maxWidth: '1100px', margin: '0 auto', padding: '5rem 1.5rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+      <section className="r-two-col" style={{ maxWidth: '1100px', margin: '0 auto', padding: '5rem 1.5rem', gap: '4rem', alignItems: 'center' }}>
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -190,10 +199,11 @@ export default function NosotrosPage() {
             <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#fff', textTransform: 'uppercase' }}>Nuestra Trayectoria</h2>
           </div>
           <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '2px', background: 'rgba(201,162,39,0.3)', transform: 'translateX(-50%)' }} />
+            <div className="timeline-line" style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '2px', background: 'rgba(201,162,39,0.3)', transform: 'translateX(-50%)' }} />
             {timeline.map((item, i) => (
               <motion.div
                 key={item.year}
+                className="timeline-item"
                 initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
                 animate={timelineInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: i * 0.15, duration: 0.6 }}
@@ -204,7 +214,7 @@ export default function NosotrosPage() {
                   position: 'relative',
                 }}
               >
-                <div style={{
+                <div className="timeline-card" style={{
                   width: '44%',
                   background: 'rgba(255,255,255,0.07)',
                   border: '1px solid rgba(201,162,39,0.2)',
@@ -215,7 +225,7 @@ export default function NosotrosPage() {
                   <div style={{ color: '#fff', fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.5rem' }}>{item.event}</div>
                   <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.82rem', lineHeight: 1.6 }}>{item.detail}</div>
                 </div>
-                <div style={{
+                <div className="timeline-dot" style={{
                   position: 'absolute', left: '50%', top: '1.25rem',
                   width: '14px', height: '14px', borderRadius: '50%',
                   background: gold, transform: 'translateX(-50%)',

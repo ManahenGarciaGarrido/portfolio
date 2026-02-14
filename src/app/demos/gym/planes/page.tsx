@@ -197,7 +197,7 @@ export default function PlanesPage() {
 
       {/* FLIP CARDS */}
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '4rem 1.5rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+        <div className="r-grid-3" style={{ gap: '2rem' }}>
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
@@ -216,8 +216,8 @@ export default function PlanesPage() {
         <h2 style={{ fontSize: '1.75rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>
           COMPARACION DE <span style={{ color: red }}>PLANES</span>
         </h2>
-        <div style={{ background: '#111', borderRadius: '12px', overflow: 'hidden', border: '1px solid #222' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div style={{ background: '#111', borderRadius: '12px', overflow: 'auto', border: '1px solid #222' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '500px' }}>
             <thead>
               <tr style={{ background: '#1a1a1a' }}>
                 <th style={{ padding: '1rem 1.5rem', textAlign: 'left', color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Caracteristica</th>

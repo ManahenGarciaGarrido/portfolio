@@ -123,7 +123,7 @@ export default function PreciosPage() {
       </section>
 
       {/* Plan cards */}
-      <section style={{ padding: '20px 24px 80px', maxWidth: 1000, margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ maxWidth: 1000, margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
           {plans.map((plan) => {
             const price = plan.monthlyPrice === null ? null : annual ? plan.annualPrice : plan.monthlyPrice
@@ -190,7 +190,7 @@ export default function PreciosPage() {
       </section>
 
       {/* Comparison table */}
-      <section style={{ padding: '40px 24px 80px', maxWidth: 1000, margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ maxWidth: 1000, margin: '0 auto' }}>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -236,7 +236,7 @@ export default function PreciosPage() {
       </section>
 
       {/* FAQ Pricing */}
-      <section style={{ padding: '40px 24px 80px', maxWidth: 780, margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ maxWidth: 780, margin: '0 auto' }}>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -277,7 +277,7 @@ export default function PreciosPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section style={{ padding: '60px 24px 80px', textAlign: 'center', background: `linear-gradient(180deg, transparent, ${ACCENT}12)` }}>
+      <section className="r-section" style={{ textAlign: 'center', background: `linear-gradient(180deg, transparent, ${ACCENT}12)` }}>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -78,7 +78,7 @@ export default function BlogPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          style={{ background: '#fff', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 8px 40px rgba(0,26,77,0.1)', display: 'grid', gridTemplateColumns: '1.2fr 1fr' }}
+          className="r-two-col" style={{ background: '#fff', borderRadius: '14px', overflow: 'hidden', boxShadow: '0 8px 40px rgba(0,26,77,0.1)', alignItems: 'stretch' }}
         >
           <img src={`https://picsum.photos/seed/${posts[0].seed}/700/450`} alt={posts[0].title} style={{ width: '100%', height: '380px', objectFit: 'cover', display: 'block' }} />
           <div style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -98,7 +98,7 @@ export default function BlogPage() {
 
       {/* POST GRID */}
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '1.5rem 1.5rem 4rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.75rem' }}>
+        <div className="r-grid-3" style={{ gap: '1.75rem' }}>
           {posts.slice(1).map((post, i) => (
             <motion.div
               key={post.id}

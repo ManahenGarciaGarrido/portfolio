@@ -157,7 +157,7 @@ export default function GymHome() {
 
       {/* QUICK STATS */}
       <section ref={statsRef} style={{ background: '#111', borderTop: `3px solid ${red}`, borderBottom: '1px solid #222' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+        <div className="r-grid-4" style={{ maxWidth: '1000px', margin: '0 auto' }}>
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
@@ -191,7 +191,7 @@ export default function GymHome() {
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: '0.75rem' }}>Entrena con los mejores en el entorno mas exigente</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1.5rem' }}>
+        <div className="r-grid-3" style={{ gap: '1.5rem' }}>
           {programs.map((prog, i) => (
             <motion.div
               key={prog.name}
@@ -274,7 +274,7 @@ export default function GymHome() {
               LO QUE DICEN NUESTROS <span style={{ color: red }}>MIEMBROS</span>
             </h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
+          <div className="r-grid-3" style={{ gap: '1.5rem' }}>
             {testimonials.map((t, i) => (
               <motion.div
                 key={t.name}

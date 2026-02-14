@@ -94,9 +94,10 @@ export default function GaleriaPage() {
 
   return (
     <main style={{ background: BLACK, color: WHITE, minHeight: '100vh' }}>
+      <style>{`.foto-masonry { columns: 3; column-gap: 0.75rem; } @media (max-width: 900px) { .foto-masonry { columns: 2; } } @media (max-width: 560px) { .foto-masonry { columns: 1; } }`}</style>
 
       {/* Header */}
-      <section style={{ padding: '4rem 4rem 2rem', borderBottom: `1px solid ${GOLD}22` }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem) 2rem', borderBottom: `1px solid ${GOLD}22` }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -111,7 +112,7 @@ export default function GaleriaPage() {
       </section>
 
       {/* Filter Tabs */}
-      <section style={{ padding: '2rem 4rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+      <section style={{ padding: '2rem clamp(1rem,4vw,4rem)', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
         {CATEGORIES.map(cat => (
           <motion.button
             key={cat}
@@ -136,7 +137,7 @@ export default function GaleriaPage() {
       </section>
 
       {/* Masonry Grid */}
-      <section style={{ padding: '0 4rem 5rem' }}>
+      <section style={{ padding: '0 clamp(1rem,4vw,4rem) clamp(2.5rem,5vw,5rem)' }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
@@ -144,9 +145,7 @@ export default function GaleriaPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            style={{
-              columns: '3', columnGap: '0.75rem',
-            }}
+            className="foto-masonry"
           >
             {filtered.map((photo, i) => (
               <PhotoCard key={photo.id} photo={photo} index={i} onClick={() => setLightbox(photo.id)} />

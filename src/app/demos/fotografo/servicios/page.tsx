@@ -104,7 +104,7 @@ export default function ServiciosPage() {
     <main style={{ background: BLACK, color: WHITE, minHeight: '100vh' }}>
 
       {/* Header */}
-      <section style={{ padding: '4rem 4rem 2rem', borderBottom: `1px solid ${GOLD}22` }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem) 2rem', borderBottom: `1px solid ${GOLD}22` }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <div style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: GOLD, marginBottom: '0.75rem', fontWeight: 700 }}>TARIFAS Y SERVICIOS</div>
           <h1 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', fontWeight: 900, letterSpacing: '-0.02em', marginBottom: '1rem' }}>
@@ -117,7 +117,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* Service Packages */}
-      <section style={{ padding: '4rem' }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
           {SERVICES.map((service, i) => (
             <ServiceCard key={i} service={service} index={i} />
@@ -126,7 +126,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* Process */}
-      <section style={{ padding: '4rem', background: '#0a0a0a', borderTop: `1px solid ${GOLD}22`, borderBottom: `1px solid ${GOLD}22` }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem)', background: '#0a0a0a', borderTop: `1px solid ${GOLD}22`, borderBottom: `1px solid ${GOLD}22` }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -157,7 +157,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* Testimonials */}
-      <section style={{ padding: '4rem' }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem)' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -193,7 +193,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* FAQ */}
-      <section style={{ padding: '4rem', background: '#0a0a0a', borderTop: `1px solid ${GOLD}22` }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem)', background: '#0a0a0a', borderTop: `1px solid ${GOLD}22` }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -240,7 +240,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ padding: '4rem', textAlign: 'center' }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem)', textAlign: 'center' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

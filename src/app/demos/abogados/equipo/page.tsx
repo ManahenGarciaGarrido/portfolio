@@ -67,21 +67,21 @@ export default function EquipoPage() {
       </section>
 
       {/* Managing Partners */}
-      <section style={{ padding: '40px 24px 80px', maxWidth: 1100, margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ maxWidth: 1100, margin: '0 auto' }}>
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: 48 }}>
           <p style={{ color: ACCENT, letterSpacing: 3, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 12 }}>Dirección</p>
           <h2 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 900, fontFamily: 'Georgia, serif' }}>Socios Directores</h2>
           <div style={{ width: 40, height: 2, background: ACCENT, marginTop: 12 }} />
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(440px, 1fr))', gap: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(440px, 100%), 1fr))', gap: 32 }}>
           {managingPartners.map((partner) => (
             <motion.div
               key={partner.name}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              style={{ background: '#0a1520', border: `1px solid ${ACCENT}30`, display: 'grid', gridTemplateColumns: '180px 1fr', overflow: 'hidden' }}
+              style={{ background: '#0a1520', border: `1px solid ${ACCENT}30`, display: 'grid', gridTemplateColumns: 'minmax(0,180px) 1fr', overflow: 'hidden' }}
             >
               <div style={{ overflow: 'hidden', position: 'relative' }}>
                 <img
@@ -112,7 +112,7 @@ export default function EquipoPage() {
       </section>
 
       {/* All attorneys grid */}
-      <section style={{ padding: '40px 24px 80px', background: DARK, maxWidth: '100%', overflow: 'hidden' }}>
+      <section className="r-section-sm r-overflow-hidden" style={{ background: DARK }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: 48 }}>
             <p style={{ color: ACCENT, letterSpacing: 3, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 12 }}>Equipo completo</p>
@@ -158,7 +158,7 @@ export default function EquipoPage() {
       </section>
 
       {/* Values */}
-      <section style={{ padding: '80px 24px' }}>
+      <section className="r-section">
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 56 }}>
             <h2 style={{ fontSize: 'clamp(24px, 3vw, 40px)', fontWeight: 900, fontFamily: 'Georgia, serif', marginBottom: 16 }}>Nuestros valores</h2>
@@ -188,7 +188,7 @@ export default function EquipoPage() {
       </section>
 
       {/* Join the team CTA */}
-      <section style={{ padding: '60px 24px 80px', background: DARK, textAlign: 'center' }}>
+      <section className="r-section" style={{ background: DARK, textAlign: 'center' }}>
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 style={{ fontSize: 'clamp(24px, 3vw, 40px)', fontWeight: 900, fontFamily: 'Georgia, serif', marginBottom: 16 }}>¿Quieres formar parte del equipo?</h2>
           <p style={{ color: `${TEXT}60`, marginBottom: 32, fontSize: 15 }}>Siempre buscamos talento jurídico excepcional para unirse a nuestro despacho</p>

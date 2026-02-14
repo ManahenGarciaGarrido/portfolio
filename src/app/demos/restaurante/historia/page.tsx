@@ -80,14 +80,14 @@ function TimelineMilestone({ milestone, index }: { milestone: typeof milestones[
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       style={{
         display: 'grid',
-        gridTemplateColumns: isLeft ? '1fr 40px 1fr' : '1fr 40px 1fr',
+        gridTemplateColumns: 'minmax(0,1fr) 40px minmax(0,1fr)',
         gap: '0',
         alignItems: 'start',
-        marginBottom: '80px',
+        marginBottom: 'clamp(40px,6vw,80px)',
       }}
     >
       {/* Left side */}
-      <div style={{ padding: isLeft ? '0 40px 0 0' : '0', textAlign: isLeft ? 'right' : 'left' }}>
+      <div style={{ padding: isLeft ? '0 clamp(16px,3vw,40px) 0 0' : '0', textAlign: isLeft ? 'right' : 'left' }}>
         {isLeft && (
           <>
             <span style={{ display: 'block', color: gold, fontSize: 'clamp(48px, 7vw, 80px)', fontFamily: 'Georgia, serif', lineHeight: 1, marginBottom: '12px' }}>
@@ -115,7 +115,7 @@ function TimelineMilestone({ milestone, index }: { milestone: typeof milestones[
         <div style={{ width: '1px', flex: 1, backgroundColor: '#2a1800', marginTop: '8px' }} />
       </div>
       {/* Right side */}
-      <div style={{ padding: !isLeft ? '0 0 0 40px' : '0' }}>
+      <div style={{ padding: !isLeft ? '0 0 0 clamp(16px,3vw,40px)' : '0' }}>
         {!isLeft && (
           <>
             <span style={{ display: 'block', color: gold, fontSize: 'clamp(48px, 7vw, 80px)', fontFamily: 'Georgia, serif', lineHeight: 1, marginBottom: '12px' }}>
@@ -155,7 +155,7 @@ export default function HistoriaPage() {
     <div style={{ backgroundColor: bg, color: cream, minHeight: '100vh' }}>
 
       {/* HEADER */}
-      <section ref={headerRef} style={{ padding: '80px 60px 70px', textAlign: 'center' }}>
+      <section ref={headerRef} className="r-section-sm" style={{ textAlign: 'center' }}>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
@@ -190,7 +190,7 @@ export default function HistoriaPage() {
       </section>
 
       {/* TIMELINE */}
-      <section style={{ padding: '60px 80px 20px', maxWidth: '1200px', margin: '0 auto' }}>
+      <section className="r-section-sm" style={{ paddingBottom: '20px', maxWidth: '1200px', margin: '0 auto' }}>
         {milestones.map((m, i) => (
           <TimelineMilestone key={m.year} milestone={m} index={i} />
         ))}
@@ -199,7 +199,7 @@ export default function HistoriaPage() {
       {/* QUOTE / FULL-WIDTH BG */}
       <section
         ref={quoteRef}
-        style={{ position: 'relative', overflow: 'hidden', padding: '120px 60px', textAlign: 'center' }}
+        className="r-section" style={{ position: 'relative', overflow: 'hidden', textAlign: 'center' }}
       >
         <motion.img
           src="https://picsum.photos/seed/restaurant-quote/1400/600"
@@ -233,7 +233,7 @@ export default function HistoriaPage() {
       </section>
 
       {/* VALUES */}
-      <section ref={valuesRef} style={{ padding: '100px 60px', maxWidth: '1200px', margin: '0 auto' }}>
+      <section ref={valuesRef} className="r-section" style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={valuesInView ? { opacity: 1, y: 0 } : {}}
@@ -251,7 +251,7 @@ export default function HistoriaPage() {
             Lo que nos define
           </h2>
         </motion.div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px' }}>
+        <div className="r-grid-3">
           {values.map((v, i) => (
             <motion.div
               key={v.title}
@@ -281,8 +281,8 @@ export default function HistoriaPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.8 }}
-        style={{
-          padding: '80px 60px', textAlign: 'center',
+        className="r-section-sm" style={{
+          textAlign: 'center',
           borderTop: `1px solid #2a1800`, backgroundColor: darkBrown
         }}
       >

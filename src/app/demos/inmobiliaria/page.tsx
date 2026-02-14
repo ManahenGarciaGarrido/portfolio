@@ -204,7 +204,7 @@ export default function InmobiliariaHome() {
 
       {/* STATS */}
       <section style={{ background: '#f9f7f2', borderTop: `4px solid ${gold}`, borderBottom: `1px solid #e8e0d0` }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+        <div className="r-grid-3" style={{ maxWidth: '900px', margin: '0 auto' }}>
           <StatCard number="500+" label="Propiedades" />
           <div style={{ borderLeft: `1px solid #e8e0d0`, borderRight: `1px solid #e8e0d0` }}>
             <StatCard number="20 Años" label="de Experiencia" />
@@ -225,7 +225,7 @@ export default function InmobiliariaHome() {
           <h2 style={{ fontSize: '2.2rem', fontWeight: 900, color: navy, textTransform: 'uppercase', letterSpacing: '-0.02em' }}>Propiedades Destacadas</h2>
           <p style={{ color: navy + '88', marginTop: '0.75rem', fontSize: '1.05rem', fontStyle: 'italic' }}>Selección exclusiva de nuestras mejores propiedades</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(440px, 1fr))', gap: '2rem' }}>
+        <div className="r-grid-2" style={{ gap: '2rem' }}>
           {properties.map((prop, i) => <PropertyCard key={prop.id} prop={prop} index={i} />)}
         </div>
         <div style={{ textAlign: 'center', marginTop: '3rem' }}>
@@ -281,7 +281,7 @@ export default function InmobiliariaHome() {
             <div style={{ height: '3px', background: gold, width: '60px', margin: '0 auto 1rem' }} />
             <h2 style={{ fontSize: '2.2rem', fontWeight: 900, color: navy, textTransform: 'uppercase' }}>Lo Que Dicen Nuestros Clientes</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem' }}>
+          <div className="r-grid-2" style={{ gap: '2rem' }}>
             {testimonials.map((t, i) => (
               <motion.div
                 key={t.name}

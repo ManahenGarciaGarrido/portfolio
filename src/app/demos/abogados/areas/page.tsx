@@ -116,7 +116,7 @@ export default function AreasPage() {
           </div>
 
           {/* Content */}
-          <div style={{ padding: '60px 24px', maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48 }}>
+          <div className="r-grid-2 r-section-sm" style={{ maxWidth: 1100, margin: '0 auto', gap: 48 }}>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -162,7 +162,7 @@ export default function AreasPage() {
       ))}
 
       {/* Bottom CTA */}
-      <section style={{ padding: '80px 24px', background: DARK, textAlign: 'center' }}>
+      <section className="r-section" style={{ background: DARK, textAlign: 'center' }}>
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, fontFamily: 'Georgia, serif', marginBottom: 16, color: TEXT }}>¿No encuentras tu área?</h2>
           <p style={{ color: `${TEXT}60`, marginBottom: 32, fontSize: 16 }}>Contáctenos y analizaremos su caso sin compromiso</p>

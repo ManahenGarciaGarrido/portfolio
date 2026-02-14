@@ -119,7 +119,7 @@ export default function AbogadosHome() {
       </section>
 
       {/* ═══ PRACTICE AREAS PREVIEW ═══ */}
-      <section style={{ padding: '80px 24px', maxWidth: 1100, margin: '0 auto' }}>
+      <section className="r-section" style={{ maxWidth: 1100, margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -153,7 +153,7 @@ export default function AbogadosHome() {
       </section>
 
       {/* ═══ STATS ═══ */}
-      <section style={{ background: DARK, borderTop: `1px solid ${ACCENT}20`, borderBottom: `1px solid ${ACCENT}20`, padding: '60px 24px' }}>
+      <section className="r-section" style={{ background: DARK, borderTop: `1px solid ${ACCENT}20`, borderBottom: `1px solid ${ACCENT}20` }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 40, maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
           {[
             { target: 25, suffix: '+', label: 'Años de experiencia' },
@@ -177,7 +177,7 @@ export default function AbogadosHome() {
       </section>
 
       {/* ═══ FEATURED ATTORNEYS ═══ */}
-      <section style={{ padding: '80px 24px', maxWidth: 1100, margin: '0 auto' }}>
+      <section className="r-section" style={{ maxWidth: 1100, margin: '0 auto' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -228,7 +228,7 @@ export default function AbogadosHome() {
       </section>
 
       {/* ═══ LATEST NEWS ═══ */}
-      <section style={{ padding: '60px 24px 80px', background: DARK }}>
+      <section className="r-section" style={{ background: DARK }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -273,12 +273,12 @@ export default function AbogadosHome() {
       </section>
 
       {/* ═══ CONSULTATION CTA ═══ */}
-      <section style={{ padding: '80px 24px' }}>
+      <section className="r-section">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ maxWidth: 860, margin: '0 auto', background: `linear-gradient(135deg, #0a1520, #12202e)`, border: `1px solid ${ACCENT}40`, padding: '60px 48px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}
+          style={{ maxWidth: 860, margin: '0 auto', background: `linear-gradient(135deg, #0a1520, #12202e)`, border: `1px solid ${ACCENT}40`, padding: 'clamp(32px,6vw,60px) clamp(20px,5vw,48px)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}
         >
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, transparent, ${ACCENT}, transparent)` }} />
           <div style={{ fontSize: 40, marginBottom: 20 }}>⚖</div>

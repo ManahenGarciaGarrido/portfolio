@@ -116,7 +116,7 @@ export default function EquipoPage() {
     <main style={{ background: CREAM, color: DEEP, minHeight: '100vh' }}>
 
       {/* Header */}
-      <section style={{ padding: '5rem 4rem 3rem', textAlign: 'center', borderBottom: `1px solid ${LAVENDER}33`, background: `linear-gradient(180deg, ${LIGHT_LAVENDER} 0%, ${CREAM} 100%)` }}>
+      <section style={{ padding: 'clamp(2.5rem,6vw,5rem) clamp(1rem,4vw,4rem) 3rem', textAlign: 'center', borderBottom: `1px solid ${LAVENDER}33`, background: `linear-gradient(180deg, ${LIGHT_LAVENDER} 0%, ${CREAM} 100%)` }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -134,8 +134,8 @@ export default function EquipoPage() {
       </section>
 
       {/* Team Grid */}
-      <section style={{ padding: '4rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', maxWidth: '1100px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem)' }}>
+        <div className="r-grid-3" style={{ gap: '2rem', maxWidth: '1100px', margin: '0 auto' }}>
           {THERAPISTS.map((therapist, i) => (
             <TherapistCard key={therapist.seed} therapist={therapist} index={i} />
           ))}
@@ -148,7 +148,7 @@ export default function EquipoPage() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        style={{ padding: '3rem 4rem', background: LIGHT_LAVENDER, borderTop: `1px solid ${LAVENDER}33`, borderBottom: `1px solid ${LAVENDER}33` }}
+        style={{ padding: 'clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,4rem)', background: LIGHT_LAVENDER, borderTop: `1px solid ${LAVENDER}33`, borderBottom: `1px solid ${LAVENDER}33` }}
       >
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <div style={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: LAVENDER, marginBottom: '1.5rem', fontWeight: 700 }}>CERTIFICACIONES Y FORMACIÓN</div>
@@ -201,7 +201,7 @@ export default function EquipoPage() {
       </section>
 
       {/* Join section */}
-      <section style={{ padding: '4rem', textAlign: 'center' }}>
+      <section style={{ padding: 'clamp(2rem,5vw,4rem) clamp(1rem,4vw,4rem)', textAlign: 'center' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

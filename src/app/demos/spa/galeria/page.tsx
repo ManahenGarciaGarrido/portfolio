@@ -79,9 +79,10 @@ function GalleryPhoto({ photo, index }: { photo: typeof GALLERY_PHOTOS[0]; index
 export default function GaleriaPage() {
   return (
     <main style={{ background: CREAM, color: DEEP, minHeight: '100vh' }}>
+      <style>{`.spa-masonry { columns: 3; column-gap: 0.75rem; } .spa-ig-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; max-width: 900px; margin: 0 auto; } @media (max-width: 900px) { .spa-masonry { columns: 2; } .spa-ig-grid { grid-template-columns: repeat(4, 1fr); } } @media (max-width: 560px) { .spa-masonry { columns: 1; } .spa-ig-grid { grid-template-columns: repeat(3, 1fr); } }`}</style>
 
       {/* Hero */}
-      <section style={{ padding: '5rem 4rem 3rem', textAlign: 'center', background: `linear-gradient(135deg, ${LIGHT_LAVENDER} 0%, ${CREAM} 100%)`, borderBottom: `1px solid ${LAVENDER}33` }}>
+      <section style={{ padding: 'clamp(2.5rem,6vw,5rem) clamp(1rem,4vw,4rem) 3rem', textAlign: 'center', background: `linear-gradient(135deg, ${LIGHT_LAVENDER} 0%, ${CREAM} 100%)`, borderBottom: `1px solid ${LAVENDER}33` }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -99,8 +100,8 @@ export default function GaleriaPage() {
       </section>
 
       {/* Masonry Gallery */}
-      <section style={{ padding: '3rem 4rem' }}>
-        <div style={{ columns: '3', columnGap: '0.75rem' }}>
+      <section style={{ padding: 'clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,4rem)' }}>
+        <div className="spa-masonry">
           {GALLERY_PHOTOS.map((photo, i) => (
             <GalleryPhoto key={photo.seed} photo={photo} index={i} />
           ))}
@@ -108,7 +109,7 @@ export default function GaleriaPage() {
       </section>
 
       {/* Instagram Section */}
-      <section style={{ padding: '3rem 4rem 5rem', background: LIGHT_LAVENDER }}>
+      <section style={{ padding: 'clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,4rem) clamp(2.5rem,5vw,5rem)', background: LIGHT_LAVENDER }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -125,7 +126,7 @@ export default function GaleriaPage() {
           </a>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '0.5rem', maxWidth: '900px', margin: '0 auto' }}>
+        <div className="spa-ig-grid">
           {IG_PHOTOS.map((seed, i) => (
             <motion.div
               key={seed}

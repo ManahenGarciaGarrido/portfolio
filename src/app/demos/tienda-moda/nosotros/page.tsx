@@ -93,8 +93,8 @@ export default function NosotrosPage() {
       </section>
 
       {/* BRAND STORY */}
-      <section style={{ padding: '100px 60px', maxWidth: '1100px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '80px', alignItems: 'start' }}>
+      <section className="r-section" style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        <div className="r-two-col" style={{ alignItems: 'start' }}>
           <FadeSection>
             <div style={{ position: 'sticky', top: '100px' }}>
               <p style={{ color: '#FFE600', fontSize: '11px', letterSpacing: '0.3em', fontWeight: 700, marginBottom: '16px' }}>
@@ -127,7 +127,7 @@ export default function NosotrosPage() {
       </section>
 
       {/* VALUES */}
-      <section style={{ padding: '80px 60px', borderTop: '1px solid #1a1a1a', backgroundColor: '#050505' }}>
+      <section className="r-section-sm" style={{ borderTop: '1px solid #1a1a1a', backgroundColor: '#050505' }}>
         <FadeSection>
           <div style={{ textAlign: 'center', marginBottom: '70px' }}>
             <p style={{ color: '#FFE600', fontSize: '11px', letterSpacing: '0.3em', fontWeight: 700, marginBottom: '12px' }}>
@@ -138,7 +138,7 @@ export default function NosotrosPage() {
             </h2>
           </div>
         </FadeSection>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px', maxWidth: '1100px', margin: '0 auto' }}>
+        <div className="r-grid-3" style={{ maxWidth: '1100px', margin: '0 auto' }}>
           {values.map((v, i) => (
             <FadeSection key={v.title} delay={i * 0.12}>
               <div style={{
@@ -158,7 +158,7 @@ export default function NosotrosPage() {
       </section>
 
       {/* TEAM */}
-      <section style={{ padding: '100px 60px', maxWidth: '1100px', margin: '0 auto' }}>
+      <section className="r-section" style={{ maxWidth: '1100px', margin: '0 auto' }}>
         <FadeSection>
           <div style={{ textAlign: 'center', marginBottom: '70px' }}>
             <p style={{ color: '#FFE600', fontSize: '11px', letterSpacing: '0.3em', fontWeight: 700, marginBottom: '12px' }}>
@@ -167,7 +167,7 @@ export default function NosotrosPage() {
             <h2 style={{ fontSize: 'clamp(28px, 5vw, 60px)', fontWeight: 900, margin: 0 }}>NUESTRO EQUIPO</h2>
           </div>
         </FadeSection>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px' }}>
+        <div className="r-grid-3">
           {team.map((member, i) => (
             <FadeSection key={member.name} delay={i * 0.1}>
               <div style={{ textAlign: 'center' }}>
@@ -195,7 +195,7 @@ export default function NosotrosPage() {
       </section>
 
       {/* TALLERES */}
-      <section style={{ padding: '80px 60px', borderTop: '1px solid #1a1a1a', backgroundColor: '#050505' }}>
+      <section className="r-section-sm" style={{ borderTop: '1px solid #1a1a1a', backgroundColor: '#050505' }}>
         <FadeSection>
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
             <p style={{ color: '#FFE600', fontSize: '11px', letterSpacing: '0.3em', fontWeight: 700, marginBottom: '12px' }}>
@@ -207,7 +207,7 @@ export default function NosotrosPage() {
             </p>
           </div>
         </FadeSection>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', maxWidth: '1100px', margin: '0 auto' }}>
+        <div className="r-two-col" style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <FadeSection delay={0.1}>
             <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '16/10' }}>
               <img
@@ -251,8 +251,8 @@ export default function NosotrosPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.8 }}
-        style={{
-          padding: '100px 60px', textAlign: 'center',
+        className="r-section" style={{
+          textAlign: 'center',
           borderTop: '1px solid #1a1a1a'
         }}
       >

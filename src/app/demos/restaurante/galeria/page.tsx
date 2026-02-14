@@ -117,7 +117,7 @@ export default function GaleriaPage() {
     <div style={{ backgroundColor: bg, color: cream, minHeight: '100vh' }}>
 
       {/* HEADER */}
-      <section ref={headerRef} style={{ padding: '80px 60px 70px', textAlign: 'center' }}>
+      <section ref={headerRef} className="r-section-sm" style={{ textAlign: 'center' }}>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
@@ -153,10 +153,8 @@ export default function GaleriaPage() {
       </section>
 
       {/* GALLERY GRID */}
-      <section style={{ padding: '0 40px 80px' }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
+      <section style={{ padding: '0 clamp(16px,3vw,40px) clamp(40px,6vw,80px)' }}>
+        <div className="r-two-col" style={{
           gap: '12px',
           maxWidth: '1300px',
           margin: '0 auto'
@@ -173,8 +171,8 @@ export default function GaleriaPage() {
         initial={{ opacity: 0, y: 40 }}
         animate={ctaInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
-        style={{
-          padding: '80px 60px', textAlign: 'center',
+        className="r-section-sm" style={{
+          textAlign: 'center',
           borderTop: `1px solid #2a1800`, backgroundColor: darkBrown
         }}
       >

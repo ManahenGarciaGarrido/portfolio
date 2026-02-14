@@ -187,7 +187,7 @@ function ServiceSection({ svc, isRight }: { svc: Service; isRight: boolean }) {
 
           <div>
             <div style={{ color: accent, fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>Planes</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+            <div className="r-grid-3" style={{ gap: '0.75rem' }}>
               {svc.pricing.map((plan, pi) => (
                 <div key={pi} style={{ border: pi === 1 ? `1px solid ${accent}` : '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '1rem', background: pi === 1 ? 'rgba(0,255,136,0.05)' : 'transparent' }}>
                   <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: pi === 1 ? accent : 'rgba(255,255,255,0.4)', marginBottom: '0.4rem' }}>{plan.tier}</div>

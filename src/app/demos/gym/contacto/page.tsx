@@ -70,7 +70,7 @@ export default function GymContactoPage() {
       </section>
 
       {/* MAIN GRID */}
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '4rem 1.5rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem' }}>
+      <div className="r-two-col" style={{ maxWidth: '1100px', margin: '0 auto', padding: '4rem 1.5rem', gap: '3rem', alignItems: 'start' }}>
 
         {/* LEFT — FORM */}
         <motion.div
@@ -210,7 +210,7 @@ export default function GymContactoPage() {
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: '0.75rem' }}>Lo que necesitas saber antes de tu primera visita a Inferno</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          <div className="r-grid-4" style={{ gap: '1.5rem' }}>
             {[
               { step: '01', icon: '🏋️', title: 'Registro gratuito', desc: 'Tu primera semana es completamente gratis. Solo necesitas ropa comoda y ganas de entrenar. Sin papeleos ni compromisos.' },
               { step: '02', icon: '👤', title: 'Evaluacion inicial', desc: 'Un entrenador evaluara tu nivel fisico, te mostrara las instalaciones y disenar un plan de entrenamiento personalizado.' },

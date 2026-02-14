@@ -97,7 +97,7 @@ export default function EntrenadoresPage() {
 
       {/* TRAINER GRID */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 1.5rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+        <div className="r-grid-3" style={{ gap: '2rem' }}>
           {trainers.map((trainer, i) => (
             <motion.div
               key={trainer.name}
