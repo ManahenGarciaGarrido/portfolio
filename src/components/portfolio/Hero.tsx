@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Instagram, Twitter, MessageCircle, ChevronDown } from 'lucide-react';
+import { Github, Linkedin, Instagram, MessageCircle, ChevronDown } from 'lucide-react';
 import { staggerContainer, fadeUp, fadeIn } from '@/lib/animations';
 
 interface HeroProps {
@@ -130,10 +130,9 @@ export default function Hero({ lang }: HeroProps) {
         {/* Social links */}
         <motion.div variants={fadeUp} className="flex items-center justify-center gap-5">
           {[
-            { icon: Github, href: 'https://github.com', label: 'GitHub' },
-            { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-            { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
-            { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+            { icon: Github, href: 'https://github.com/ManahenGarciaGarrido', label: 'GitHub' },
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/manahen-garcia-garrido-71524b1a0/', label: 'LinkedIn' },
+            { icon: Instagram, href: 'https://www.instagram.com/manahengarcia10/', label: 'Instagram' },
             {
               icon: MessageCircle,
               href: 'https://wa.me/34640038508?text=Hola+Manahen%2C+vi+tu+portfolio+y+me+interesa+hablar',

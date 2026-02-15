@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Github, Linkedin, Instagram, Twitter } from 'lucide-react';
+import { Github, Linkedin, Instagram } from 'lucide-react';
 import Hero from '@/components/portfolio/Hero';
 import DemoGrid from '@/components/portfolio/DemoGrid';
 import Skills from '@/components/portfolio/Skills';
@@ -45,10 +45,9 @@ export default function PortfolioPage() {
           </p>
           <div className="flex items-center justify-center gap-5 mb-6">
             {[
-              { icon: Github, href: 'https://github.com', label: 'GitHub' },
-              { icon: Linkedin, href: 'https://linkedin.com/in/manahen', label: 'LinkedIn' },
-              { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
-              { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+              { icon: Github, href: 'https://github.com/ManahenGarciaGarrido', label: 'GitHub' },
+              { icon: Linkedin, href: 'https://www.linkedin.com/in/manahen-garcia-garrido-71524b1a0/', label: 'LinkedIn' },
+              { icon: Instagram, href: 'https://www.instagram.com/manahengarcia10/', label: 'Instagram' },
             ].map(({ icon: Icon, href, label }) => (
               <a
                 key={label}

@@ -182,7 +182,7 @@ export default function Contact({ lang }: ContactProps) {
             {/* Email */}
             <motion.a
               variants={fadeUp}
-              href="mailto:hola@manahen.dev"
+              href="mailto:manahengag@gmail.com"
               className="flex items-center gap-4 p-5 rounded-2xl border border-white/10 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all group"
             >
               <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center flex-shrink-0">
@@ -192,14 +192,14 @@ export default function Contact({ lang }: ContactProps) {
                 <p className="text-white font-semibold group-hover:text-blue-400 transition-colors">
                   {t.email}
                 </p>
-                <p className="text-white/40 text-sm">hola@manahen.dev</p>
+                <p className="text-white/40 text-sm">manahengag@gmail.com</p>
               </div>
             </motion.a>
 
             {/* LinkedIn */}
             <motion.a
               variants={fadeUp}
-              href="https://linkedin.com/in/manahen"
+              href="https://www.linkedin.com/in/manahen-garcia-garrido-71524b1a0/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 p-5 rounded-2xl border border-white/10 hover:border-blue-400/40 hover:bg-blue-400/5 transition-all group"
