@@ -84,9 +84,10 @@ export default function DemoNav({
             </Link>
             {/* Mobile hamburger */}
             <button
-              className="md:hidden"
+              className="md:hidden p-2 -mr-2"
               onClick={() => setOpen(!open)}
               style={{ color: textColor }}
+              aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
             >
               {open ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -96,7 +97,7 @@ export default function DemoNav({
         {/* Mobile menu */}
         {open && (
           <div
-            className="md:hidden border-t px-4 py-4 flex flex-col gap-3"
+            className="md:hidden border-t px-4 py-4 flex flex-col gap-1"
             style={{ background: bgColor, borderColor: accentColor + '33' }}
           >
             {links.map((l) => (
@@ -104,8 +105,8 @@ export default function DemoNav({
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="text-sm font-semibold py-2"
-                style={{ color: textColor }}
+                className="text-sm font-semibold py-3 border-b"
+                style={{ color: textColor, borderColor: accentColor + '15' }}
               >
                 {l.label}
               </Link>

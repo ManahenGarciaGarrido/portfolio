@@ -179,7 +179,7 @@ export default function HotelHomePage() {
   return (
     <main style={{ background: bg, color: text }}>
       {/* HERO */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
           <img
             src="https://picsum.photos/seed/hotel-facade/1400/900"
@@ -287,8 +287,7 @@ export default function HotelHomePage() {
                 transition={{ duration: 0.6, delay: i * 0.12 }}
                 style={{
                   textAlign: 'center',
-                  padding: '32px 24px',
-                  borderRight: i < features.length - 1 ? `1px solid ${accent}22` : 'none',
+                  padding: 'clamp(20px, 4vw, 32px) clamp(12px, 3vw, 24px)',
                 }}
               >
                 <div style={{ fontSize: '32px', marginBottom: '14px' }}>{f.icon}</div>

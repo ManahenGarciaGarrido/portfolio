@@ -111,7 +111,7 @@ function TreatmentCard({ item, index }: { item: typeof ALL_TREATMENTS[0]; index:
         <Link href="/demos/spa/reservar" style={{
           background: LAVENDER, color: '#fff', padding: '0.55rem 1.3rem',
           fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.1em',
-          textDecoration: 'none', display: 'inline-block',
+          textDecoration: 'none', display: 'inline-flex', alignItems: 'center', minHeight: '44px',
         }}>
           RESERVAR AHORA
         </Link>
@@ -136,7 +136,7 @@ export default function TratamientosPage() {
   const current = sectionTitles[active];
 
   return (
-    <main style={{ background: CREAM, color: DEEP, minHeight: '100vh' }}>
+    <main style={{ background: CREAM, color: DEEP, minHeight: 'max(100svh, 500px)' }}>
       <style>{`.trat-layout { display: grid; grid-template-columns: 220px 1fr; align-items: start; } .trat-sidebar { position: sticky; top: 5rem; padding: 2rem 1.5rem; border-right: 1px solid rgba(201,160,201,0.22); min-height: 400px; } .trat-content { padding: clamp(1.5rem,4vw,3rem); } .trat-card { display: flex; overflow: hidden; } .trat-card-img { width: 180px; flex-shrink: 0; overflow: hidden; } @media (max-width: 768px) { .trat-layout { grid-template-columns: 1fr; } .trat-sidebar { position: static; border-right: none; border-bottom: 1px solid rgba(201,160,201,0.22); padding: 1.5rem clamp(1rem,4vw,4rem); display: flex; gap: 0.5rem; flex-wrap: wrap; min-height: auto; } .trat-card-img { width: 120px; } } @media (max-width: 480px) { .trat-card { flex-direction: column; } .trat-card-img { width: 100%; height: 180px; } }`}</style>
 
       {/* Header */}
@@ -171,7 +171,7 @@ export default function TratamientosPage() {
                 color: active === cat.id ? DEEP : '#b090b0',
                 fontWeight: active === cat.id ? 700 : 400,
                 fontSize: '0.85rem', cursor: 'pointer', fontFamily: 'inherit',
-                transition: 'all 0.2s ease',
+                transition: 'all 0.2s ease', minHeight: '44px',
               }}
             >
               {cat.label}

@@ -78,7 +78,7 @@ export default function FuncionesPage() {
   return (
     <div style={{ background: BG, color: '#fff', overflowX: 'hidden' }}>
       {/* Hero */}
-      <section style={{ padding: '80px 24px 60px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ padding: 'clamp(40px, 8vw, 80px) 24px clamp(30px, 6vw, 60px)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 80% 60% at 50% 0%, ${ACCENT}25, transparent)`, pointerEvents: 'none' }} />
         <motion.p
           initial={{ opacity: 0, y: -10 }}
@@ -130,7 +130,7 @@ export default function FuncionesPage() {
                     </span>
                   )}
                 </div>
-                <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 20 }}>{feature.name}</h2>
+                <h2 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 800, marginBottom: 20 }}>{feature.name}</h2>
                 <p style={{ color: '#ffffff80', lineHeight: 1.8, fontSize: 15, marginBottom: 16 }}>{feature.description1}</p>
                 <p style={{ color: '#ffffff60', lineHeight: 1.8, fontSize: 14, marginBottom: 24 }}>{feature.description2}</p>
                 <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -234,14 +234,14 @@ export default function FuncionesPage() {
           <motion.a
             whileHover={{ scale: 1.04 }}
             href="/demos/startup/precios"
-            style={{ background: `linear-gradient(135deg, ${ACCENT}, #9b00ff)`, color: '#fff', padding: '16px 40px', borderRadius: 12, fontWeight: 700, fontSize: 16, textDecoration: 'none', boxShadow: `0 0 40px ${ACCENT}50`, display: 'inline-block' }}
+            style={{ background: `linear-gradient(135deg, ${ACCENT}, #9b00ff)`, color: '#fff', padding: '16px 40px', borderRadius: 12, fontWeight: 700, fontSize: 16, textDecoration: 'none', boxShadow: `0 0 40px ${ACCENT}50`, display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}
           >
             EMPEZAR GRATIS
           </motion.a>
           <motion.a
             whileHover={{ scale: 1.04 }}
             href="/demos/startup/contacto"
-            style={{ background: 'transparent', border: `1px solid #ffffff30`, color: '#fff', padding: '16px 40px', borderRadius: 12, fontWeight: 600, fontSize: 16, textDecoration: 'none', display: 'inline-block' }}
+            style={{ background: 'transparent', border: `1px solid #ffffff30`, color: '#fff', padding: '16px 40px', borderRadius: 12, fontWeight: 600, fontSize: 16, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}
           >
             Hablar con ventas
           </motion.a>

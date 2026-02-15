@@ -65,7 +65,7 @@ export default function YogaHome() {
     <div style={{ backgroundColor: bg, color: textColor }}>
 
       {/* HERO - SPLIT */}
-      <section className="r-hero-split" style={{ minHeight: '100vh', overflow: 'hidden' }}>
+      <section className="r-hero-split" style={{ minHeight: 'max(100svh, 600px)', overflow: 'hidden' }}>
         {/* Left text */}
         <div style={{ backgroundColor: bg, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(60px, 8vw, 120px) clamp(32px, 6vw, 80px)' }}>
           <motion.p

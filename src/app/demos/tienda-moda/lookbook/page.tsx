@@ -102,7 +102,7 @@ export default function LookbookPage() {
       {/* HERO FULLSCREEN */}
       <section
         ref={heroRef}
-        style={{ position: 'relative', height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        style={{ position: 'relative', minHeight: 'max(100svh, 500px)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
         <motion.img
           src="https://picsum.photos/seed/lookbook-hero/1400/800"

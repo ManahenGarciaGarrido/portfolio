@@ -106,7 +106,7 @@ function FlipCard({ plan }: { plan: typeof plans[0] }) {
           )}
           <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
             <h3 style={{ fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: plan.color, marginBottom: '0.75rem' }}>{plan.name}</h3>
-            <div style={{ fontSize: '4rem', fontWeight: 900, color: '#fff', lineHeight: 1 }}>
+            <div style={{ fontSize: 'clamp(2.5rem, 7vw, 4rem)', fontWeight: 900, color: '#fff', lineHeight: 1 }}>
               <span style={{ fontSize: '1.5rem', verticalAlign: 'top', marginTop: '0.8rem', display: 'inline-block', color: 'rgba(255,255,255,0.6)' }}>€</span>
               {plan.price}
             </div>
@@ -163,7 +163,7 @@ function FlipCard({ plan }: { plan: typeof plans[0] }) {
             display: 'block', textAlign: 'center', background: plan.color, color: '#fff',
             fontWeight: 900, fontSize: '0.9rem', padding: '0.85rem',
             borderRadius: '6px', textDecoration: 'none', textTransform: 'uppercase',
-            letterSpacing: '0.1em', marginTop: '1rem',
+            letterSpacing: '0.1em', marginTop: '1rem', minHeight: '44px',
           }}>
             ELEGIR {plan.name}
           </Link>
@@ -183,13 +183,13 @@ export default function PlanesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   return (
-    <main style={{ background: dark, minHeight: '100vh', color: '#fff', fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
+    <main style={{ background: dark, minHeight: 'max(100svh, 500px)', color: '#fff', fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
 
       {/* HEADER */}
-      <div style={{ background: '#0d0d0d', borderBottom: `3px solid ${red}`, padding: '4rem 1.5rem 3rem', textAlign: 'center' }}>
+      <div style={{ background: '#0d0d0d', borderBottom: `3px solid ${red}`, padding: 'clamp(2rem, 6vw, 4rem) 1.5rem clamp(1.5rem, 4vw, 3rem)', textAlign: 'center' }}>
         <motion.div initial={{ width: 0 }} animate={{ width: '60px' }} transition={{ duration: 0.7 }} style={{ height: '3px', background: red, margin: '0 auto 1.25rem' }} />
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-          style={{ fontSize: '3rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.02em' }}>
+          style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.02em' }}>
           ELIGE TU <span style={{ color: red }}>PLAN</span>
         </motion.h1>
         <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: '0.5rem', fontSize: '1rem' }}>Sin permanencia · Sin sorpresas · Primera semana gratis</p>
@@ -283,14 +283,14 @@ export default function PlanesPage() {
       </div>
 
       {/* PROMO CTA */}
-      <div style={{ background: `linear-gradient(135deg, ${red} 0%, ${orange} 100%)`, padding: '4rem 1.5rem', textAlign: 'center' }}>
+      <div style={{ background: `linear-gradient(135deg, ${red} 0%, ${orange} 100%)`, padding: 'clamp(2rem, 6vw, 4rem) 1.5rem', textAlign: 'center' }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', lineHeight: 1.1 }}>
+          <h2 style={{ fontSize: 'clamp(1.75rem, 5vw, 2.5rem)', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1rem', lineHeight: 1.1 }}>
             PRIMERA SEMANA GRATIS
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.05rem', marginBottom: '2rem', maxWidth: '450px', margin: '0 auto 2rem' }}>
@@ -300,7 +300,7 @@ export default function PlanesPage() {
             display: 'inline-block', background: dark, color: '#fff',
             fontWeight: 900, fontSize: '1.05rem', padding: '1rem 3rem',
             borderRadius: '4px', textDecoration: 'none', textTransform: 'uppercase',
-            letterSpacing: '0.1em',
+            letterSpacing: '0.1em', minHeight: '44px',
           }}>
             QUIERO MI SEMANA GRATIS
           </Link>

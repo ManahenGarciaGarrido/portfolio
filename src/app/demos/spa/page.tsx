@@ -105,7 +105,7 @@ export default function SpaHome() {
     <main style={{ background: CREAM, color: DEEP, overflowX: 'hidden' }}>
 
       {/* HERO */}
-      <section style={{ position: 'relative', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', minHeight: '600px' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
         <img
           src="https://picsum.photos/seed/spa-hero/1400/900"
           alt="Celestial Spa"

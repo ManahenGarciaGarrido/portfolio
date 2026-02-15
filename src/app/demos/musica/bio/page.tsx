@@ -39,7 +39,7 @@ const pressItems = [
 
 export default function BioPage() {
   return (
-    <main style={{ background: bg, minHeight: '100vh', fontFamily: "'Segoe UI', system-ui, sans-serif", color: '#fff' }}>
+    <main style={{ background: bg, minHeight: 'max(100svh, 500px)', fontFamily: "'Segoe UI', system-ui, sans-serif", color: '#fff' }}>
 
       {/* PAGE HEADER */}
       <section style={{ position: 'relative', minHeight: '50vh', display: 'flex', alignItems: 'flex-end', padding: '3rem 1.5rem', overflow: 'hidden' }}>
@@ -58,7 +58,7 @@ export default function BioPage() {
       </section>
 
       {/* BIO TEXT */}
-      <section style={{ padding: '5rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(2.5rem, 6vw, 5rem) 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
         <div className="r-two-col" style={{ gap: '5rem', alignItems: 'flex-start' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', color: '#fff', marginBottom: '2rem' }}>
@@ -99,10 +99,10 @@ export default function BioPage() {
               ))}
             </div>
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <Link href="/demos/musica/booking" style={{ background: pink, color: '#fff', fontWeight: 800, fontSize: '0.82rem', padding: '0.75rem 1.75rem', borderRadius: '3px', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              <Link href="/demos/musica/booking" style={{ background: pink, color: '#fff', fontWeight: 800, fontSize: '0.82rem', padding: '0.75rem 1.75rem', borderRadius: '3px', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}>
                 Booking
               </Link>
-              <Link href="/demos/musica/mixes" style={{ background: 'transparent', color: '#fff', fontWeight: 700, fontSize: '0.82rem', padding: '0.75rem 1.75rem', borderRadius: '3px', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em', border: '1px solid rgba(255,255,255,0.2)' }}>
+              <Link href="/demos/musica/mixes" style={{ background: 'transparent', color: '#fff', fontWeight: 700, fontSize: '0.82rem', padding: '0.75rem 1.75rem', borderRadius: '3px', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em', border: '1px solid rgba(255,255,255,0.2)', display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}>
                 Ver Mixes
               </Link>
             </div>
@@ -111,7 +111,7 @@ export default function BioPage() {
       </section>
 
       {/* TIMELINE */}
-      <section style={{ padding: '4rem 1.5rem', background: '#0a0018', borderTop: '1px solid rgba(255,0,204,0.1)' }}>
+      <section style={{ padding: 'clamp(2rem, 5vw, 4rem) 1.5rem', background: '#0a0018', borderTop: '1px solid rgba(255,0,204,0.1)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <div style={{ height: '2px', background: pink, width: '40px', margin: '0 auto 1.2rem' }} />
@@ -145,7 +145,7 @@ export default function BioPage() {
       </section>
 
       {/* DISCOGRAPHY */}
-      <section style={{ padding: '5rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(2.5rem, 6vw, 5rem) 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <div style={{ height: '2px', background: pink, width: '40px', margin: '0 auto 1.2rem' }} />
           <h2 style={{ fontSize: '2rem', fontWeight: 900, textTransform: 'uppercase', color: '#fff' }}>
@@ -209,7 +209,7 @@ export default function BioPage() {
                 </div>
                 <div style={{ flex: 1, fontSize: '0.88rem', color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', lineHeight: 1.7 }}>{item.quote}</div>
                 <div style={{ flexShrink: 0 }}>
-                  <button style={{ background: 'transparent', color: 'rgba(255,255,255,0.3)', border: '1px solid rgba(255,255,255,0.15)', padding: '0.4rem 1rem', borderRadius: '3px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  <button style={{ background: 'transparent', color: 'rgba(255,255,255,0.3)', border: '1px solid rgba(255,255,255,0.15)', padding: '0.4rem 1rem', borderRadius: '3px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', minHeight: '44px' }}>
                     Leer →
                   </button>
                 </div>

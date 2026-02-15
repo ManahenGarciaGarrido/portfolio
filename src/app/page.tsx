@@ -13,7 +13,7 @@ export default function PortfolioPage() {
   return (
     <div className="relative" style={{ background: '#050010' }}>
       {/* Language toggle */}
-      <div className="fixed top-4 right-4 z-50 flex rounded-full overflow-hidden border border-white/20 text-xs font-semibold">
+      <div className="fixed top-4 right-4 z-[60] flex rounded-full overflow-hidden border border-white/20 text-xs font-semibold">
         <button
           onClick={() => setLang('es')}
           className={`px-3 py-1.5 transition-colors ${lang === 'es' ? 'bg-white/20 text-white' : 'text-white/40 hover:text-white/70'}`}
@@ -35,7 +35,7 @@ export default function PortfolioPage() {
 
       {/* Footer */}
       <footer
-        className="py-10 px-6 border-t border-white/10 text-center"
+        className="py-8 sm:py-10 px-4 sm:px-6 border-t border-white/10 text-center"
         style={{ background: '#040010' }}
       >
         <div className="max-w-4xl mx-auto">

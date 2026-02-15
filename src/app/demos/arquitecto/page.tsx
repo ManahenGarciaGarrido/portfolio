@@ -30,7 +30,7 @@ export default function ArquitectoHome() {
     <main style={{ background: bg, minHeight: '100vh', fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", color: text }}>
 
       {/* HERO FULLSCREEN */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: '700px', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', overflow: 'hidden' }}>
         <img
           src="https://picsum.photos/seed/architecture-hero/1400/900"
           alt="Arquitectura"
@@ -40,7 +40,7 @@ export default function ArquitectoHome() {
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.35) 100%)' }} />
 
         {/* Hero text — bottom left */}
-        <div style={{ position: 'absolute', bottom: '60px', left: '60px', zIndex: 2, maxWidth: '500px' }}>
+        <div style={{ position: 'absolute', bottom: 'clamp(24px, 6vw, 60px)', left: 'clamp(20px, 6vw, 60px)', zIndex: 2, maxWidth: '90vw' }}>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

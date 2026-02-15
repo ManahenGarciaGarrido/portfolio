@@ -375,16 +375,16 @@ export default function DemoGrid({ lang }: DemoGridProps) {
   const viewDemo = lang === 'en' ? 'View Demo' : 'Ver Demo';
 
   return (
-    <section id="proyectos" className="py-24 px-6" style={{ background: '#070012' }}>
+    <section id="proyectos" className="py-16 sm:py-24 px-4 sm:px-6" style={{ background: '#070012' }}>
       <div className="max-w-7xl mx-auto">
         {/* Section heading */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl font-black text-white mb-4"
+            className="text-3xl sm:text-5xl font-black text-white mb-3 sm:mb-4"
           >
             {heading}
           </motion.h2>
@@ -393,7 +393,7 @@ export default function DemoGrid({ lang }: DemoGridProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="text-white/50 text-lg max-w-2xl mx-auto"
+            className="text-white/50 text-sm sm:text-lg max-w-2xl mx-auto"
           >
             {subheading}
           </motion.p>
@@ -413,7 +413,7 @@ export default function DemoGrid({ lang }: DemoGridProps) {
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4"
         >
           {demos.map((demo) => (
             <motion.div key={demo.slug} variants={fadeUp}>
@@ -423,7 +423,7 @@ export default function DemoGrid({ lang }: DemoGridProps) {
                   style={{ background: demo.bg }}
                 >
                   {/* CSS Mockup */}
-                  <div className="h-40 flex flex-col overflow-hidden">
+                  <div className="h-32 sm:h-40 flex flex-col overflow-hidden">
                     {demo.preview.map((block, i) => (
                       <div
                         key={i}
@@ -452,15 +452,15 @@ export default function DemoGrid({ lang }: DemoGridProps) {
                   </div>
 
                   {/* Card info */}
-                  <div className="p-3" style={{ background: demo.bg }}>
+                  <div className="p-2 sm:p-3" style={{ background: demo.bg }}>
                     <p
-                      className="text-xs font-bold uppercase tracking-wider mb-0.5"
+                      className="text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-0.5"
                       style={{ color: demo.accent }}
                     >
                       {demo.sector}
                     </p>
                     <p
-                      className="text-sm font-semibold leading-tight"
+                      className="text-xs sm:text-sm font-semibold leading-tight"
                       style={{ color: demo.bg === '#ffffff' || demo.bg === '#fdf5e6' || demo.bg === '#fff9f0' ? '#111' : '#fff' }}
                     >
                       {lang === 'en' ? demo.titleEn : demo.title}

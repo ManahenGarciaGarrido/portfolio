@@ -69,16 +69,16 @@ export default function Skills({ lang }: SkillsProps) {
   const offerItems = offers[lang];
 
   return (
-    <section id="habilidades" className="py-24 px-6" style={{ background: '#06000f' }}>
+    <section id="habilidades" className="py-16 sm:py-24 px-4 sm:px-6" style={{ background: '#06000f' }}>
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl font-black text-white mb-4"
+            className="text-3xl sm:text-5xl font-black text-white mb-3 sm:mb-4"
           >
             {heading}
           </motion.h2>
@@ -87,13 +87,13 @@ export default function Skills({ lang }: SkillsProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="text-white/50 text-lg max-w-xl mx-auto"
+            className="text-white/50 text-sm sm:text-lg max-w-xl mx-auto"
           >
             {subheading}
           </motion.p>
         </div>
 
-        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Skills bars */}
           <motion.div
             variants={slideLeft}

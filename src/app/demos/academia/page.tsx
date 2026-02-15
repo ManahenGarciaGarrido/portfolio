@@ -120,8 +120,8 @@ export default function AcademiaHome() {
     <div style={{ background: BG, color: TEXT, minHeight: '100vh', fontFamily: 'system-ui, sans-serif' }}>
 
       {/* HERO */}
-      <section className="r-hero-split" style={{ minHeight: '100vh', background: BG }}>
-        <div style={{ background: BG, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '4rem 3rem' }}>
+      <section className="r-hero-split" style={{ minHeight: 'max(100svh, 600px)', background: BG }}>
+        <div style={{ background: BG, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 3rem)' }}>
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}

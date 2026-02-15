@@ -97,7 +97,7 @@ export default function CafeteriaHome() {
   return (
     <main style={{ background: bg, fontFamily: "'Georgia', serif" }}>
       {/* HERO */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
         <img
           src="https://picsum.photos/seed/coffee-shop/1400/800"
           alt="Café Artesano interior"

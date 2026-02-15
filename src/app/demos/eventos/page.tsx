@@ -62,7 +62,7 @@ export default function EventosHome() {
     <div style={{ backgroundColor: bg, color: textColor }}>
 
       {/* HERO */}
-      <section style={{ position: 'relative', height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <img
           src="https://picsum.photos/seed/wedding-venue/1400/900"
           alt="ÉLITE EVENTOS"
@@ -223,7 +223,7 @@ export default function EventosHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={statsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: i * 0.1 }}
-            style={{ textAlign: 'center', borderRight: i < 3 ? `1px solid ${gold}22` : 'none', padding: '0 20px' }}
+            style={{ textAlign: 'center', padding: 'clamp(12px, 3vw, 0px) clamp(12px, 3vw, 20px)' }}
           >
             <div style={{ fontSize: 'clamp(40px, 6vw, 64px)', fontFamily: 'Georgia, serif', color: gold, fontWeight: 700, lineHeight: 1 }}>{s.num}</div>
             <p style={{ color: textColor, fontSize: '14px', letterSpacing: '0.1em', margin: '8px 0 0', fontWeight: 500 }}>{s.label}</p>

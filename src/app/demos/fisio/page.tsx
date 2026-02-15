@@ -56,8 +56,8 @@ export default function FisioHome() {
     <main style={{ background: BG, color: TEXT, fontFamily: "'Inter', sans-serif", minHeight: '100vh' }}>
 
       {/* HERO */}
-      <section className="r-hero-split" style={{ background: BG, minHeight: '90vh' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '4rem 3rem', gap: '1.5rem' }}>
+      <section className="r-hero-split" style={{ background: BG, minHeight: 'max(90svh, 560px)' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 3rem)', gap: '1.5rem' }}>
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}

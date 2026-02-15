@@ -65,7 +65,7 @@ export default function GymHome() {
       `}</style>
 
       {/* HERO FULLSCREEN */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: '650px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
         <img
           src="https://picsum.photos/seed/gym-hero/1400/900"
           alt="Gym"
@@ -74,13 +74,13 @@ export default function GymHome() {
         {/* Red radial overlay */}
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(255,51,0,0.15) 0%, transparent 65%)' }} />
 
-        {/* Pulsing red rings */}
+        {/* Pulsing red rings — adaptativos al tamaño de pantalla */}
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
           {[1, 2, 3].map(i => (
             <div key={i} style={{
               position: 'absolute', top: '50%', left: '50%',
-              width: '400px', height: '400px',
-              marginTop: '-200px', marginLeft: '-200px',
+              width: 'min(400px, 80vw)', height: 'min(400px, 80vw)',
+              marginTop: 'calc(min(400px, 80vw) / -2)', marginLeft: 'calc(min(400px, 80vw) / -2)',
               border: '1px solid rgba(255,51,0,0.4)',
               borderRadius: '50%',
               animation: `pulse-ring 3s ease-out ${i * 1}s infinite`,
@@ -166,19 +166,18 @@ export default function GymHome() {
               transition={{ delay: i * 0.1, duration: 0.5 }}
               style={{
                 textAlign: 'center',
-                padding: '2.5rem 1rem',
-                borderRight: i < stats.length - 1 ? '1px solid #222' : 'none',
+                padding: 'clamp(1.25rem, 3vw, 2.5rem) 1rem',
               }}
             >
-              <div style={{ fontSize: '2.8rem', fontWeight: 900, color: red, lineHeight: 1, marginBottom: '0.4rem' }}>{s.number}</div>
-              <div style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 600 }}>{s.label}</div>
+              <div style={{ fontSize: 'clamp(1.8rem, 5vw, 2.8rem)', fontWeight: 900, color: red, lineHeight: 1, marginBottom: '0.4rem' }}>{s.number}</div>
+              <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 600 }}>{s.label}</div>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* PROGRAMS GRID */}
-      <section style={{ padding: '5rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 1.5rem)', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <motion.div
             initial={{ width: 0 }}
@@ -186,7 +185,7 @@ export default function GymHome() {
             viewport={{ once: true }}
             style={{ height: '3px', background: red, margin: '0 auto 1rem' }}
           />
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.02em' }}>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 2.5rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.02em' }}>
             NUESTROS <span style={{ color: red }}>PROGRAMAS</span>
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: '0.75rem' }}>Entrena con los mejores en el entorno mas exigente</p>
@@ -266,11 +265,11 @@ export default function GymHome() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section style={{ padding: '5rem 1.5rem', background: '#0d0d0d' }}>
+      <section style={{ padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 1.5rem)', background: '#0d0d0d' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div style={{ height: '3px', background: red, width: '60px', margin: '0 auto 1rem' }} />
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 900, textTransform: 'uppercase' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', fontWeight: 900, textTransform: 'uppercase' }}>
               LO QUE DICEN NUESTROS <span style={{ color: red }}>MIEMBROS</span>
             </h2>
           </div>

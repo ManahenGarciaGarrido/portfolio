@@ -103,14 +103,14 @@ export default function ClasesPage() {
   const [selectedDiscipline, setSelectedDiscipline] = useState('Todas')
 
   return (
-    <main style={{ background: dark, minHeight: '100vh', color: '#fff', fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
+    <main style={{ background: dark, minHeight: 'max(100svh, 500px)', color: '#fff', fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
 
       {/* HEADER */}
-      <div style={{ background: '#0d0d0d', borderBottom: `3px solid ${red}`, padding: '3.5rem 1.5rem 2.5rem' }}>
+      <div style={{ background: '#0d0d0d', borderBottom: `3px solid ${red}`, padding: 'clamp(2rem, 5vw, 3.5rem) 1.5rem clamp(1.5rem, 4vw, 2.5rem)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <motion.div initial={{ width: 0 }} animate={{ width: '60px' }} transition={{ duration: 0.7 }} style={{ height: '3px', background: red, marginBottom: '1.25rem' }} />
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-            style={{ fontSize: '2.8rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.02em' }}>
+            style={{ fontSize: 'clamp(1.8rem, 5vw, 2.8rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.02em' }}>
             HORARIO DE <span style={{ color: red }}>CLASES</span>
           </motion.h1>
           <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: '0.5rem' }}>Reserva tu plaza en cualquier clase · Acceso incluido en todos los planes</p>
@@ -128,6 +128,7 @@ export default function ClasesPage() {
               border: `1px solid ${selectedDay === d ? red : '#333'}`,
               borderRadius: '4px', padding: '0.4rem 0.9rem', fontSize: '0.8rem',
               fontWeight: 700, cursor: 'pointer', textTransform: 'uppercase',
+              minHeight: '44px',
             }}>{d}</button>
           ))}
           <span style={{ color: '#333', margin: '0 0.25rem' }}>|</span>

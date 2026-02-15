@@ -71,7 +71,7 @@ export default function PreciosPage() {
   return (
     <div style={{ background: BG, color: '#fff', overflowX: 'hidden' }}>
       {/* Hero */}
-      <section style={{ padding: '80px 24px 60px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ padding: 'clamp(40px, 8vw, 80px) 24px clamp(30px, 6vw, 60px)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 80% 60% at 50% 0%, ${ACCENT}20, transparent)`, pointerEvents: 'none' }} />
         <motion.p
           initial={{ opacity: 0 }}
@@ -108,13 +108,13 @@ export default function PreciosPage() {
         >
           <button
             onClick={() => setAnnual(false)}
-            style={{ padding: '8px 20px', borderRadius: 999, border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 14, background: !annual ? ACCENT : 'transparent', color: !annual ? '#fff' : '#ffffff60', transition: 'all 0.3s' }}
+            style={{ padding: '8px 20px', borderRadius: 999, border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 14, background: !annual ? ACCENT : 'transparent', color: !annual ? '#fff' : '#ffffff60', transition: 'all 0.3s', minHeight: '44px' }}
           >
             Mensual
           </button>
           <button
             onClick={() => setAnnual(true)}
-            style={{ padding: '8px 20px', borderRadius: 999, border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 14, background: annual ? ACCENT : 'transparent', color: annual ? '#fff' : '#ffffff60', transition: 'all 0.3s', display: 'flex', alignItems: 'center', gap: 8 }}
+            style={{ padding: '8px 20px', borderRadius: 999, border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 14, background: annual ? ACCENT : 'transparent', color: annual ? '#fff' : '#ffffff60', transition: 'all 0.3s', display: 'flex', alignItems: 'center', gap: 8, minHeight: '44px' }}
           >
             Anual
             <span style={{ background: `${SECONDARY}20`, border: `1px solid ${SECONDARY}50`, borderRadius: 999, padding: '2px 8px', fontSize: 11, color: SECONDARY }}>-20%</span>
@@ -166,7 +166,7 @@ export default function PreciosPage() {
                 <p style={{ color: '#ffffff60', fontSize: 14, marginBottom: 28, lineHeight: 1.6 }}>{plan.desc}</p>
                 <Link
                   href={plan.ctaHref}
-                  style={{ display: 'block', textAlign: 'center', background: plan.highlight ? `linear-gradient(135deg, ${ACCENT}, #9b00ff)` : `${ACCENT}25`, color: '#fff', padding: '14px', borderRadius: 12, fontWeight: 700, textDecoration: 'none', fontSize: 15, border: plan.highlight ? 'none' : `1px solid ${ACCENT}40`, marginBottom: 28, boxShadow: plan.highlight ? `0 0 30px ${ACCENT}40` : 'none' }}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: plan.highlight ? `linear-gradient(135deg, ${ACCENT}, #9b00ff)` : `${ACCENT}25`, color: '#fff', padding: '14px', borderRadius: 12, fontWeight: 700, textDecoration: 'none', fontSize: 15, border: plan.highlight ? 'none' : `1px solid ${ACCENT}40`, marginBottom: 28, boxShadow: plan.highlight ? `0 0 30px ${ACCENT}40` : 'none', minHeight: '44px' }}
                 >
                   {plan.cta}
                 </Link>
@@ -287,7 +287,7 @@ export default function PreciosPage() {
           ¿Necesitas algo personalizado?
         </motion.h2>
         <p style={{ color: '#ffffff60', marginBottom: 36, fontSize: 16 }}>Nuestro equipo de ventas está listo para diseñar el plan perfecto para tu empresa</p>
-        <Link href="/demos/startup/contacto" style={{ display: 'inline-block', background: `linear-gradient(135deg, ${ACCENT}, #9b00ff)`, color: '#fff', padding: '16px 40px', borderRadius: 12, fontWeight: 700, fontSize: 16, textDecoration: 'none', boxShadow: `0 0 40px ${ACCENT}40` }}>
+        <Link href="/demos/startup/contacto" style={{ display: 'inline-flex', alignItems: 'center', background: `linear-gradient(135deg, ${ACCENT}, #9b00ff)`, color: '#fff', padding: '16px 40px', borderRadius: 12, fontWeight: 700, fontSize: 16, textDecoration: 'none', boxShadow: `0 0 40px ${ACCENT}40`, minHeight: '44px' }}>
           Hablar con ventas
         </Link>
       </section>
