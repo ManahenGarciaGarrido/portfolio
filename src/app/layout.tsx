@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 
 export const metadata: Metadata = {
   title: "Manahen García Garrido | Desarrollador Web",
@@ -29,6 +30,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
+        <AnalyticsProvider />
         {children}
       </body>
     </html>
