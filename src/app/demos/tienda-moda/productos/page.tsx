@@ -72,7 +72,7 @@ function ProductCard({ product }: { product: typeof allProducts[0] }) {
               <button style={{
                 backgroundColor: '#FFE600', color: '#000', border: 'none',
                 padding: '10px 22px', fontWeight: 900, fontSize: '11px',
-                letterSpacing: '0.12em', cursor: 'pointer'
+                letterSpacing: '0.12em', cursor: 'pointer', minHeight: '44px'
               }}>
                 AÑADIR AL CARRITO
               </button>
@@ -102,7 +102,7 @@ export default function ProductosPage() {
   const visible = filtered.slice(0, visibleCount);
 
   return (
-    <div style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#000', color: '#fff', minHeight: 'max(100svh, 500px)' }}>
 
       {/* PAGE HEADER */}
       <section ref={headerRef} className="r-section-sm" style={{ paddingBottom: '40px', borderBottom: '1px solid #1a1a1a' }}>
@@ -136,7 +136,7 @@ export default function ProductosPage() {
                 border: `2px solid ${activeFilter === f ? '#FFE600' : '#333'}`,
                 padding: '10px 22px', fontWeight: 800, fontSize: '12px',
                 letterSpacing: '0.12em', cursor: 'pointer',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease', minHeight: '44px'
               }}
             >
               {f.toUpperCase()}
@@ -179,7 +179,7 @@ export default function ProductosPage() {
               style={{
                 backgroundColor: 'transparent', color: '#fff',
                 border: '2px solid #FFE600', padding: '18px 60px',
-                fontWeight: 900, fontSize: '13px', letterSpacing: '0.2em', cursor: 'pointer'
+                fontWeight: 900, fontSize: '13px', letterSpacing: '0.2em', cursor: 'pointer', minHeight: '44px'
               }}
             >
               CARGAR MÁS ({filtered.length - visible.length} restantes)

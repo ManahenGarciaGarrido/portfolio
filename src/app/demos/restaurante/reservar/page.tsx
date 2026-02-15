@@ -135,7 +135,7 @@ export default function ReservarPage() {
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}
+          style={{ position: 'sticky', top: 0, height: '100svh', minHeight: '400px', overflow: 'hidden' }}
         >
           <img
             src="https://picsum.photos/seed/restaurant-interior/700/900"

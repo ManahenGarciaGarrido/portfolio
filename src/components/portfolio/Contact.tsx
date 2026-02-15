@@ -70,16 +70,16 @@ export default function Contact({ lang }: ContactProps) {
     'w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/60 transition-colors text-sm';
 
   return (
-    <section id="contacto" className="py-24 px-6" style={{ background: '#070012' }}>
+    <section id="contacto" className="py-16 sm:py-24 px-4 sm:px-6" style={{ background: '#070012' }}>
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl font-black text-white mb-4"
+            className="text-2xl sm:text-5xl font-black text-white mb-3 sm:mb-4"
           >
             {t.heading}
           </motion.h2>
@@ -88,13 +88,13 @@ export default function Contact({ lang }: ContactProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="text-white/50 text-lg"
+            className="text-white/50 text-sm sm:text-lg"
           >
             {t.subheading}
           </motion.p>
         </div>
 
-        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Form */}
           <motion.div
             variants={slideLeft}

@@ -94,7 +94,7 @@ export default function RestauranteHome() {
       {/* HERO FULLSCREEN */}
       <section
         ref={heroRef}
-        style={{ position: 'relative', height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        style={{ position: 'relative', minHeight: 'max(100svh, 600px)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
         <motion.img
           src="https://picsum.photos/seed/restaurant-hero/1400/900"
@@ -107,7 +107,7 @@ export default function RestauranteHome() {
         />
         <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)' }} />
         <motion.div
-          style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 40px', opacity: heroOpacity }}
+          style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 clamp(20px, 5vw, 40px)', opacity: heroOpacity, width: '100%', maxWidth: '900px' }}
         >
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -123,7 +123,7 @@ export default function RestauranteHome() {
               animate={{ y: 0 }}
               transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               style={{
-                fontSize: 'clamp(72px, 14vw, 180px)',
+                fontSize: 'clamp(56px, 14vw, 180px)',
                 fontFamily: 'Georgia, serif',
                 fontStyle: 'italic',
                 fontWeight: 400,
@@ -140,7 +140,7 @@ export default function RestauranteHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            style={{ color: '#ddd', fontSize: 'clamp(14px, 2vw, 18px)', fontFamily: 'Georgia, serif', fontStyle: 'italic', marginBottom: '48px', letterSpacing: '0.05em' }}
+            style={{ color: '#ddd', fontSize: 'clamp(14px, 2vw, 18px)', fontFamily: 'Georgia, serif', fontStyle: 'italic', marginBottom: 'clamp(28px, 5vw, 48px)', letterSpacing: '0.05em' }}
           >
             Donde la tradición se convierte en vanguardia
           </motion.p>
@@ -148,14 +148,14 @@ export default function RestauranteHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}
+            style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}
           >
             <Link href="/demos/restaurante/reservar">
               <button style={{
                 backgroundColor: gold, color: darkBrown,
-                border: 'none', padding: '16px 44px',
+                border: 'none', padding: '14px clamp(20px, 5vw, 44px)',
                 fontWeight: 700, fontSize: '13px', letterSpacing: '0.2em', cursor: 'pointer',
-                fontFamily: 'inherit'
+                fontFamily: 'inherit', minHeight: '48px'
               }}>
                 RESERVAR MESA
               </button>
@@ -163,9 +163,9 @@ export default function RestauranteHome() {
             <Link href="/demos/restaurante/carta">
               <button style={{
                 backgroundColor: 'transparent', color: cream,
-                border: `1px solid ${cream}`, padding: '16px 44px',
+                border: `1px solid ${cream}`, padding: '14px clamp(20px, 5vw, 44px)',
                 fontWeight: 600, fontSize: '13px', letterSpacing: '0.2em', cursor: 'pointer',
-                fontFamily: 'inherit'
+                fontFamily: 'inherit', minHeight: '48px'
               }}>
                 VER CARTA
               </button>
@@ -198,7 +198,7 @@ export default function RestauranteHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={highlightsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: i * 0.15 }}
-            style={{ textAlign: 'center', borderRight: i < 2 ? `1px solid #2a1800` : 'none', padding: '0 20px' }}
+            style={{ textAlign: 'center', padding: 'clamp(8px, 2vw, 0px) clamp(12px, 3vw, 20px)' }}
           >
             <div style={{ fontSize: '28px', color: gold, marginBottom: '12px' }}>{h.icon}</div>
             <p style={{ color: cream, fontWeight: 700, fontSize: '16px', margin: '0 0 6px', fontFamily: 'Georgia, serif' }}>{h.label}</p>
@@ -213,7 +213,7 @@ export default function RestauranteHome() {
           initial={{ opacity: 0, y: 30 }}
           animate={dishesInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          style={{ textAlign: 'center', marginBottom: '70px' }}
+          style={{ textAlign: 'center', marginBottom: 'clamp(36px, 6vw, 70px)' }}
         >
           <p style={{ color: gold, fontSize: '11px', letterSpacing: '0.4em', fontWeight: 600, marginBottom: '16px' }}>
             — NUESTRA CARTA

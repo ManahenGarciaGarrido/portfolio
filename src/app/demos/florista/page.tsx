@@ -56,7 +56,7 @@ export default function FloristaHome() {
     <div style={{ background: BG, color: TEXT, fontFamily: '"Georgia", serif' }}>
 
       {/* HERO — Split Layout */}
-      <section className="r-hero-split" style={{ minHeight: '100vh', display: 'flex', flexWrap: 'wrap' }}>
+      <section className="r-hero-split" style={{ minHeight: 'max(100svh, 600px)' }}>
         {/* Left */}
         <div style={{ flex: '1 1 480px', background: BG, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 'clamp(48px, 8vw, 96px)' }}>
           <motion.p

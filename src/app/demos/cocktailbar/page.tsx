@@ -160,7 +160,7 @@ export default function CocktailBarHomePage() {
   return (
     <main style={{ background: bg, color: text }}>
       {/* HERO */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
           <img
             src="https://picsum.photos/seed/cocktail-bar-hero/1400/900"
@@ -250,12 +250,12 @@ export default function CocktailBarHomePage() {
       </section>
 
       {/* SIGNATURE COCKTAILS HORIZONTAL SCROLL */}
-      <section style={{ padding: '80px 0', background: cardBg, borderBottom: `1px solid ${cardBorder}` }}>
-        <div className="r-container" style={{ marginBottom: '40px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+      <section style={{ padding: 'clamp(48px, 8vw, 80px) 0', background: cardBg, borderBottom: `1px solid ${cardBorder}` }}>
+        <div className="r-container" style={{ marginBottom: '32px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '12px' }}>
             <div>
               <div style={{ color: accent, fontSize: '12px', letterSpacing: '0.2em', marginBottom: '10px', fontWeight: 600 }}>FIRMA</div>
-              <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 700, color: text }}>Cócteles de Autor</h2>
+              <h2 style={{ fontSize: 'clamp(20px, 4vw, 36px)', fontWeight: 700, color: text }}>Cócteles de Autor</h2>
             </div>
             <Link href="/demos/cocktailbar/carta" style={{ color: accent, fontSize: '13px', textDecoration: 'none', fontWeight: 600, letterSpacing: '0.08em' }}>
               VER CARTA COMPLETA →
@@ -264,10 +264,11 @@ export default function CocktailBarHomePage() {
         </div>
         <div style={{
           display: 'flex', gap: '16px', overflowX: 'auto',
-          paddingLeft: 'max(24px, calc((100vw - 1280px)/2))',
-          paddingRight: '24px',
+          paddingLeft: 'clamp(16px, 4vw, max(24px, calc((100vw - 1280px)/2)))',
+          paddingRight: 'clamp(16px, 4vw, 24px)',
           scrollSnapType: 'x mandatory',
           scrollbarWidth: 'none',
+          WebkitOverflowScrolling: 'touch',
         }}>
           {cocktails.map((c, i) => (
             <div key={c.id} style={{ scrollSnapAlign: 'start' }}>
@@ -278,7 +279,7 @@ export default function CocktailBarHomePage() {
       </section>
 
       {/* ATMOSPHERE SECTION */}
-      <section ref={atmosphereRef} style={{ padding: '100px 0', background: bg }}>
+      <section ref={atmosphereRef} style={{ padding: 'clamp(48px, 10vw, 100px) 0', background: bg }}>
         <div className="r-container">
           <div className="r-two-col" style={{ gap: '64px', alignItems: 'center' }}>
             <motion.div
@@ -330,7 +331,7 @@ export default function CocktailBarHomePage() {
       </section>
 
       {/* EVENTS */}
-      <section ref={eventsRef} style={{ padding: '100px 0', background: cardBg }}>
+      <section ref={eventsRef} style={{ padding: 'clamp(48px, 10vw, 100px) 0', background: cardBg }}>
         <div className="r-container">
           <div style={{ textAlign: 'center', marginBottom: '56px' }}>
             <div style={{ color: accent, fontSize: '12px', letterSpacing: '0.2em', marginBottom: '10px', fontWeight: 600 }}>AGENDA</div>
@@ -358,7 +359,7 @@ export default function CocktailBarHomePage() {
       </section>
 
       {/* HOURS + LOCATION */}
-      <section ref={hoursRef} style={{ padding: '100px 0', background: bg }}>
+      <section ref={hoursRef} style={{ padding: 'clamp(48px, 10vw, 100px) 0', background: bg }}>
         <div className="r-container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

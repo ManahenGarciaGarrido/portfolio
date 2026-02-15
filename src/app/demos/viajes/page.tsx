@@ -106,7 +106,7 @@ export default function ViajesHome() {
     <div style={{ background: BG, color: TEXT, fontFamily: 'system-ui, sans-serif' }}>
 
       {/* HERO */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
           <img src="https://picsum.photos/seed/travel-landscape/1400/900" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="Paisaje" />
           <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,10,25,0.6)' }} />

@@ -148,7 +148,7 @@ function RoomCard({ room, delay }: { room: typeof rooms[0]; delay: number }) {
                 background: accent, color: bg,
                 padding: '10px 22px', fontSize: '12px',
                 fontWeight: 700, letterSpacing: '0.08em', textDecoration: 'none',
-                display: 'inline-block',
+                display: 'inline-flex', alignItems: 'center', minHeight: '44px',
               }}
             >
               RESERVAR
@@ -168,9 +168,9 @@ export default function HabitacionesPage() {
     : rooms.filter(r => r.category === activeCategory);
 
   return (
-    <main style={{ background: bg, color: text, minHeight: '100vh' }}>
+    <main style={{ background: bg, color: text, minHeight: 'max(100svh, 500px)' }}>
       {/* HEADER */}
-      <section style={{ padding: '80px 0 60px', textAlign: 'center', borderBottom: `1px solid ${accent}22` }}>
+      <section style={{ padding: 'clamp(40px, 8vw, 80px) 0 clamp(30px, 6vw, 60px)', textAlign: 'center', borderBottom: `1px solid ${accent}22` }}>
         <div className="r-container">
           <motion.div
             initial={{ opacity: 0 }}
@@ -245,7 +245,7 @@ export default function HabitacionesPage() {
                   border: `1px solid ${activeCategory === cat ? accent : '#3a2a1a'}`,
                   padding: '10px 24px', fontSize: '13px', fontWeight: 600,
                   letterSpacing: '0.08em', cursor: 'pointer',
-                  transition: 'all 0.2s',
+                  transition: 'all 0.2s', minHeight: '44px',
                 }}
               >
                 {cat.toUpperCase()}
@@ -317,7 +317,7 @@ export default function HabitacionesPage() {
                 background: '#25D366', color: '#fff',
                 padding: '14px 32px', fontSize: '13px',
                 fontWeight: 700, letterSpacing: '0.08em', textDecoration: 'none',
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                display: 'inline-flex', alignItems: 'center', gap: '8px', minHeight: '44px',
               }}
             >
               💬 ESCRIBIR POR WHATSAPP
@@ -328,7 +328,7 @@ export default function HabitacionesPage() {
                 background: accent, color: bg,
                 padding: '14px 32px', fontSize: '13px',
                 fontWeight: 700, letterSpacing: '0.08em', textDecoration: 'none',
-                display: 'inline-block',
+                display: 'inline-flex', alignItems: 'center', minHeight: '44px',
               }}
             >
               RESERVAR AHORA

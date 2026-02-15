@@ -60,7 +60,7 @@ export default function MusicaHome() {
       `}</style>
 
       {/* HERO FULLSCREEN */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: '700px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
         <img
           src="https://picsum.photos/seed/dj-stage/1400/900"
           alt="DJ Stage"
@@ -88,7 +88,7 @@ export default function MusicaHome() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="neon-text"
             style={{
-              fontSize: 'clamp(5rem, 16vw, 12rem)',
+              fontSize: 'clamp(3.5rem, 16vw, 12rem)',
               fontWeight: 900,
               color: pink,
               lineHeight: 0.85,
@@ -249,8 +249,7 @@ export default function MusicaHome() {
               transition={{ delay: i * 0.12, duration: 0.5 }}
               style={{
                 textAlign: 'center',
-                padding: '3rem 1rem',
-                borderRight: i < stats.length - 1 ? '1px solid rgba(255,0,204,0.15)' : 'none',
+                padding: 'clamp(1.5rem, 4vw, 3rem) 1rem',
               }}
             >
               <div style={{ fontSize: '3rem', fontWeight: 900, color: pink, lineHeight: 1, marginBottom: '0.5rem', textShadow: `0 0 20px ${pink}55` }}>{s.number}</div>

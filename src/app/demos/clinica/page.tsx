@@ -92,7 +92,7 @@ export default function ClinicaHome() {
     <div style={{ backgroundColor: bg, color: text, fontFamily: '"Inter", "Helvetica Neue", sans-serif' }}>
 
       {/* HERO */}
-      <section className="r-hero-split" style={{ minHeight: '88vh', backgroundColor: white }}>
+      <section className="r-hero-split" style={{ minHeight: 'max(88svh, 500px)', backgroundColor: white }}>
         {/* LEFT */}
         <motion.div
           ref={heroRef}
@@ -141,7 +141,7 @@ export default function ClinicaHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            style={{ color: text + 'bb', fontSize: '17px', lineHeight: 1.8, marginBottom: '36px', maxWidth: '440px' }}
+            style={{ color: text + 'bb', fontSize: 'clamp(14px, 2.5vw, 17px)', lineHeight: 1.8, marginBottom: '28px', maxWidth: '440px' }}
           >
             Atención médica de excelencia con más de 20 años de experiencia. 25 especialistas, 4 centros en Madrid y tecnología diagnóstica de última generación.
           </motion.p>
@@ -196,7 +196,7 @@ export default function ClinicaHome() {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          style={{ overflow: 'hidden', minHeight: '500px' }}
+          style={{ overflow: 'hidden', minHeight: 'clamp(300px, 40vh, 500px)' }}
         >
           <img
             src="https://picsum.photos/seed/doctor-smile/700/800"
@@ -217,7 +217,7 @@ export default function ClinicaHome() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                style={{ textAlign: 'center', padding: '36px 24px', borderRight: i < stats.length - 1 ? '1px solid rgba(255,255,255,0.15)' : 'none' }}
+                style={{ textAlign: 'center', padding: 'clamp(20px, 4vw, 36px) clamp(12px, 3vw, 24px)' }}
               >
                 <p style={{ color: white, fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, margin: '0 0 6px', lineHeight: 1 }}>
                   {s.value}

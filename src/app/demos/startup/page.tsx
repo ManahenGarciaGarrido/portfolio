@@ -34,7 +34,7 @@ export default function StartupHome() {
     <div style={{ background: BG, color: '#fff', overflowX: 'hidden' }}>
 
       {/* ═══ HERO ═══ */}
-      <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 24px 60px', textAlign: 'center', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 'clamp(60px, 10vw, 80px) clamp(16px, 5vw, 24px) 60px', textAlign: 'center', overflow: 'hidden' }}>
         {/* Morphing blobs */}
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
           <motion.div
@@ -80,7 +80,7 @@ export default function StartupHome() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          style={{ fontSize: 20, color: '#ffffff99', maxWidth: 560, lineHeight: 1.7, marginBottom: 40 }}
+          style={{ fontSize: 'clamp(15px, 2.5vw, 20px)', color: '#ffffff99', maxWidth: 560, lineHeight: 1.7, marginBottom: 32 }}
         >
           Automatiza, escala y domina tu mercado con la única plataforma de IA que se adapta a tu negocio en tiempo real.
         </motion.p>
@@ -117,7 +117,7 @@ export default function StartupHome() {
             </div>
           </div>
           {/* Dashboard */}
-          <div className="r-overflow-hidden" style={{ background: '#12002a', padding: 24, display: 'grid', gridTemplateColumns: 'minmax(0,200px) 1fr', gap: 20, minHeight: 380 }}>
+          <div className="r-overflow-hidden" style={{ background: '#12002a', padding: 'clamp(12px, 3vw, 24px)', display: 'grid', gridTemplateColumns: 'minmax(0,clamp(100px,25%,200px)) 1fr', gap: 'clamp(10px, 2vw, 20px)', minHeight: 'clamp(280px, 40vw, 380px)' }}>
             {/* Sidebar */}
             <div style={{ background: '#1a003a', borderRadius: 10, padding: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
               {['Dashboard', 'Analíticas', 'Automatizaciones', 'Integraciones', 'Reportes', 'Ajustes'].map((item, i) => (

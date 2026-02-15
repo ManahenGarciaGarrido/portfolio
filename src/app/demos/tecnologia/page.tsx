@@ -62,7 +62,7 @@ export default function TecnologiaHome() {
     <main style={{ background: BG, color: TEXT, fontFamily: "'Inter', sans-serif", minHeight: '100vh' }}>
 
       {/* HERO */}
-      <section style={{ position: 'relative', minHeight: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', minHeight: 'max(85svh, 500px)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
           <img src="https://picsum.photos/seed/tech-hero/1400/700" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} alt="Hero tecnología" />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,30,0.55) 100%)' }} />

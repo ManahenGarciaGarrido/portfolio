@@ -42,7 +42,7 @@ export default function AbogadosHome() {
     <div style={{ background: BG, color: TEXT, overflowX: 'hidden' }}>
 
       {/* ═══ HERO ═══ */}
-      <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', textAlign: 'center', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 'clamp(60px, 10vw, 80px) clamp(16px, 5vw, 24px)', textAlign: 'center', overflow: 'hidden' }}>
         {/* Background image */}
         <img
           src="https://picsum.photos/seed/law-office/1400/900"
@@ -97,7 +97,7 @@ export default function AbogadosHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            style={{ fontSize: 18, color: '#ffffffb0', maxWidth: 560, margin: '0 auto 40px', lineHeight: 1.8 }}
+            style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', color: '#ffffffb0', maxWidth: 560, margin: '0 auto 32px', lineHeight: 1.8 }}
           >
             Más de 25 años defendiendo personas y empresas en toda España. Experiencia, rigor y compromiso absoluto con tu caso.
           </motion.p>

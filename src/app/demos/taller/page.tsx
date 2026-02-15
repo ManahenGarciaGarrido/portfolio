@@ -83,7 +83,7 @@ export default function TallerHome() {
     <div style={{ backgroundColor: bg, color: text }}>
 
       {/* HERO */}
-      <section style={{ position: 'relative', height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
         <img
           src="https://picsum.photos/seed/garage-workshop/1400/800"
           alt="MOTORWORK Taller"

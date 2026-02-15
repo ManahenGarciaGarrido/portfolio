@@ -38,19 +38,19 @@ export default function Hero({ lang }: HeroProps) {
 
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 text-center"
+      className="relative min-h-screen r-hero-fullscreen flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center"
       style={{ background: 'linear-gradient(135deg, #050010 0%, #0d0030 50%, #050020 100%)' }}
     >
-      {/* Background blobs */}
+      {/* Background blobs — reducidos en móvil para mejor rendimiento */}
       <div
-        className="absolute top-1/4 left-1/4 w-80 h-80 opacity-20 animate-blob"
-        style={{ background: 'radial-gradient(circle, #6c00ff, transparent)', filter: 'blur(60px)' }}
+        className="absolute top-1/4 left-1/4 w-40 h-40 sm:w-80 sm:h-80 opacity-20 animate-blob"
+        style={{ background: 'radial-gradient(circle, #6c00ff, transparent)', filter: 'blur(40px)' }}
       />
       <div
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 opacity-15 animate-blob"
+        className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-96 sm:h-96 opacity-15 animate-blob"
         style={{
           background: 'radial-gradient(circle, #00d4ff, transparent)',
-          filter: 'blur(80px)',
+          filter: 'blur(50px)',
           animationDelay: '3s',
         }}
       />
@@ -71,14 +71,14 @@ export default function Hero({ lang }: HeroProps) {
         </motion.div>
 
         {/* Greeting */}
-        <motion.p variants={fadeUp} className="text-white/60 text-xl mb-3">
+        <motion.p variants={fadeUp} className="text-white/60 text-base sm:text-xl mb-3">
           {t.greeting}
         </motion.p>
 
         {/* Name — letter by letter */}
         <motion.h1
           variants={staggerContainer}
-          className="text-5xl sm:text-7xl md:text-8xl font-black mb-6 leading-none"
+          className="text-4xl sm:text-7xl md:text-8xl font-black mb-4 sm:mb-6 leading-none"
         >
           {nameLetters.map((letter, i) => (
             <motion.span
@@ -100,28 +100,28 @@ export default function Hero({ lang }: HeroProps) {
         {/* Tagline */}
         <motion.h2
           variants={fadeUp}
-          className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/90 mb-6 max-w-2xl mx-auto"
+          className="text-lg sm:text-2xl md:text-3xl font-semibold text-white/90 mb-4 sm:mb-6 max-w-2xl mx-auto"
         >
           {t.tagline}
         </motion.h2>
 
         {/* Description */}
-        <motion.p variants={fadeUp} className="text-white/50 text-lg max-w-xl mx-auto mb-10">
+        <motion.p variants={fadeUp} className="text-white/50 text-sm sm:text-lg max-w-xl mx-auto mb-6 sm:mb-10">
           {t.description}
         </motion.p>
 
         {/* CTAs */}
-        <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+        <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-12">
           <a
             href="#proyectos"
-            className="px-8 py-4 rounded-full font-semibold text-white transition-all hover:scale-105 hover:shadow-lg"
+            className="px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-white transition-all hover:scale-105 hover:shadow-lg text-sm sm:text-base"
             style={{ background: 'linear-gradient(135deg, #6c00ff, #00d4ff)' }}
           >
             {t.ctaProjects}
           </a>
           <a
             href="#contacto"
-            className="px-8 py-4 rounded-full font-semibold text-white/90 border border-white/30 hover:border-white/60 hover:bg-white/10 transition-all hover:scale-105"
+            className="px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-white/90 border border-white/30 hover:border-white/60 hover:bg-white/10 transition-all hover:scale-105 text-sm sm:text-base"
           >
             {t.ctaContact}
           </a>

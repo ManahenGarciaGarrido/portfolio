@@ -94,9 +94,9 @@ export default function GaleriaPage() {
     : images.filter(img => img.category === activeCategory);
 
   return (
-    <main style={{ background: bg, color: text, minHeight: '100vh' }}>
+    <main style={{ background: bg, color: text, minHeight: 'max(100svh, 500px)' }}>
       {/* HEADER */}
-      <section style={{ padding: '80px 0 56px', textAlign: 'center', borderBottom: `1px solid ${accent}22` }}>
+      <section style={{ padding: 'clamp(40px, 8vw, 80px) 0 clamp(28px, 5vw, 56px)', textAlign: 'center', borderBottom: `1px solid ${accent}22` }}>
         <div className="r-container">
           <motion.div
             initial={{ opacity: 0 }}
@@ -144,7 +144,7 @@ export default function GaleriaPage() {
                   border: `1px solid ${activeCategory === cat ? accent : '#3a2a1a'}`,
                   padding: '10px 22px', fontSize: '12px', fontWeight: 600,
                   letterSpacing: '0.1em', cursor: 'pointer',
-                  transition: 'all 0.2s',
+                  transition: 'all 0.2s', minHeight: '44px',
                 }}
               >
                 {cat.toUpperCase()}

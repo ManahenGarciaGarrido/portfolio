@@ -121,7 +121,7 @@ export default function InmobiliariaHome() {
     <main style={{ background: '#ffffff', minHeight: '100vh', fontFamily: 'Georgia, serif' }}>
 
       {/* HERO */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <section style={{ position: 'relative', minHeight: 'max(100svh, 600px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <img
           src="https://picsum.photos/seed/luxury-home/1400/800"
           alt="Luxury home"

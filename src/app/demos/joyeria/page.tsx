@@ -166,7 +166,7 @@ export default function JoyeriaHome() {
     <div style={{ backgroundColor: bg, color: cream, fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}>
 
       {/* HERO */}
-      <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '80px 24px', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ minHeight: 'max(100svh, 600px)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: 'clamp(60px, 10vw, 80px) clamp(16px, 5vw, 24px)', position: 'relative', overflow: 'hidden' }}>
         {/* Background subtle texture */}
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, #1a1600 0%, #000 70%)', zIndex: 0 }} />
 
@@ -183,8 +183,8 @@ export default function JoyeriaHome() {
               src="https://picsum.photos/seed/diamond-ring/600/600"
               alt="Anillo de diamantes AURUM"
               style={{
-                width: '280px',
-                height: '280px',
+                width: 'clamp(180px, 50vw, 280px)',
+                height: 'clamp(180px, 50vw, 280px)',
                 objectFit: 'cover',
                 borderRadius: '50%',
                 border: `2px solid ${gold}`,

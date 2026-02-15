@@ -75,7 +75,7 @@ export default function AreasPage() {
   return (
     <div style={{ background: BG, color: TEXT, overflowX: 'hidden' }}>
       {/* Hero */}
-      <section style={{ padding: '80px 24px 60px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ padding: 'clamp(40px, 8vw, 80px) 24px clamp(30px, 6vw, 60px)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 80% 50% at 50% 0%, ${ACCENT}12, transparent)`, pointerEvents: 'none' }} />
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ color: ACCENT, letterSpacing: 3, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 20 }}>Especialidades</motion.p>
         <motion.h1
@@ -153,7 +153,7 @@ export default function AreasPage() {
                   <span key={c} style={{ background: `${ACCENT}10`, border: `1px solid ${ACCENT}30`, borderRadius: 2, padding: '6px 12px', fontSize: 12, color: `${TEXT}80` }}>{c}</span>
                 ))}
               </div>
-              <Link href="/demos/abogados/consulta" style={{ display: 'inline-block', background: ACCENT, color: '#0d1b2a', padding: '12px 28px', fontWeight: 800, textDecoration: 'none', fontSize: 13, letterSpacing: 1, textTransform: 'uppercase' }}>
+              <Link href="/demos/abogados/consulta" style={{ display: 'inline-flex', alignItems: 'center', background: ACCENT, color: '#0d1b2a', padding: '12px 28px', fontWeight: 800, textDecoration: 'none', fontSize: 13, letterSpacing: 1, textTransform: 'uppercase', minHeight: '44px' }}>
                 Consulta gratuita →
               </Link>
             </motion.div>
@@ -167,10 +167,10 @@ export default function AreasPage() {
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, fontFamily: 'Georgia, serif', marginBottom: 16, color: TEXT }}>¿No encuentras tu área?</h2>
           <p style={{ color: `${TEXT}60`, marginBottom: 32, fontSize: 16 }}>Contáctenos y analizaremos su caso sin compromiso</p>
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/demos/abogados/consulta" style={{ background: ACCENT, color: '#0d1b2a', padding: '14px 36px', fontWeight: 800, textDecoration: 'none', fontSize: 14, letterSpacing: 1, textTransform: 'uppercase', display: 'inline-block' }}>
+            <Link href="/demos/abogados/consulta" style={{ background: ACCENT, color: '#0d1b2a', padding: '14px 36px', fontWeight: 800, textDecoration: 'none', fontSize: 14, letterSpacing: 1, textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}>
               Primera consulta gratuita
             </Link>
-            <Link href="/demos/abogados/equipo" style={{ border: `1px solid ${ACCENT}60`, color: TEXT, padding: '14px 36px', fontWeight: 600, textDecoration: 'none', fontSize: 14, letterSpacing: 1, display: 'inline-block' }}>
+            <Link href="/demos/abogados/equipo" style={{ border: `1px solid ${ACCENT}60`, color: TEXT, padding: '14px 36px', fontWeight: 600, textDecoration: 'none', fontSize: 14, letterSpacing: 1, display: 'inline-flex', alignItems: 'center', minHeight: '44px' }}>
               Conocer al equipo
             </Link>
           </div>

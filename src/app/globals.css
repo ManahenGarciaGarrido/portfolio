@@ -293,13 +293,43 @@ img { max-width: 100%; height: auto; }
   .r-footer    { flex-direction: column; text-align: center; }
   .r-hide-sm   { display: none !important; }
   .r-flex-between { flex-direction: column; text-align: center; }
+  /* Eliminar bordes separadores en stats cuando las columnas se apilan */
+  .r-stats-separator { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  /* Secciones con menos padding en móvil */
+  .r-section    { padding: clamp(36px, 8vw, 60px) clamp(16px, 4vw, 24px); }
+  .r-section-sm { padding: clamp(24px, 5vw, 40px) clamp(16px, 4vw, 24px); }
+}
+
+@media (max-width: 480px) {
+  .r-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  /* Reducir gap en grids pequeños */
+  .r-grid-3 { gap: 12px; }
+  .r-grid-4 { gap: 10px; }
 }
 
 @media (max-width: 400px) {
   .r-grid-4 { grid-template-columns: 1fr; }
 }
 
+/* ---- HERO FULLSCREEN (respeta barra del navegador móvil) ---- */
+.r-hero-fullscreen {
+  min-height: 100vh;
+  min-height: 100svh; /* svh = small viewport height, sin barra del navegador */
+}
+
+/* ---- INPUTS MÓVIL (evita zoom automático en iOS) ---- */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important; /* 16px evita zoom en iOS */
+  }
+}
+
 /* ---- OVERFLOW GUARD ---- */
 * { box-sizing: border-box; }
 body { overflow-x: hidden; }
 .r-overflow-hidden { overflow: hidden; }
+
+/* ---- FLIP CARD: táctil en móvil ---- */
+@media (hover: none) {
+  .flip-card:active .flip-card-inner { transform: rotateY(180deg); }
+}
