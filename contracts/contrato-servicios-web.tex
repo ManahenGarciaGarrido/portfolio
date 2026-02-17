@@ -1,0 +1,352 @@
+% ============================================================
+%  CONTRATO DE SERVICIOS DE DESARROLLO WEB
+%  Manahen García Garrido — Desarrollador Web Freelance
+%  Plantilla reutilizable · Compilar con pdflatex o xelatex
+% ============================================================
+
+\documentclass[12pt, a4paper]{article}
+
+% ── Paquetes ─────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{lastpage}
+
+% ── Colores ──────────────────────────────────────────────────
+\definecolor{accent}{HTML}{6C00FF}
+\definecolor{accentlight}{HTML}{E8D5FF}
+\definecolor{darkgray}{HTML}{2D2D2D}
+\definecolor{medgray}{HTML}{555555}
+\definecolor{lightgray}{HTML}{F5F5F5}
+\definecolor{tablehead}{HTML}{F0E8FF}
+\definecolor{yes}{HTML}{1A6B2A}
+\definecolor{no}{HTML}{8B1A1A}
+
+% ── Tipografía ───────────────────────────────────────────────
+\usepackage{lmodern}
+
+% ── Hiperenlaces ─────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accent,
+  urlcolor=accent,
+  pdftitle={Contrato de Servicios Web — Manahen García Garrido},
+  pdfauthor={Manahen García Garrido},
+}
+
+% ── Secciones ────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[{\color{accentlight}\titlerule[0.8pt]}]
+\titleformat{\subsection}{\normalsize\bfseries\color{darkgray}}{}{0em}{}
+
+% ── Cabecera y pie ───────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\small\color{medgray}Contrato de Servicios de Desarrollo Web}
+\fancyhead[R]{\small\color{medgray}Manahen García Garrido}
+\fancyfoot[C]{\small\color{medgray}Página \thepage\ de \pageref{LastPage}}
+
+% ── Listas ───────────────────────────────────────────────────
+\setlist[itemize]{leftmargin=1.5em, itemsep=0.2em, parsep=0pt}
+\setlist[enumerate]{leftmargin=1.5em, itemsep=0.3em, parsep=0pt}
+
+% ────────────────────────────────────────────────────────────
+\begin{document}
+
+% ════════════════════════════════════════════════════════════
+%  CABECERA DEL CONTRATO
+% ════════════════════════════════════════════════════════════
+\begin{center}
+  {\LARGE\bfseries\color{accent} CONTRATO DE SERVICIOS\\[4pt]
+  DE DESARROLLO WEB}\\[10pt]
+  {\large\color{darkgray} Manahen García Garrido — Desarrollador Web Freelance}\\[4pt]
+  {\small\color{medgray}\href{mailto:manahengag@gmail.com}{manahengag@gmail.com}
+  \quad·\quad +34 640 038 508
+  \quad·\quad \href{https://manahengarcia.dev}{manahengarcia.dev}}
+\end{center}
+
+\vspace{1em}
+\noindent\textcolor{accentlight}{\rule{\linewidth}{1.2pt}}
+\vspace{1em}
+
+% ════════════════════════════════════════════════════════════
+%  DATOS DE LAS PARTES
+% ════════════════════════════════════════════════════════════
+\section{Datos de las Partes}
+
+\subsection{Prestador de Servicios}
+
+\begin{tabular}{@{}ll@{}}
+  \textbf{Nombre:}      & Manahen García Garrido \\
+  \textbf{NIF/NIE:}     & \underline{\hspace{5cm}} \\
+  \textbf{Email:}       & manahengag@gmail.com \\
+  \textbf{Teléfono:}    & +34 640 038 508 \\
+  \textbf{Web:}         & \href{https://manahengarcia.dev}{manahengarcia.dev} \\
+\end{tabular}
+
+\vspace{1em}
+\subsection{Cliente}
+
+\begin{tabular}{@{}ll@{}}
+  \textbf{Nombre / Razón social:} & \underline{\hspace{7cm}} \\
+  \textbf{NIF/CIF:}               & \underline{\hspace{7cm}} \\
+  \textbf{Domicilio:}             & \underline{\hspace{7cm}} \\
+  \textbf{Email de contacto:}     & \underline{\hspace{7cm}} \\
+  \textbf{Teléfono:}              & \underline{\hspace{7cm}} \\
+  \textbf{Representante legal:}   & \underline{\hspace{7cm}} \\
+\end{tabular}
+
+\vspace{1em}
+\noindent Ambas partes, actuando en su propio nombre y derecho, acuerdan celebrar el presente contrato de prestación de servicios de desarrollo web con sujeción a las siguientes cláusulas.
+
+% ════════════════════════════════════════════════════════════
+%  DESCRIPCIÓN DEL PROYECTO
+% ════════════════════════════════════════════════════════════
+\section{Descripción del Proyecto}
+
+\begin{tabular}{@{}ll@{}}
+  \textbf{Tipo de web:}           & \underline{\hspace{7cm}} \\
+  \textbf{Plan contratado:}       & \underline{\hspace{7cm}} \\
+  \textbf{URL del proyecto:}      & \underline{\hspace{7cm}} \\
+  \textbf{Fecha de inicio:}       & \underline{\hspace{4cm}} \\
+  \textbf{Plazo de entrega estimado:} & \underline{\hspace{4cm}} \\
+\end{tabular}
+
+\vspace{0.8em}
+\noindent\textbf{Descripción detallada del alcance:}
+
+\vspace{4cm} % Espacio para escribir o pegar la descripción
+
+\noindent\rule{\linewidth}{0.4pt}
+
+% ════════════════════════════════════════════════════════════
+%  ALCANCE — QUÉ INCLUYE
+% ════════════════════════════════════════════════════════════
+\section{Alcance del Servicio: Qué está Incluido}
+
+Los servicios incluidos dependen del plan contratado. En todo caso, las prestaciones confirmadas para este proyecto son:
+
+\begin{itemize}
+  \item[$\checkmark$] \textbf{Diseño UI/UX personalizado} adaptado a la identidad y sector del cliente.
+  \item[$\checkmark$] \textbf{Maquetación frontend} con código limpio y semántico (HTML, CSS/Tailwind, React/Next.js).
+  \item[$\checkmark$] \textbf{Diseño totalmente responsive}: mobile-first, compatible con móvil, tablet y escritorio.
+  \item[$\checkmark$] \textbf{Animaciones y transiciones} fluidas mediante Framer Motion u otras librerías.
+  \item[$\checkmark$] \textbf{Optimización de imágenes} y carga perezosa (\textit{lazy loading}).
+  \item[$\checkmark$] \textbf{SEO técnico básico}: metaetiquetas, Open Graph, sitemap XML, robots.txt y datos estructurados (schema.org).
+  \item[$\checkmark$] \textbf{Optimización de rendimiento} orientada a obtener buenas puntuaciones en Core Web Vitals.
+  \item[$\checkmark$] \textbf{Accesibilidad básica} (contraste, atributos ARIA, navegación por teclado en elementos interactivos).
+  \item[$\checkmark$] \textbf{Código limpio y tipado} en TypeScript.
+  \item[$\checkmark$] \textbf{Integración de formularios} con envío real de email (si aplica según el plan).
+  \item[$\checkmark$] \textbf{Autenticación de usuarios} (si aplica según el plan).
+  \item[$\checkmark$] \textbf{API REST propia} e integraciones con servicios de terceros —Stripe, proveedores de email, etc.— (si aplica según el plan).
+  \item[$\checkmark$] \textbf{Diseño e implementación de base de datos} —PostgreSQL, MongoDB— (si aplica según el plan).
+  \item[$\checkmark$] \textbf{Despliegue y puesta en producción} en Vercel, VPS u otro servidor acordado, incluyendo configuración de dominio, DNS y certificado SSL (si aplica según el plan).
+  \item[$\checkmark$] \textbf{Rondas de revisión} incluidas según lo acordado (número: \underline{\hspace{1cm}}).
+  \item[$\checkmark$] \textbf{Entrega del código fuente completo} al finalizar el proyecto.
+  \item[$\checkmark$] \textbf{Soporte y mantenimiento} durante \underline{\hspace{1cm}} meses tras la entrega (si aplica según el plan).
+\end{itemize}
+
+\noindent\textit{Nota: Los ítems marcados como «si aplica según el plan» quedan sujetos al plan contratado indicado en la sección 2. Los no incluidos se señalan expresamente en la sección 4.}
+
+% ════════════════════════════════════════════════════════════
+%  EXCLUSIONES — QUÉ NO INCLUYE
+% ════════════════════════════════════════════════════════════
+\section{Exclusiones: Qué NO está Incluido}
+
+Los siguientes servicios quedan \textbf{expresamente excluidos} del alcance de este contrato salvo acuerdo escrito previo y presupuesto adicional aprobado:
+
+\begin{enumerate}
+  \item \textbf{Diseño gráfico de marca}: creación de logotipo, identidad corporativa, paleta de colores, tipografías de marca o manual de marca. \textit{Si el cliente requiere estos servicios, deberá aportarlos ya elaborados o contratar a un diseñador gráfico independiente.}
+
+  \item \textbf{Redacción de contenidos y copywriting}: el texto que aparecerá en la web —encabezados, párrafos, descripciones de producto, posts de blog, etc.— debe ser aportado por el cliente. El prestador puede revisar ortografía a título de cortesía, pero no es responsable de la calidad persuasiva o de marketing del texto.
+
+  \item \textbf{Fotografía, ilustración y producción audiovisual}: captura, edición o producción de imágenes, fotografías, vídeos, infografías o ilustraciones de cualquier tipo. El cliente es responsable de proporcionar o licenciar los recursos visuales necesarios.
+
+  \item \textbf{Campañas de posicionamiento SEO activo}: la optimización técnica básica está incluida (punto 3), pero no la elaboración continua de estrategias de contenido, \textit{link building}, análisis de palabras clave avanzado ni gestión de posicionamiento a largo plazo.
+
+  \item \textbf{Campañas de publicidad de pago (SEM/Ads)}: gestión de campañas en Google Ads, Meta Ads, LinkedIn Ads u otras plataformas de publicidad digital.
+
+  \item \textbf{Gestión de redes sociales}: creación, programación o gestión de contenido en ninguna plataforma social.
+
+  \item \textbf{Registro o renovación de dominio}: el prestador puede asesorar sobre qué dominio registrar y dónde, pero el registro, la renovación y el pago del dominio son responsabilidad exclusiva del cliente.
+
+  \item \textbf{Contratación y gestión del hosting}: salvo que el despliegue esté incluido en el plan contratado, el alta, configuración, pago y gestión continua del servidor o hosting es responsabilidad del cliente. El prestador sí asesora sobre la opción más adecuada.
+
+  \item \textbf{Soporte técnico continuado fuera del período de mantenimiento}: una vez concluido el período de mantenimiento contratado (o si no se contrató ninguno), cualquier corrección, actualización, modificación o soporte técnico será presupuestado y facturado por separado.
+
+  \item \textbf{Formación y tutoriales}: la formación al cliente o a su equipo sobre el uso o administración del sistema no está incluida, salvo que se acuerde expresamente y se presupueste de forma independiente.
+
+  \item \textbf{Cambios fuera del alcance acordado}: modificaciones, funcionalidades nuevas o ampliaciones del proyecto que no estén descritas en la sección 2 de este contrato se presupuestarán aparte antes de realizarse.
+
+  \item \textbf{Licencias de software de terceros}: cualquier plugin, tema, librería de pago, fuente tipográfica comercial u otro activo con licencia que sea necesario para el proyecto deberá ser adquirido por el cliente o comunicado con antelación para incluirlo en el presupuesto.
+
+  \item \textbf{Cumplimiento legal especializado}: la revisión legal de textos (aviso legal, política de privacidad, cookies, RGPD u otras normativas) queda fuera del alcance. El prestador puede proporcionar plantillas orientativas, pero no actúa como asesor jurídico.
+\end{enumerate}
+
+% ════════════════════════════════════════════════════════════
+%  PRESUPUESTO Y FORMA DE PAGO
+% ════════════════════════════════════════════════════════════
+\section{Presupuesto y Forma de Pago}
+
+\begin{tabular}{@{}ll@{}}
+  \textbf{Importe total acordado (IVA incluido):} & \underline{\hspace{4cm}} \euro \\[6pt]
+  \textbf{Pago inicial (a la firma):}              & \underline{\hspace{4cm}} \euro \\[6pt]
+  \textbf{Pago final (a la entrega):}              & \underline{\hspace{4cm}} \euro \\[6pt]
+  \textbf{Método de pago aceptado:}                & Transferencia bancaria / Bizum \\
+\end{tabular}
+
+\vspace{0.8em}
+\noindent\textbf{Condiciones de pago:}
+\begin{itemize}
+  \item El \textbf{pago inicial} se abona antes de comenzar el desarrollo. Sin este pago, el prestador no iniciará el trabajo.
+  \item El \textbf{pago final} se abona cuando el proyecto esté listo para entrega y el cliente haya aprobado las revisiones finales.
+  \item Los pagos deben realizarse en el plazo de \textbf{5 días naturales} desde la correspondiente solicitud.
+  \item El incumplimiento del plazo de pago podrá dar lugar a la suspensión del trabajo hasta que se regularice la situación.
+\end{itemize}
+
+% ════════════════════════════════════════════════════════════
+%  DISEÑO INICIAL — CONDICIÓN DE NO PAGO
+% ════════════════════════════════════════════════════════════
+\section{Diseño Previo al Desarrollo}
+
+Antes de iniciar el desarrollo, el prestador presentará una propuesta de diseño para aprobación del cliente.
+
+\begin{itemize}
+  \item Si el cliente \textbf{no aprueba} la dirección de diseño y decide no continuar en esta fase, \textbf{no se le cobrará ningún importe}, quedando el contrato resuelto sin penalización.
+  \item Una vez \textbf{aprobado el diseño} por el cliente, el desarrollo procederá siguiendo ese acuerdo. Los cambios de dirección solicitados después de esta aprobación podrán implicar costes adicionales.
+\end{itemize}
+
+% ════════════════════════════════════════════════════════════
+%  REVISIONES
+% ════════════════════════════════════════════════════════════
+\section{Rondas de Revisión}
+
+El proyecto incluye \textbf{\underline{\hspace{0.8cm}} rondas de revisión} incluidas en el precio. Cada ronda consiste en una lista de cambios consolidada que el cliente envía al prestador.
+
+\begin{itemize}
+  \item Las revisiones deben solicitarse por escrito (email o WhatsApp).
+  \item Revisiones adicionales fuera de las incluidas se cobrarán a \textbf{30 €/hora}, previo presupuesto.
+  \item Los cambios que supongan una ampliación significativa del alcance original se considerarán trabajo adicional.
+\end{itemize}
+
+% ════════════════════════════════════════════════════════════
+%  PLAZOS Y ENTREGAS
+% ════════════════════════════════════════════════════════════
+\section{Plazos y Entregas}
+
+\begin{itemize}
+  \item El plazo de entrega estimado se indica en la sección 2 y es \textbf{orientativo}, pudiendo verse afectado por retrasos en la aportación de materiales por parte del cliente.
+  \item El cliente se compromete a proporcionar todos los materiales necesarios (textos, imágenes, credenciales, etc.) en los plazos acordados. Los retrasos imputables al cliente no se computarán como incumplimiento por parte del prestador.
+  \item El proyecto se considerará entregado cuando el prestador lo ponga a disposición del cliente para su revisión final y el cliente lo apruebe o transcurran \textbf{7 días naturales} sin respuesta.
+\end{itemize}
+
+% ════════════════════════════════════════════════════════════
+%  PROPIEDAD INTELECTUAL Y CÓDIGO
+% ════════════════════════════════════════════════════════════
+\section{Propiedad Intelectual y Código}
+
+\begin{itemize}
+  \item Una vez \textbf{abonado el importe total}, el cliente recibe el \textbf{código fuente completo} del proyecto y todos los derechos de uso, reproducción y modificación sobre el mismo.
+  \item El prestador se reserva el derecho de mostrar el proyecto en su portfolio como ejemplo de trabajo, salvo indicación contraria expresa por escrito del cliente.
+  \item Las librerías de código abierto y herramientas de terceros utilizadas (Next.js, Tailwind CSS, Framer Motion, etc.) se rigen por sus respectivas licencias y no son propiedad de ninguna de las partes.
+  \item El cliente es responsable de que todos los contenidos aportados (textos, imágenes, vídeos, etc.) sean de su propiedad o cuente con las licencias necesarias para su uso.
+\end{itemize}
+
+% ════════════════════════════════════════════════════════════
+%  CONFIDENCIALIDAD
+% ════════════════════════════════════════════════════════════
+\section{Confidencialidad}
+
+Ambas partes se comprometen a mantener la confidencialidad de toda la información sensible intercambiada durante la vigencia de este contrato (credenciales de acceso, datos de negocio, información de clientes del cliente, etc.), y a no divulgarla a terceros sin consentimiento expreso de la otra parte.
+
+% ════════════════════════════════════════════════════════════
+%  LIMITACIÓN DE RESPONSABILIDAD
+% ════════════════════════════════════════════════════════════
+\section{Limitación de Responsabilidad}
+
+\begin{itemize}
+  \item El prestador no es responsable del rendimiento, disponibilidad o seguridad de servidores, dominios o servicios de terceros contratados por el cliente.
+  \item El prestador no garantiza posiciones concretas en motores de búsqueda ni resultados de negocio derivados de la publicación de la web.
+  \item En ningún caso la responsabilidad del prestador por daños derivados de este contrato superará el importe total pagado por el cliente.
+  \item El prestador no se hace responsable de los contenidos (textos, imágenes, datos) aportados por el cliente, siendo este último el único responsable de su veracidad y legalidad.
+\end{itemize}
+
+% ════════════════════════════════════════════════════════════
+%  CANCELACIÓN
+% ════════════════════════════════════════════════════════════
+\section{Cancelación del Contrato}
+
+\begin{itemize}
+  \item \textbf{Por el cliente antes del inicio del desarrollo}: se reembolsa íntegramente el pago inicial si no se ha comenzado el trabajo.
+  \item \textbf{Por el cliente durante el desarrollo}: el cliente abonará los trabajos realizados hasta la fecha de cancelación, calculados proporcionalmente al avance.
+  \item \textbf{Por el prestador}: en caso de incumplimiento grave por parte del cliente (no pago, aportación de contenidos ilegales, etc.), el prestador podrá resolver el contrato, conservando los importes ya cobrados por el trabajo realizado.
+\end{itemize}
+
+% ════════════════════════════════════════════════════════════
+%  LEGISLACIÓN Y JURISDICCIÓN
+% ════════════════════════════════════════════════════════════
+\section{Legislación Aplicable y Jurisdicción}
+
+Este contrato se rige por la legislación española vigente. Para cualquier controversia derivada de su interpretación o ejecución, ambas partes se someten, con renuncia expresa a cualquier otro fuero, a los Juzgados y Tribunales del domicilio del prestador, salvo que la normativa de consumidores establezca otro fuero imperativo.
+
+% ════════════════════════════════════════════════════════════
+%  FIRMAS
+% ════════════════════════════════════════════════════════════
+\section{Firmas}
+
+\noindent En \underline{\hspace{3cm}}, a \underline{\hspace{1.5cm}} de \underline{\hspace{3cm}} de \underline{\hspace{1.5cm}}.
+
+\vspace{2.5cm}
+\noindent
+\begin{tabular}{@{}p{0.45\linewidth}@{\hspace{0.1\linewidth}}p{0.45\linewidth}@{}}
+  \textbf{El Prestador de Servicios}           & \textbf{El Cliente} \\[2.5cm]
+  \underline{\hspace{6cm}}                     & \underline{\hspace{6cm}} \\
+  Manahen García Garrido                       & \underline{\hspace{6cm}} \\
+  Desarrollador Web Freelance                  & \\
+\end{tabular}
+
+% ════════════════════════════════════════════════════════════
+%  ANEXO — RESUMEN RÁPIDO
+% ════════════════════════════════════════════════════════════
+\newpage
+\section*{\color{accent}Anexo: Resumen Rápido — Qué hago y qué no hago}
+
+\noindent Este anexo es un resumen informativo. Prevalece el texto del contrato principal.
+
+\vspace{1em}
+\begin{tabular}{>{\bfseries}p{0.46\linewidth} p{0.46\linewidth}}
+  \toprule
+  \rowcolor{tablehead}
+  \textcolor{yes}{SÍ hago (incluido según plan)} & \textcolor{no}{NO hago (excluido)} \\
+  \midrule
+  Diseño UI/UX personalizado & Logotipo / identidad de marca \\
+  Frontend responsive (Next.js, Tailwind) & Copywriting y redacción de textos \\
+  Animaciones (Framer Motion) & Fotografía o vídeo \\
+  Backend y API REST & SEO activo / link building \\
+  Autenticación de usuarios & Campañas de publicidad (Ads) \\
+  Base de datos (PostgreSQL, MongoDB) & Gestión de redes sociales \\
+  Despliegue (Vercel, VPS, SSL) & Registro o renovación de dominio \\
+  SEO técnico básico (meta, sitemap) & Gestión del hosting \\
+  Integraciones de terceros (Stripe…) & Soporte fuera del período contratado \\
+  Rondas de revisión incluidas & Formación / tutoriales \\
+  Entrega del código fuente completo & Licencias de software de pago \\
+  Soporte por mantenimiento (si aplica) & Asesoramiento legal especializado \\
+  \bottomrule
+\end{tabular}
+
+\vspace{1em}
+\noindent\textit{Cualquier servicio no listado en la columna «SÍ hago» deberá acordarse y presupuestarse por escrito antes de realizarse.}
+
+\end{document}

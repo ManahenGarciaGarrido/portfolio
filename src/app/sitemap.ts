@@ -34,13 +34,43 @@ const demos: Record<string, string[]> = {
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // Static pages
+  // Static main pages (high priority)
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 1.0,
+    },
+    {
+      url: `${BASE_URL}/portafolio`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/servicios`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/proceso`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/sobre-mi`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/contacto`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.8,
     },
     {
       url: `${BASE_URL}/privacidad`,
@@ -55,7 +85,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE_URL}/demos/${slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
-    priority: 0.7,
+    priority: 0.6,
   }));
 
   // Demo sub-pages
@@ -65,7 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${BASE_URL}/demos/${slug}/${sub}`,
         lastModified: now,
         changeFrequency: 'monthly' as const,
-        priority: 0.5,
+        priority: 0.4,
       }))
   );
 
