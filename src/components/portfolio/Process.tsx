@@ -57,14 +57,14 @@ const steps = {
     {
       icon: FileText,
       title: 'Proposal & quote',
-      desc: 'Within 24–48h I send you a detailed quote: exactly what's included, how it will look, and what it costs. No hidden fees.',
+      desc: "Within 24\u201348h I send you a detailed quote: exactly what's included, how it will look, and what it costs. No hidden fees.",
       note: '24–48h response',
     },
     {
       icon: Palette,
       title: 'Initial design',
-      desc: 'Before writing a single line of code I show you how the site will look. If something doesn't feel right, we change it here.',
-      note: 'You don't pay if the design doesn't convince you',
+      desc: "Before writing a single line of code I show you how the site will look. If something doesn't feel right, we change it here.",
+      note: "You don't pay if the design doesn't convince you",
     },
     {
       icon: Code2,
@@ -75,7 +75,7 @@ const steps = {
     {
       icon: SearchCheck,
       title: 'Revisions',
-      desc: 'Before final delivery you get included revision rounds to fine-tune any detail that doesn't feel quite right.',
+      desc: "Before final delivery you get included revision rounds to fine-tune any detail that doesn't feel quite right.",
       note: 'Revisions included',
     },
     {
