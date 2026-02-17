@@ -1,4 +1,12 @@
-import DemoNav from '@/components/demos/DemoNav';
+import type { Metadata } from 'next';
+import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Spa y Centro de Belleza',
+  description:
+    'Ejemplo de diseño web para spa: tratamientos, galería, equipo y reservas. Así quedaría la web de tu spa o centro de estética.',
+  keywords: ['web para spa', 'página web spa belleza', 'diseño web centro estética'],
+};;
 
 export default function SpaLayout({ children }: { children: React.ReactNode }) {
   return (

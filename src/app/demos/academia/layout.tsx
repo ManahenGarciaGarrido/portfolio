@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Academia de Formación Online',
+  description:
+    'Ejemplo de diseño web para academia online: cursos, instructores, precios y contacto. Así quedaría la web de tu academia o escuela de formación.',
+  keywords: ['web para academia', 'página web escuela online', 'diseño web formación cursos'],
+};
 
 export default function AcademiaLayout({ children }: { children: React.ReactNode }) {
   return (

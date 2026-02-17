@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Agencia de Viajes',
+  description:
+    'Ejemplo de diseño web para agencia de viajes: destinos, paquetes turísticos, nosotros y contacto. Así quedaría la web de tu agencia de viajes.',
+  keywords: ['web para agencia viajes', 'página web turismo', 'diseño web agencia turística'],
+};
 
 export default function ViajesLayout({ children }: { children: React.ReactNode }) {
   return (

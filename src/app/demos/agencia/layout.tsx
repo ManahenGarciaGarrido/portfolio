@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Agencia de Marketing Digital',
+  description:
+    'Ejemplo de diseño web para agencia de marketing digital: servicios, casos de éxito, equipo y contacto. Así quedaría la web de tu agencia.',
+  keywords: ['web para agencia marketing', 'página web agencia digital', 'diseño web agencia publicidad'],
+};
 
 export default function AgenciaLayout({ children }: { children: React.ReactNode }) {
   return (

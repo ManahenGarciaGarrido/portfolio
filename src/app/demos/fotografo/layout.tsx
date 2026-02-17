@@ -1,4 +1,12 @@
-import DemoNav from '@/components/demos/DemoNav';
+import type { Metadata } from 'next';
+import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Fotógrafo Profesional',
+  description:
+    'Ejemplo de diseño web para fotógrafo profesional: galería de trabajos, servicios, blog y contacto. Así quedaría la web de tu estudio fotográfico.',
+  keywords: ['web para fotógrafo', 'página web fotografía profesional', 'diseño web fotógrafo'],
+};;
 
 export default function FotografoLayout({ children }: { children: React.ReactNode }) {
   return (

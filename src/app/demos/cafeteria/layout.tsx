@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Cafetería',
+  description:
+    'Ejemplo de diseño web para cafetería artesanal: carta, historia, programa de fidelidad y localización. Así quedaría la web de tu cafetería.',
+  keywords: ['web para cafetería', 'página web café', 'diseño web cafetería artesanal'],
+};
 
 export default function CafeteriaLayout({ children }: { children: React.ReactNode }) {
   return (

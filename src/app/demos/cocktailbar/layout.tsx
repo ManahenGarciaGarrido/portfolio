@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Bar de Cócteles',
+  description:
+    'Ejemplo de diseño web para bar de cócteles: carta de bebidas, reservas, eventos y contacto. Así quedaría la web de tu cocktail bar.',
+  keywords: ['web para bar cócteles', 'página web bar', 'diseño web coctelería'],
+};
 
 export default function CocktailBarLayout({ children }: { children: React.ReactNode }) {
   return (

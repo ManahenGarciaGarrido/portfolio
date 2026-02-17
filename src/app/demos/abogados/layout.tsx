@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Bufete de Abogados',
+  description:
+    'Ejemplo de diseño web para despacho de abogados: áreas de práctica, equipo jurídico, blog legal y formulario de consulta. Así quedaría la web de tu bufete.',
+  keywords: ['web para abogados', 'página web despacho jurídico', 'diseño web bufete'],
+};
 
 export default function AbogadosLayout({ children }: { children: React.ReactNode }) {
   return (

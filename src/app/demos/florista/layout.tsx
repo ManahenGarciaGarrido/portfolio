@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Floristería',
+  description:
+    'Ejemplo de diseño web para floristería: catálogo de flores, bodas, blog floral y contacto. Así quedaría la web de tu floristería.',
+  keywords: ['web para floristería', 'página web florista', 'diseño web tienda flores'],
+};
 
 export default function FloristaLayout({ children }: { children: React.ReactNode }) {
   return (
