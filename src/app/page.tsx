@@ -5,6 +5,7 @@ import { Github, Linkedin, Instagram } from 'lucide-react';
 import Hero from '@/components/portfolio/Hero';
 import DemoGrid from '@/components/portfolio/DemoGrid';
 import Skills from '@/components/portfolio/Skills';
+import Pricing from '@/components/portfolio/Pricing';
 import Contact from '@/components/portfolio/Contact';
 
 export default function PortfolioPage() {
@@ -31,6 +32,7 @@ export default function PortfolioPage() {
       <Hero lang={lang} />
       <DemoGrid lang={lang} />
       <Skills lang={lang} />
+      <Pricing lang={lang} />
       <Contact lang={lang} />
 
       {/* Footer */}
