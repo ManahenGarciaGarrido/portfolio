@@ -68,8 +68,7 @@ export const metadata: Metadata = {
     creator: "@manahengarcia10",
   },
   verification: {
-    // Añade aquí tu código cuando lo obtengas de Google Search Console
-    // google: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    google: "0cPQrESxHXNZoY5hEKgW6uhH8VUNPlMO4yp_QEeWm-8",
   },
 };
 
