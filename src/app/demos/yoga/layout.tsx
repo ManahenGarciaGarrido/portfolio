@@ -1,4 +1,12 @@
-import DemoNav from '@/components/demos/DemoNav';
+import type { Metadata } from 'next';
+import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Centro de Yoga y Meditación',
+  description:
+    'Ejemplo de diseño web para centro de yoga: clases, horarios, instructores y contacto. Así quedaría la web de tu estudio de yoga o meditación.',
+  keywords: ['web para yoga', 'página web centro yoga', 'diseño web estudio yoga meditación'],
+};;
 
 export default function YogaLayout({ children }: { children: React.ReactNode }) {
   return (

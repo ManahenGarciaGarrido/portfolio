@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Barbería',
+  description:
+    'Ejemplo de diseño web para barbería: servicios, galería, equipo y reservas online. Así quedaría la web de tu barbería.',
+  keywords: ['web para barbería', 'página web barbería', 'diseño web peluquería masculina'],
+};
 
 export default function BarberiaLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,4 +1,12 @@
-import DemoNav from '@/components/demos/DemoNav';
+import type { Metadata } from 'next';
+import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Joyería de Lujo',
+  description:
+    'Ejemplo de diseño web para joyería: colecciones, joyería bespoke, historia y contacto. Así quedaría la web de tu joyería o taller de orfebrería.',
+  keywords: ['web para joyería', 'página web joyería lujo', 'diseño web joyero'],
+};;
 
 export default function JoyeriaLayout({ children }: { children: React.ReactNode }) {
   return (

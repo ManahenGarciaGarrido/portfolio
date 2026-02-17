@@ -1,4 +1,12 @@
-import DemoNav from '@/components/demos/DemoNav';
+import type { Metadata } from 'next';
+import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Agencia de Eventos y Bodas',
+  description:
+    'Ejemplo de diseño web para agencia de eventos: servicios, galería, paquetes y contacto. Así quedaría la web de tu empresa de eventos o bodas.',
+  keywords: ['web para agencia eventos', 'página web organizador bodas', 'diseño web eventos'],
+};;
 
 export default function EventosLayout({ children }: { children: React.ReactNode }) {
   return (

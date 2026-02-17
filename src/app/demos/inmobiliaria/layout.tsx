@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Agencia Inmobiliaria',
+  description:
+    'Ejemplo de diseño web para inmobiliaria: propiedades en venta, equipo, blog y contacto. Así quedaría la web de tu agencia inmobiliaria.',
+  keywords: ['web para inmobiliaria', 'página web agencia inmobiliaria', 'diseño web agencia pisos'],
+};
 
 export default function InmobiliariaLayout({ children }: { children: React.ReactNode }) {
   return (

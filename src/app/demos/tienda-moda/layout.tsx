@@ -1,4 +1,12 @@
-import DemoNav from '@/components/demos/DemoNav';
+import type { Metadata } from 'next';
+import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Tienda de Moda',
+  description:
+    'Ejemplo de diseño web para tienda de moda: catálogo de productos, lookbook y página de marca. Así quedaría la web de tu tienda de ropa.',
+  keywords: ['web para tienda moda', 'página web tienda ropa', 'diseño web ecommerce moda'],
+};;
 
 export default function TiendaModa({ children }: { children: React.ReactNode }) {
   return (

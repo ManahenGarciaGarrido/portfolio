@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Clínica de Fisioterapia',
+  description:
+    'Ejemplo de diseño web para clínica de fisioterapia: tratamientos, equipo, reservas y blog. Así quedaría la web de tu clínica de fisio.',
+  keywords: ['web para fisioterapia', 'página web clínica fisio', 'diseño web fisioterapeuta'],
+};
 
 export default function FisioLayout({ children }: { children: React.ReactNode }) {
   return (

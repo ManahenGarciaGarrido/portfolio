@@ -1,4 +1,12 @@
-import DemoNav from '@/components/demos/DemoNav';
+import type { Metadata } from 'next';
+import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Taller Mecánico',
+  description:
+    'Ejemplo de diseño web para taller mecánico: servicios, diagnóstico, equipo y contacto. Así quedaría la web de tu taller de coches.',
+  keywords: ['web para taller mecánico', 'página web taller coches', 'diseño web mecánico'],
+};;
 
 export default function TallerLayout({ children }: { children: React.ReactNode }) {
   return (

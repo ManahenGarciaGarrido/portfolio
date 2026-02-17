@@ -1,4 +1,12 @@
-import DemoNav from '@/components/demos/DemoNav';
+import type { Metadata } from 'next';
+import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Restaurante',
+  description:
+    'Ejemplo de diseño web para restaurante: carta, galería, historia del chef y reservas online. Así quedaría la web de tu restaurante.',
+  keywords: ['web para restaurante', 'página web restaurante', 'diseño web restauración'],
+};;
 
 export default function RestauranteLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,16 +1,75 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
+import JsonLd from "@/components/JsonLd";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://manahengarcia.dev';
 
 export const metadata: Metadata = {
-  title: "Manahen García Garrido | Desarrollador Web",
-  description: "Diseño webs que convierten visitas en clientes. Portfolio de desarrollo web profesional — tiendas online, restaurantes, startups, agencias y más.",
-  keywords: ["desarrollador web", "diseño web", "freelance", "Next.js", "portfolio", "España"],
-  authors: [{ name: "Manahen García Garrido" }],
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "Manahen García Garrido | Desarrollador Web Freelance",
+    template: "%s | Manahen García Garrido",
+  },
+  description:
+    "Desarrollador web freelance en España. Diseño webs profesionales que convierten visitas en clientes: tiendas online, restaurantes, startups, agencias y más. Presupuesto gratis.",
+  keywords: [
+    "desarrollador web freelance",
+    "diseño web profesional",
+    "páginas web para empresas",
+    "crear web para negocio",
+    "web para restaurante",
+    "web para tienda online",
+    "Next.js developer",
+    "desarrollo web España",
+    "portfolio desarrollador web",
+    "presupuesto web gratis",
+  ],
+  authors: [{ name: "Manahen García Garrido", url: BASE_URL }],
+  creator: "Manahen García Garrido",
+  publisher: "Manahen García Garrido",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: BASE_URL,
+  },
   openGraph: {
-    title: "Manahen García Garrido | Desarrollador Web",
-    description: "Diseño webs que convierten visitas en clientes.",
+    title: "Manahen García Garrido | Desarrollador Web Freelance",
+    description:
+      "Diseño webs profesionales que convierten visitas en clientes. Tiendas online, restaurantes, startups, agencias y más. Presupuesto gratis.",
+    url: BASE_URL,
+    siteName: "Manahen García Garrido — Desarrollador Web",
     type: "website",
+    locale: "es_ES",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Manahen García Garrido — Desarrollador Web Freelance",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Manahen García Garrido | Desarrollador Web Freelance",
+    description:
+      "Diseño webs profesionales que convierten visitas en clientes. Presupuesto gratis.",
+    images: ["/og-image.png"],
+    creator: "@manahengarcia10",
+  },
+  verification: {
+    // Añade aquí tu código cuando lo obtengas de Google Search Console
+    // google: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   },
 };
 
@@ -30,6 +89,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
+        <JsonLd />
         <AnalyticsProvider />
         {children}
       </body>

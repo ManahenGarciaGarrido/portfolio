@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Estudio de Arquitectura',
+  description:
+    'Ejemplo de diseño web para estudio de arquitectura: proyectos, proceso de diseño, equipo y contacto. Así quedaría la web de tu estudio.',
+  keywords: ['web para arquitecto', 'página web estudio arquitectura', 'diseño web arquitectura'],
+};
 
 export default function ArquitectoLayout({ children }: { children: React.ReactNode }) {
   return (

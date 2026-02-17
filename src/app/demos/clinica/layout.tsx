@@ -1,4 +1,12 @@
-import DemoNav from '@/components/demos/DemoNav';
+import type { Metadata } from 'next';
+import DemoNav from '@/components/demos/DemoNav'
+
+export const metadata: Metadata = {
+  title: 'Demo Web para Clínica Médica',
+  description:
+    'Ejemplo de diseño web para clínica médica: especialidades, equipo de médicos, cita previa y blog de salud. Así quedaría la web de tu clínica.',
+  keywords: ['web para clínica médica', 'página web clínica', 'diseño web centro médico'],
+};;
 
 export default function ClinicaLayout({ children }: { children: React.ReactNode }) {
   return (
