@@ -90,10 +90,10 @@ export default function PortafolioClient() {
 
       {/* Filters */}
       <div className="sticky top-16 z-40 px-4 sm:px-6 py-3 border-b border-white/6" style={{ background: 'rgba(5,0,16,0.92)', backdropFilter: 'blur(16px)' }}>
-        <div className="max-w-7xl mx-auto flex items-center gap-2 overflow-x-auto scrollbar-hide pb-1">
+        <div className="max-w-7xl mx-auto flex items-center flex-wrap gap-2">
           {sectors.map((sector) => {
-            const label = lang === 'en' && sector === 'Todos' ? 'All' : sector;
-            const active = activeFilter === sector || (sector === 'Todos' && activeFilter === 'All');
+            const label = sector;
+            const active = activeFilter === sector;
             return (
               <button
                 key={sector}
@@ -110,7 +110,7 @@ export default function PortafolioClient() {
             );
           })}
           <span className="ml-auto flex-shrink-0 text-white/25 text-xs">
-            {t.count(filtered.length)}
+            {filtered.length} proyectos
           </span>
         </div>
       </div>
